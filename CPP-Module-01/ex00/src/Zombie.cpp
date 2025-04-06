@@ -1,35 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Zombie.hpp                                         :+:      :+:    :+:   */
+/*   Zombie.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcilsv <marcsilv@student.42luanda.com>   +#+  +:+       +#+        */
+/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 18:25:38 by marcilsv          #+#    #+#             */
-/*   Updated: 2025/04/05 19:00:01 by marcilsv         ###   ########.fr       */
+/*   Updated: 2025/04/06 15:37:34 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <../inc/Zombie.hpp>
+#include "../inc/Zombie.hpp"
 #include <string>
 
-void  Zombie::announce(void)
+Zombie::Zombie()
 {
-  cout << name << endl;
-  cout << "BraiiiiiiinnnzzzZ" << endl;
+
 }
 
-Zombie  *Zombie::newZombie(std::string name)
+Zombie::~Zombie()
 {
-  Zombie  newZ = malloc(sizeof(Zombie *));
-  newZ.name = name;
-  return (newZ);
+
 }
 
-void  Zombie::randomChump(std::string name)
+void	Zombie::announce(void)
 {
-  Zombie  chump;
+	std::cout << name << ": BraiiiiiiinnnzzzZ..." << std::endl;
+}
 
-  chump.name = name;
-  chump.announce();
+Zombie	*Zombie::newZombie(std::string name)
+{
+	Zombie	*newZ = new Zombie;
+	(*newZ).name = name;
+	return (newZ);
+}
+
+void	Zombie::randomChump(std::string name)
+{
+	Zombie	chump;
+
+	chump.name = name;
+	chump.announce();
 }

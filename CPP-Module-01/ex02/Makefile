@@ -6,12 +6,12 @@
 #    By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/26 13:51:17 by welepy            #+#    #+#              #
-#    Updated: 2025/04/06 17:46:28 by marcsilv         ###   ########.fr        #
+#    Updated: 2025/04/06 17:03:45 by marcsilv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-NAME	  =			zombie
+NAME	  =			brain
 
 CC		  =			c++
 
@@ -21,7 +21,7 @@ SRC_DIR	  =			src/
 OBJ_DIR	  =			obj/
 INC_DIR	  =			include/
 
-SRC_FILES =			main.cpp Zombie.cpp
+SRC_FILES =			main.cpp
 OBJ_FILES =			$(SRC_FILES:.cpp=.o)
 
 SRC		  =			$(addprefix $(SRC_DIR), $(SRC_FILES))
@@ -34,11 +34,16 @@ $(OBJ_DIR)%.o:$(SRC_DIR)%.cpp
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -I $(INC_DIR) -o $@ -c $<
 
-clean: rm -rf $(OBJ_DIR);
+clean:
+	@if [ -d "$(OBJ_DIR)" ]; then \
+	rm -rf $(OBJ_DIR); \
+	fi;
 
 #fclean rule
-fclean: clean 
-	rm -f $(NAME);
+fclean: clean
+	@if [ -f "$(NAME)" ]; then \
+	rm -f $(NAME); \
+	fi;
 
 #re rule
 re: fclean all
