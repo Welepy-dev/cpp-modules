@@ -6,7 +6,7 @@
 /*   By: welepy </var/spool/mail/welepy>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:53:04 by welepy            #+#    #+#             */
-/*   Updated: 2025/03/26 21:15:28 by welepy           ###   ########.fr       */
+/*   Updated: 2025/04/07 22:42:02 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,28 @@
 #include <cstdlib>
 #include <iostream>
 #include <ostream>
-using namespace std;
+#include <string>
 
 void  PhoneBook::Add(void)
 {
-	cout << "Adding new contact:" << endl;
+	std::cout << "Adding new contact:" << std::endl;
 
-	cout << "What's their first name? " << endl;
-	getline(cin, contacts[this->index].first_name);
+	std::cout << "What's their first name? " << std::endl;
+	getline(std::cin, contacts[this->index].first_name);
 
-	cout << "What's their last name? " << endl;
-	getline(cin, contacts[this->index].last_name);
+	std::cout << "What's their last name? " << std::endl;
+	getline(std::cin, contacts[this->index].last_name);
 
-	cout << "What's their nickname? " << endl;
-	getline(cin, contacts[this->index].nickname);
+	std::cout << "What's their nickname? " << std::endl;
+	getline(std::cin, contacts[this->index].nickname);
 
-	cout << "What's their phone number? " << endl;
-	getline(cin, contacts[this->index].phone_number);
+	std::cout << "What's their phone number? " << std::endl;
+	getline(std::cin, contacts[this->index].phone_number);
 
-	cout << "What's their darkest secret? " << endl;
-	getline(cin, contacts[this->index].darkest_secret);
+	std::cout << "What's their darkest secret? " << std::endl;
+	getline(std::cin, contacts[this->index].darkest_secret);
 
-	cout << "Finished!\n" << endl;
+	std::cout << "Finished!\n" << std::endl;
 	this->index++;
 
 	if (this->index == 8)
@@ -46,47 +46,47 @@ void  PhoneBook::Add(void)
 }
 void  PhoneBook::exiting(void)
 {
-	cout << "Exiting" << endl;
+	std::cout << "Exiting" << std::endl;
 	exit(0);
 }
 
 void  PhoneBook::Search(void)
 {
-	string	input;
+	std::string	input;
 
 
 	if (this->index == 0)
 	{
-		cout << "\033[31mAdd at least one contact before searching.\033[0m" << endl;
+		std::cout << "\033[31mAdd at least one contact before searching.\033[0m" << std::endl;
 		return ;
 	}
 
-	cout << "Which contact index i should show you\nIndex: ";
-	while (!(getline(cin, input)))
+	std::cout << "Which contact index i should show you\nIndex: ";
+	while (!(getline(std::cin, input)))
 	{
-		if (cin.eof())
+		if (std::cin.eof())
 			this->exiting();
-		if (input.empty() || !isdigit(input[0]) || stoi(input) < 1 || stoi(input) > 8)
+		if (input.empty() || !isdigit(input[0]) || atoi(std::string::c_str(input)) < 1 || atoi(std::string::c_str(input)) > 8)
 		{
-			cin.clear();
-			cout << "\033[31mOnly digits in range of 1 to 8 are allowed.\033[0m\n";
-			cout << "Which contact index i should show you\nIndex: ";
+			std::cin.clear();
+			std::cout << "\033[31mOnly digits in range of 1 to 8 are allowed.\033[0m\n";
+			std::cout << "Which contact index i should show you\nIndex: ";
 		}
 		else if (stoi(input) - 1 >= this->index && this->is_full == false)
 		{
-			cout << "\033[33mYou only have " << this->index << " Contacts saved.\033[0m" << endl;
-			cin.clear();
-			cout << "Which contact index i should show you\nIndex: ";
+			std::cout << "\033[33mYou only have " << this->index << " Contacts saved.\033[0m" << std::endl;
+			std::cin.clear();
+			std::cout << "Which contact index i should show you\nIndex: ";
 		}
 	}
 	index = atoi(input.c_str());
 	if (index > 0)
 	{
-		cout << "|-------------------------------------------|" << endl;
-		cout << "|     Index|First Name| Last Name|  Nickname|" << endl;
-		cout << "|----------|----------|----------|----------|" << endl;
+		std::cout << "|-------------------------------------------|" << std::endl;
+		std::cout << "|     Index|First Name| Last Name|  Nickname|" << std::endl;
+		std::cout << "|----------|----------|----------|----------|" << std::endl;
 	//	this->contacts[index - 1].get_contact(index);
-		cout << "|-------------------------------------------|" << endl;
+		std::cout << "|-------------------------------------------|" << std::endl;
 	}
 	return ;
 }
