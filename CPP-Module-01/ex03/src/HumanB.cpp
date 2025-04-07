@@ -1,31 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Weapon.hpp                                         :+:      :+:    :+:   */
+/*   HumanB.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/07 14:54:18 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/04/07 14:56:31 by marcsilv         ###   ########.fr       */
+/*   Created: 2025/04/07 14:22:27 by marcsilv          #+#    #+#             */
+/*   Updated: 2025/04/07 15:51:57 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WEAPON_HPP
-# define WEAPON_HPP
-# include <string>
+#include "../inc/HumanB.hpp"
+#include <iostream>
+#include <string>
 
-class Weapon
+void  HumanB::attack(void)
 {
-  private:
-    std::string type;
+  std::string str = this->weapon->getType();
+  std::cout << this->name << " attacks with their " << str << std::endl;
+}
 
-  public:
-    const std::string &getType(void);
-    void  setType(std::string newType);
+HumanB::HumanB() {}
+HumanB::~HumanB() {}
 
-    Weapon();
-    ~Weapon();
-    Weapon(std::string name);
-};
+HumanB::HumanB(std::string name)
+{
+  this->name = name;
+  this->weapon = NULL;
+}
 
-#endif
+void  HumanB::setWeapon(Weapon *weapon)
+{
+  this->weapon = &weapon;
+}

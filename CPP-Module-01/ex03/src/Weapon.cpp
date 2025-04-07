@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Weapon.hpp                                         :+:      :+:    :+:   */
+/*   Weapon.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/07 14:54:18 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/04/07 14:56:31 by marcsilv         ###   ########.fr       */
+/*   Created: 2025/04/07 14:22:03 by marcsilv          #+#    #+#             */
+/*   Updated: 2025/04/07 14:57:14 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WEAPON_HPP
-# define WEAPON_HPP
-# include <string>
+#include "../inc/Weapon.hpp"
+#include <string>
 
-class Weapon
+const std::string &Weapon::getType(void)
 {
-  private:
-    std::string type;
+  std::string &ref = this->type;
+  return (ref);
+}
 
-  public:
-    const std::string &getType(void);
-    void  setType(std::string newType);
+void  Weapon::setType(std::string name)
+{
+  this->type = name;
+}
 
-    Weapon();
-    ~Weapon();
-    Weapon(std::string name);
-};
+Weapon::Weapon() {}
+Weapon::~Weapon() {}
 
-#endif
+Weapon::Weapon(std::string name)
+{
+  this->type = name;
+}

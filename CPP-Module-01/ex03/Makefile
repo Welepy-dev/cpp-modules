@@ -6,7 +6,7 @@
 #    By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/06 17:37:34 by marcsilv          #+#    #+#              #
-#    Updated: 2025/04/06 18:14:55 by marcsilv         ###   ########.fr        #
+#    Updated: 2025/04/07 15:52:17 by marcsilv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRC_DIR	  =			src/
 OBJ_DIR	  =			obj/
 INC_DIR	  =			include/
 
-SRC_FILES =			main.cpp Zombie.cpp
+SRC_FILES =			main.cpp HumanA.cpp HumanB.cpp Weapon.cpp
 OBJ_FILES =			$(SRC_FILES:.cpp=.o)
 
 SRC		  =			$(addprefix $(SRC_DIR), $(SRC_FILES))
