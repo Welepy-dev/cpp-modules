@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:45:03 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/04/07 15:50:25 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/04/07 22:51:08 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ class HumanB
     ~HumanB();
     HumanB(std::string name);
 
-    void  setWeapon(Weapon weapon);
+    void  setWeapon(Weapon &weapon);
     std::string name;
     Weapon  *weapon;
     void  attack(void);

@@ -6,7 +6,7 @@
 #    By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/06 17:37:34 by marcsilv          #+#    #+#              #
-#    Updated: 2025/04/07 15:52:17 by marcsilv         ###   ########.fr        #
+#    Updated: 2025/04/07 22:58:47 by welepy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CFLAGS	  =			-Wall -Werror -Wextra -std=c++98
 
 SRC_DIR	  =			src/
 OBJ_DIR	  =			obj/
-INC_DIR	  =			include/
+INC_DIR	  =			inc/
 
 SRC_FILES =			main.cpp HumanA.cpp HumanB.cpp Weapon.cpp
 OBJ_FILES =			$(SRC_FILES:.cpp=.o)
@@ -33,7 +33,8 @@ $(OBJ_DIR)%.o:$(SRC_DIR)%.cpp
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -I $(INC_DIR) -o $@ -c $<
 
-clean: rm -rf $(OBJ_DIR);
+clean: 
+	rm -rf $(OBJ_DIR);
 
 #fclean rule
 fclean: clean 

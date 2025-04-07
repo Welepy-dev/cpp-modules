@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 14:22:27 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/04/07 15:51:57 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/04/07 22:56:03 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ HumanB::HumanB(std::string name)
   this->weapon = NULL;
 }
 
-void  HumanB::setWeapon(Weapon *weapon)
+void  HumanB::setWeapon(Weapon &weapon)
 {
   this->weapon = &weapon;
 }
