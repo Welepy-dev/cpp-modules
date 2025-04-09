@@ -6,20 +6,21 @@
 #    By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/06 17:37:34 by marcsilv          #+#    #+#              #
-#    Updated: 2025/04/07 23:31:40 by welepy           ###   ########.fr        #
+#    Updated: 2025/04/09 14:59:01 by welepy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	  =			sed
+NAME	  =			replace
 
 CC		  =			c++
 
-CFLAGS	  =			-Wall -Werror -Wextra -std=c++98
+CFLAGS	  =			-std=c++98
 
 SRC_DIR	  =			src/
 OBJ_DIR	  =			obj/
+INC_DIR	  =			inc/
 
-SRC_FILES =			main.cpp 
+SRC_FILES =			main.cpp utils.cpp split.cpp
 OBJ_FILES =			$(SRC_FILES:.cpp=.o)
 
 SRC		  =			$(addprefix $(SRC_DIR), $(SRC_FILES))
@@ -30,7 +31,7 @@ all: $(OBJ)
 
 $(OBJ_DIR)%.o:$(SRC_DIR)%.cpp
 	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(CFLAGS) -o $@ -c $<
+	@$(CC) $(CFLAGS) -I $(INC_DIR) -o $@ -c $<
 
 clean: 
 	rm -rf $(OBJ_DIR);
