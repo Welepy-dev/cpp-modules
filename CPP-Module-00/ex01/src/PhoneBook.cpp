@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:53:04 by welepy            #+#    #+#             */
-/*   Updated: 2025/04/15 18:01:55 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/04/15 19:11:25 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,52 @@ PhoneBook::~PhoneBook(void) { }
 void	PhoneBook::add(void)
 {
 	std::string	input;
-	
+
 	std::cout << "Adding new contact:" << std::endl;
 
-	std::cout << "What's their first name? " << std::endl;
-	getline(std::cin, input);
+	do {
+		std::cout << "What's their first name? " << std::endl;
+		if (!getline(std::cin, input))
+			exiting();
+		if (input.empty())
+			std::cout << "Error, empty input" << std::endl;
+	} while (input.empty());
 	contacts[index].setFirstName(input);
 
-	std::cout << "What's their last name? " << std::endl;
-	getline(std::cin, input);
+	do {
+		std::cout << "What's their last name? " << std::endl;
+		if (!getline(std::cin, input))
+			exiting();
+		if (input.empty())
+			std::cout << "Error, empty input" << std::endl;
+	} while (input.empty());
 	contacts[index].setLastName(input);
 
-	std::cout << "What's their nickname? " << std::endl;
-	getline(std::cin, input);
+	do {
+		std::cout << "What's their nickname? " << std::endl;
+		if (!getline(std::cin, input))
+			exiting();
+		if (input.empty())
+			std::cout << "Error, empty input" << std::endl;
+	} while (input.empty());
 	contacts[index].setNickname(input);
 
-	std::cout << "What's their phone number? " << std::endl;
-	getline(std::cin, input);
+	do {
+		std::cout << "What's their phone number? " << std::endl;
+		if (!getline(std::cin, input))
+			exiting();
+		if (input.empty())
+			std::cout << "Error, empty input" << std::endl;
+	} while (input.empty());
 	contacts[index].setPhoneNumber(input);
 
-	std::cout << "What's their darkest secret? " << std::endl;
-	getline(std::cin, input);
+	do {
+		std::cout << "What's their darkest secret? " << std::endl;
+		if (!getline(std::cin, input))
+			exiting();
+		if (input.empty())
+			std::cout << "Error, empty input" << std::endl;
+	} while (input.empty());
 	contacts[index].setDarkestSecret(input);
 
 	std::cout << "Finished!\n" << std::endl;
