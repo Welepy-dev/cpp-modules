@@ -3,89 +3,135 @@
 /*                                                        :::      ::::::::   */
 /*   PhoneBook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy </var/spool/mail/welepy>            +#+  +:+       +#+        */
+/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:53:04 by welepy            #+#    #+#             */
-/*   Updated: 2025/04/07 22:42:02 by welepy           ###   ########.fr       */
+/*   Updated: 2025/04/15 18:01:55 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/PhoneBook.hpp"
-#include <cstdlib>
-#include <iostream>
-#include <ostream>
-#include <string>
+#include	"../inc/PhoneBook.hpp"
+#include	"../inc/utils.hpp"
 
-void  PhoneBook::Add(void)
+#include	<iomanip>
+#include	<iostream>
+#include	<cstdlib>
+
+PhoneBook::PhoneBook(void)
 {
+	index = 0;
+	is_full = false;
+}
+
+PhoneBook::~PhoneBook(void) { }
+
+void	PhoneBook::add(void)
+{
+	std::string	input;
+	
 	std::cout << "Adding new contact:" << std::endl;
 
 	std::cout << "What's their first name? " << std::endl;
-	getline(std::cin, contacts[this->index].first_name);
+	getline(std::cin, input);
+	contacts[index].setFirstName(input);
 
 	std::cout << "What's their last name? " << std::endl;
-	getline(std::cin, contacts[this->index].last_name);
+	getline(std::cin, input);
+	contacts[index].setLastName(input);
 
 	std::cout << "What's their nickname? " << std::endl;
-	getline(std::cin, contacts[this->index].nickname);
+	getline(std::cin, input);
+	contacts[index].setNickname(input);
 
 	std::cout << "What's their phone number? " << std::endl;
-	getline(std::cin, contacts[this->index].phone_number);
+	getline(std::cin, input);
+	contacts[index].setPhoneNumber(input);
 
 	std::cout << "What's their darkest secret? " << std::endl;
-	getline(std::cin, contacts[this->index].darkest_secret);
+	getline(std::cin, input);
+	contacts[index].setDarkestSecret(input);
 
 	std::cout << "Finished!\n" << std::endl;
-	this->index++;
+	index++;
 
-	if (this->index == 8)
+	if (index == 8)
 	{
-		this->index = 0;
-		this->is_full = true;
+		index = 0;
+		is_full = true;
 	}
 }
 void  PhoneBook::exiting(void)
 {
-	std::cout << "Exiting" << std::endl;
+	std::cout
+				<< "Exiting" <<
+	std::endl;
+
 	exit(0);
 }
+void	PhoneBook::getContactInfo(int index)
+{
+	std::cout
+				<< "|" << std::setw(10)
+				<< (1 + index)
+				<< "|" << std::setw(10)
+				<< contacts[index].getFirstName()
+				<< "|" << std::setw(10)
+				<< contacts[index].getLastName()
+				<< "|" << std::setw(10)
+				<< contacts[index].getNickname()
+				<< "|" <<
+	std::endl;
+}
 
-void  PhoneBook::Search(void)
+void	PhoneBook::search(void)
 {
 	std::string	input;
 
-
-	if (this->index == 0)
+	if (index == 0 && !is_full)
 	{
-		std::cout << "\033[31mAdd at least one contact before searching.\033[0m" << std::endl;
+		std::cout
+					<< "\033[31mAdd at least one contact before searching.\033[0m" <<
+		std::endl;
 		return ;
 	}
 
-	std::cout << "Which contact index i should show you\nIndex: ";
-	while (!(getline(std::cin, input)))
+	std::cout << "Which contact of index i should show you\nIndex: ";
+	while (1 && getline(std::cin, input))
 	{
+		
 		if (std::cin.eof())
-			this->exiting();
-		if (input.empty() || !isdigit(input[0]) || atoi(std::string::c_str(input)) < 1 || atoi(std::string::c_str(input)) > 8)
+			exiting();
+		if (!isAllNum(strtrim(input)) || atoi(strtrim(input).c_str()) < 1 || atoi(strtrim(input).c_str()) > 8)
 		{
 			std::cin.clear();
 			std::cout << "\033[31mOnly digits in range of 1 to 8 are allowed.\033[0m\n";
 			std::cout << "Which contact index i should show you\nIndex: ";
 		}
-		else if (stoi(input) - 1 >= this->index && this->is_full == false)
+		else if (atoi(strtrim(input).c_str()) > index && is_full == false)
 		{
-			std::cout << "\033[33mYou only have " << this->index << " Contacts saved.\033[0m" << std::endl;
+			if (atoi(strtrim(input).c_str()) == 1)
+			std::cout
+						<< "\033[33mYou only have "
+						<< index << " Contact saved.\033[0m" <<
+			std::endl;
+			else
+				std::cout
+						<< "\033[33mYou only have "
+						<< index << " Contacts saved.\033[0m" <<
+				std::endl;
 			std::cin.clear();
 			std::cout << "Which contact index i should show you\nIndex: ";
 		}
+		else
+			break ;
 	}
-	index = atoi(input.c_str());
-	if (index > 0)
+	int search_index = atoi(strtrim(input).c_str());
+	if (search_index > 0)
 	{
 		std::cout << "|-------------------------------------------|" << std::endl;
 		std::cout << "|     Index|First Name| Last Name|  Nickname|" << std::endl;
 		std::cout << "|----------|----------|----------|----------|" << std::endl;
-	//	this->contacts[index - 1].get_contact(index);
+		getContactInfo(search_index - 1);
 		std::cout << "|-------------------------------------------|" << std::endl;
 	}
 	return ;

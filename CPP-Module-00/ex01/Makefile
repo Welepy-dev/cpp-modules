@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: welepy </var/spool/mail/welepy>            +#+  +:+       +#+         #
+#    By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/26 13:51:17 by welepy            #+#    #+#              #
-#    Updated: 2025/03/26 13:52:22 by welepy           ###   ########.fr        #
+#    Updated: 2025/04/15 17:25:58 by marcsilv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRC_DIR		=	src/
 OBJ_DIR		=	obj/
 INC_DIR		=	include/
 
-SRC_FILES	=	main.cpp PhoneBook.cpp
+SRC_FILES	=	main.cpp PhoneBook.cpp Contacts.cpp utils.cpp
 
 OBJ_FILES	=	$(SRC_FILES:.cpp=.o)
 

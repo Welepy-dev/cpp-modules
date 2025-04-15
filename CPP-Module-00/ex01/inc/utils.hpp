@@ -1,35 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   utils.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/26 12:03:57 by welepy            #+#    #+#             */
-/*   Updated: 2025/04/15 18:04:48 by marcsilv         ###   ########.fr       */
+/*   Created: 2025/04/15 17:19:07 by marcsilv          #+#    #+#             */
+/*   Updated: 2025/04/15 17:22:45 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONEBOOK_HPP
-# define PHONEBOOK_HPP
+#ifndef UTILS_HPP
+# define UTILS_HPP
 
-# include	"Contact.hpp"
+# include <string>
 
-class PhoneBook
-{
-	private:
-		Contact			contacts[8];
-		int				index;
-		int				is_full;
-
-	public:
-		PhoneBook();
-		~PhoneBook();
-		
-		void			add(void);
-		void			search(void);
-		void			exiting(void);
-		void			getContactInfo(int index);
-};
+std::string	strtrim(const std::string &str, const std::string &whitespace = " \t\n");
+bool	isAllNum(std::string str);
 
 #endif

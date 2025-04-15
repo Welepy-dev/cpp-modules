@@ -3,44 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 12:24:00 by welepy            #+#    #+#             */
-/*   Updated: 2025/03/26 20:43:33 by welepy           ###   ########.fr       */
+/*   Updated: 2025/04/15 17:42:00 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cstdlib>
-#include <iostream>
-#include <ostream>
-#include <string>
+
 #include "../inc/PhoneBook.hpp"
+#include "../inc/utils.hpp"
 
-using namespace std;
-
+#include <iostream>
+#include <string>
 
 int	main(void)
 {
-	PhoneBook phonebook;
-	string	  input;
-	int	  is_finished = 1;
-
-	phonebook.index = 0;
-
-	std::cout << "\033[33mWrite your command, [ADD, SEARCH, EXIT]\033[0m" << endl; 
-	while (is_finished && getline(cin, input))
+	PhoneBook	phonebook;
+	std::string		input;
+	
+	std::cout	
+				<< "\033[33mWrite your command, [ADD, SEARCH, EXIT]\033[0m" << 
+	std::endl; 
+	while (1 && getline(std::cin, input))
 	{
-		if (std::cin.eof() == true)
+		if (strtrim(input) == "ADD")
+			phonebook.add();
+		else if (strtrim(input) == "SEARCH")
+			phonebook.search();
+		else if (strtrim(input) == "EXIT")
 			phonebook.exiting();
-		if (input.compare("ADD") == 0)
-			phonebook.Add();
-		if (input.compare("EXIT") == 0)
+		else if (std::cin.eof())
 			phonebook.exiting();
-		if (input.compare("SEARCH") == 0)
-			phonebook.Search();
 		else
-            cout << "Invalid command! Try again." << endl;
-		std::cout << "\033[33mWrite your command, [ADD, SEARCH, EXIT]\033[0m" << endl; 
+			std::cout << "Invalid command! Try again." << std::endl;
+		std::cout
+					<< "\033[33mWrite your command, [ADD, SEARCH, EXIT]\033[0m" <<
+		std::endl; 
 	}
 	return (0);
 }
