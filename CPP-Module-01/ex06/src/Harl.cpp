@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Harl.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy </var/spool/mail/welepy>            +#+  +:+       +#+        */
+/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 22:15:47 by welepy            #+#    #+#             */
-/*   Updated: 2025/04/09 22:17:50 by welepy           ###   ########.fr       */
+/*   Updated: 2025/04/15 15:27:11 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ void	Harl::complain(std::string level)
 	switch(i)
 	{
 		case(0):
-			(this->*functionPTRS[0])();
+			(*functionPTRS[0])();
 		case(1):
-			(this->*functionPTRS[1])();
+			(*functionPTRS[1])();
 		case(2):
-			(this->*functionPTRS[2])();
+			(*functionPTRS[2])();
 		case(3):
-			(this->*functionPTRS[3])();
+			(*functionPTRS[3])();
 			break;
 
 		default:

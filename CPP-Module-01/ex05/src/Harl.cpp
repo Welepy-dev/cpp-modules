@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Harl.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy </var/spool/mail/welepy>            +#+  +:+       +#+        */
+/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 21:42:54 by welepy            #+#    #+#             */
-/*   Updated: 2025/04/09 22:04:05 by welepy           ###   ########.fr       */
+/*   Updated: 2025/04/15 15:27:11 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ void	Harl::complain(std::string level)
 	for (int i = 0; i < 4; i++)
 	{
 		if (complains[i] == level)
-			(this->*functionPTRS[i])();
+			(*functionPTRS[i])();
 	}
 }
