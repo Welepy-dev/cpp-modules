@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   megaphone.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 08:15:55 by welepy            #+#    #+#             */
-/*   Updated: 2025/04/13 17:38:41 by welepy           ###   ########.fr       */
+/*   Updated: 2025/04/16 14:11:59 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,3 @@ int	main(int ac, char **av)
 	std::cout << std::endl;
 	return (0);
 }
-
-/*
-*	This project was made to introduce me to cpp and cpp related concepts
-*	the first concept we use here is namespaces, which are containers that store names of types functions variables etc
-*	whe use them to organize code into logical groups and preventing name collisions
-*	
-*	The second concept is objects, objects are data fields that have attributes and behavior
-*	"cout" is an object that describes the console output
-*	objects are units of code that represent classes
-*	and finnaly, classes are template for creating objects*
-*/
