@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 18:25:38 by marcilsv          #+#    #+#             */
-/*   Updated: 2025/04/17 20:01:56 by codespace        ###   ########.fr       */
+/*   Updated: 2025/04/18 08:26:12 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int main(void)
 	newZ->announce();
 	
 	randomChump("new Chump");
+
+	delete newZ;
 
 	return (0);
 }
