@@ -3,24 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 18:25:38 by marcilsv          #+#    #+#             */
-/*   Updated: 2025/04/06 16:27:23 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/04/17 20:01:56 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/Zombie.hpp"
 
+Zombie*	newZombie(std::string name)
+{
+	Zombie	*newZ = new Zombie(name);
+	return (newZ);
+}
+
+void	randomChump(std::string name)
+{
+	Zombie	chump(name);
+
+	chump.announce();
+}
+
 int main(void)
 {
 	Zombie	zombie;
 
+	Zombie *newZ = newZombie("Another Z");
 
-	Zombie	*chump = zombie.newZombie("Chump");
-	chump->announce();
+	newZ->announce();
 	
-	chump->randomChump("new Chump");
+	randomChump("new Chump");
 
 	return (0);
 }
