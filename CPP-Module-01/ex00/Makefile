@@ -6,7 +6,7 @@
 #    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/26 13:51:17 by welepy            #+#    #+#              #
-#    Updated: 2025/04/17 20:13:50 by codespace        ###   ########.fr        #
+#    Updated: 2025/04/18 09:56:59 by codespace        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ CFLAGS	  =			-Wall -Wextra -Werror -std=c++98
 
 SRC_DIR	  =			src/
 OBJ_DIR	  =			obj/
-INC_DIR	  =			include/
+INC_DIR	  =			inc/
 
 SRC_FILES =			main.cpp Zombie.cpp
 OBJ_FILES =			$(SRC_FILES:.cpp=.o)
