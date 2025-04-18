@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   HumanB.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 14:22:27 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/04/15 15:27:11 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/04/18 10:42:25 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,27 @@
 
 void  HumanB::attack(void)
 {
-  std::string str = weapon->getType();
-  std::cout << name << " attacks with their " << str << std::endl;
+	std::string str = weapon->getType();
+	std::cout
+				<< name
+				<< " attacks with their "
+				<< str <<
+	std::endl;
 }
 
-HumanB::HumanB() {}
+HumanB::HumanB()
+{
+	weapon = NULL;
+}
 HumanB::~HumanB() {}
 
-HumanB::HumanB(std::string name)
+HumanB::HumanB(std::string Name)
 {
-  name = name;
-  weapon = NULL;
+	name = Name;
+	weapon = NULL;
 }
 
-void  HumanB::setWeapon(Weapon &weapon)
+void  HumanB::setWeapon(Weapon &Weapon)
 {
-  weapon = &weapon;
+	weapon = &Weapon;
 }
