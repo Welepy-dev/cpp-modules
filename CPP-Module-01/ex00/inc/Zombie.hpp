@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Zombie.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 18:25:38 by marcilsv          #+#    #+#             */
-/*   Updated: 2025/04/13 17:46:28 by welepy           ###   ########.fr       */
+/*   Updated: 2025/04/17 20:00:45 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 # define ZOMBIE_HPP
 
 # include <string>
+# include <iostream>
 
 class	Zombie
 {
 	public:
 		void	announce(void);
-		void	randomChump(std::string name);
-
-		Zombie	*newZombie(std::string name);
 
 		Zombie() ;
+		Zombie(std::string name);
 		~Zombie() ;
 	private:
 		std::string	name;
