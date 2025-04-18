@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Harl.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 22:15:47 by welepy            #+#    #+#             */
-/*   Updated: 2025/04/15 15:27:11 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/04/18 15:41:53 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,29 +40,32 @@ void	Harl::error(void)
 // Public Methods
 void	Harl::complain(std::string level)
 {
-	void    (Harl::*functionPTRS[])( void ) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
-	std::string complains[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+    void    (Harl::*functionPTRS[])( void ) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
+    std::string complains[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 
-	int i = 0;
-	for (; i < 4; i++)
-	{
-		if (complains[i] == level)
-			break ;
-	}
-	switch(i)
-	{
-		case(0):
-			(*functionPTRS[0])();
-		case(1):
-			(*functionPTRS[1])();
-		case(2):
-			(*functionPTRS[2])();
-		case(3):
-			(*functionPTRS[3])();
-			break;
+    int i = 0;
+    for (; i < 4; i++)
+    {
+        if (complains[i] == level)
+            break ;
+    }
+    switch(i)
+    {
+        case(0):
+            (this->*functionPTRS[0])();
+            break;
+        case(1):
+            (this->*functionPTRS[1])();
+            break;
+        case(2):
+            (this->*functionPTRS[2])();
+            break;
+        case(3):
+            (this->*functionPTRS[3])();
+            break;
 
-		default:
-			std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
-			break;
-	}
+        default:
+            std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
+            break;
+    }
 }
