@@ -3,19 +3,19 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+         #
+#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/26 13:51:17 by welepy            #+#    #+#              #
-#    Updated: 2025/04/06 16:31:10 by marcsilv         ###   ########.fr        #
+#    Updated: 2025/04/18 08:27:42 by codespace        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-NAME	  =			zombiehorde
+NAME	  =			"Moar brainz!"
 
 CC		  =			c++
 
-CFLAGS	  =			-Wall -Werror -Wextra -std=c++98
+CFLAGS	  =			-Wall -Wextra -Werror -std=c++98
 
 SRC_DIR	  =			src/
 OBJ_DIR	  =			obj/
@@ -27,26 +27,21 @@ OBJ_FILES =			$(SRC_FILES:.cpp=.o)
 SRC		  =			$(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJ		  =			$(addprefix $(OBJ_DIR), $(OBJ_FILES))
 
-all: $(OBJ)
-	 @$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+all: $(NAME)
 
-$(OBJ_DIR)%.o:$(SRC_DIR)%.cpp
-	@mkdir -p $(OBJ_DIR)
+$(NAME): $(OBJ)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+
+$(OBJ_DIR)%.o: $(SRC_DIR)%.cpp
+	@mkdir -p $(OBJ_DIR)  # Create object directory if it doesn't exist
 	@$(CC) $(CFLAGS) -I $(INC_DIR) -o $@ -c $<
 
 clean:
-	@if [ -d "$(OBJ_DIR)" ]; then \
-	rm -rf $(OBJ_DIR); \
-	fi;
+	@rm -rf $(OBJ_DIR)
 
-#fclean rule
 fclean: clean
-	@if [ -f "$(NAME)" ]; then \
-	rm -f $(NAME); \
-	fi;
+	@rm -f $(NAME)
 
-#re rule
 re: fclean all
 
-#phony
 .PHONY: all clean fclean re
