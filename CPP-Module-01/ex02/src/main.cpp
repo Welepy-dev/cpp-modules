@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 17:13:53 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/04/06 17:36:10 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/04/18 10:07:55 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,13 @@ int	main(void)
 	std::string	*stringPTR = &brain;
 	std::string	&stringREF = brain;
 
-	std::cout << "String's Address: " << &brain << std::endl;
-	std::cout << "Pointer's Address: " << &stringPTR << std::endl;
-	std::cout << "Reference's Address: " << &stringREF << std::endl;
+	std::cout << "String's Address: "		<< &brain		<< std::endl;
+	std::cout << "Pointer's Address: "		<< &stringPTR	<< std::endl;
+	std::cout << "Reference's Address: "	<< &stringREF	<< std::endl;
 
-	std::cout << "String's Value: " << brain << std::endl;
-	std::cout << "Pointer's Value: " << stringPTR << std::endl;
-	std::cout << "Reference's Value: " << stringREF << std::endl;
-
+	std::cout << "String's Value: "		<< brain		<< std::endl;
+	std::cout << "Pointer's Value: "	<< *stringPTR	<< std::endl;
+	std::cout << "Reference's Value: "	<< stringREF	<< std::endl;
 }
 
 /*
