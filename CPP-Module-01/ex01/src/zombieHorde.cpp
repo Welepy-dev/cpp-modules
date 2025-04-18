@@ -3,21 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   zombieHorde.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 15:46:53 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/04/15 15:27:11 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/04/18 09:23:13 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/Zombie.hpp"
 
-void Zombie::setName(std::string name)
+Zombie*	newZombie(std::string name)
 {
-	name = name;
+	Zombie	*newZ = new Zombie(name);
+	return (newZ);
 }
 
-Zombie*	Zombie::zombieHorde(int N, std::string Name)
+void	randomChump(std::string name)
+{
+	Zombie	chump(name);
+
+	chump.announce();
+}
+
+Zombie*	zombieHorde(int N, std::string Name)
 {
 	Zombie	*horde = new Zombie[N];
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Zombie.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 18:25:38 by marcilsv          #+#    #+#             */
-/*   Updated: 2025/04/06 16:30:25 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/04/18 09:23:07 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,22 @@
 #include <iostream>
 
 Zombie::Zombie() {}
-Zombie::~Zombie() {}
+Zombie::~Zombie()
+{
+	std::cout << "Zombie dead..." << std::endl;
+}
+
+Zombie::Zombie(std::string name)
+{
+	this->name = name;
+}
 
 void	Zombie::announce(void)
 {
 	std::cout << name << ": BraiiiiiiinnnzzzZ..." << std::endl;
 }
 
-Zombie	*Zombie::newZombie(std::string name)
+void	Zombie::setName(std::string Name)
 {
-	Zombie	*newZ = new Zombie;
-	(*newZ).name = name;
-	return (newZ);
+	this->name = Name;
 }
-
-void	Zombie::randomChump(std::string name)
-{
-	Zombie	chump;
-
-	chump.name = name;
-	chump.announce();
-}
-
