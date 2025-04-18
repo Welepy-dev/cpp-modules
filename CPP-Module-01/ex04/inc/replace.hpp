@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy </var/spool/mail/welepy>            +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:14:50 by welepy            #+#    #+#             */
-/*   Updated: 2025/04/09 17:03:30 by welepy           ###   ########.fr       */
+/*   Updated: 2025/04/18 11:53:35 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 # define REPLACE_HPP
 
 # include <cstdlib>
+# include <iostream>	
 # include <string>
+# include <fstream>
 
 int countLines(const std::string &filename);
 

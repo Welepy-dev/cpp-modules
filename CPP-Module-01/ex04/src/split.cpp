@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy </var/spool/mail/welepy>            +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 14:29:41 by welepy            #+#    #+#             */
-/*   Updated: 2025/04/09 17:04:04 by welepy           ###   ########.fr       */
+/*   Updated: 2025/04/18 14:33:42 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,32 +18,32 @@
 
 int countWords(const std::string &str)
 {
-    std::istringstream stream(str);
-    std::string word;
-    int count = 0;
+	std::istringstream stream(str);
+	std::string word;
+	int count = 0;
 
-    while (stream >> word)
-        ++count;
+	while (stream >> word)
+		++count;
 
-    return (count);
+	return (count);
 }
 
 std::string *split(const std::string& str, char delimiter, int nbWord)
 {
-    size_t start = 0;
-    size_t end = str.find(delimiter);
+	size_t start = 0;
+	size_t end = str.find(delimiter);
 	std::string	*tokens = new std::string[nbWord];
-    int tokenCount = 0;
+	int tokenCount = 0;
 
-    while (end != std::string::npos && tokenCount < nbWord)
+	while (end != std::string::npos && tokenCount < nbWord)
 	{
-        tokens[tokenCount++] = str.substr(start, end - start);
-        start = end + 1;
-        end = str.find(delimiter, start);
-    }
+		tokens[tokenCount++] = str.substr(start, end - start);
+		start = end + 1;
+		end = str.find(delimiter, start);
+	}
 
-    if (tokenCount < nbWord && start < str.length())
-        tokens[tokenCount++] = str.substr(start);
+	if (tokenCount < nbWord && start < str.length())
+		tokens[tokenCount++] = str.substr(start);
 
 	return (tokens);
 }
@@ -68,7 +68,11 @@ void	replaceLines(std::string filename, std::string search, std::string replace)
 	std::ofstream file(filename.c_str());
 	if (!file)
 	{
-		std::cerr << "Error in file: " << filename << " while opening and/or writing" << std::endl;
+		std::cerr
+					<< "Error in file: "
+					<< filename
+					<< " while opening and/or writing" <<
+		std::endl;
 		delete []allLines;
 		return ;
 	}

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 14:50:47 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/04/18 10:40:55 by codespace        ###   ########.fr       */
+/*   Updated: 2025/04/18 15:16:11 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ class HumanA
 		Weapon  &weapon;
 
 	public:
-		HumanA(std::string Name, Weapon &Weapon): name(name), weapon(weapon) {}
+		HumanA(std::string Name, Weapon &Weapon): name(Name), weapon(Weapon) {}
 		~HumanA();
 
 		void  attack(void);
