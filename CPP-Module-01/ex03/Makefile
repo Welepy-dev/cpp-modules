@@ -6,11 +6,11 @@
 #    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/06 17:37:34 by marcsilv          #+#    #+#              #
-#    Updated: 2025/04/18 10:11:39 by codespace        ###   ########.fr        #
+#    Updated: 2025/04/18 15:14:34 by codespace        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	  =			violence
+NAME	  =			Unnecessary_violence
 
 CC		  =			c++
 

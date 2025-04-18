@@ -6,12 +6,12 @@
 #    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/26 13:51:17 by welepy            #+#    #+#              #
-#    Updated: 2025/04/18 09:56:43 by codespace        ###   ########.fr        #
+#    Updated: 2025/04/18 15:14:05 by codespace        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-NAME	  =			"HI THIS IS BRAIN"
+NAME	  =			HI_THIS_IS_BRAIN
 
 CC		  =			c++
 

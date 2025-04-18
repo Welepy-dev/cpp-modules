@@ -6,12 +6,12 @@
 #    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/26 13:51:17 by welepy            #+#    #+#              #
-#    Updated: 2025/04/18 09:56:51 by codespace        ###   ########.fr        #
+#    Updated: 2025/04/18 14:44:39 by codespace        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-NAME	  =			"Moar brainz!"
+NAME	  =			Moar_brainz!
 
 CC		  =			c++
 
