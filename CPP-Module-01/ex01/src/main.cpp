@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 18:25:38 by marcilsv          #+#    #+#             */
-/*   Updated: 2025/04/06 17:01:36 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/04/18 09:41:02 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,15 @@
 
 int main(void)
 {
-	Zombie	zombie;
-	int	N = 500;
+	Zombie *horde = zombieHorde(10, "Stan");
 
-	Zombie	*Horde = zombie.zombieHorde(N, "Horder");
-
-	for (int i = 0; i < N; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		std::cout << "Zombie nb: " << i + 1 << ": ";
-		Horde[i].announce();
+		horde[i].announce();
 	}
+
+	delete[] horde;
 
 	return (0);
 }
