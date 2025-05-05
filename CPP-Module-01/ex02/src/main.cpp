@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 17:13:53 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/04/18 10:07:55 by codespace        ###   ########.fr       */
+/*   Updated: 2025/05/05 13:31:46 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	main(void)
 	std::cout << "Pointer's Address: "		<< &stringPTR	<< std::endl;
 	std::cout << "Reference's Address: "	<< &stringREF	<< std::endl;
 
-	std::cout << "String's Value: "		<< brain		<< std::endl;
-	std::cout << "Pointer's Value: "	<< *stringPTR	<< std::endl;
-	std::cout << "Reference's Value: "	<< stringREF	<< std::endl;
+	std::cout << "String's Value: "			<< brain		<< std::endl;
+	std::cout << "Pointer's Value: "		<< *stringPTR	<< std::endl;
+	std::cout << "Reference's Value: "		<< stringREF	<< std::endl;
 }
 
 /*

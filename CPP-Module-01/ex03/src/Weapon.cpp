@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 14:22:03 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/04/15 15:27:11 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/05/05 14:51:11 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 const std::string &Weapon::getType(void)
 {
-  std::string &ref = type;
-  return (ref);
+	std::string &ref = type;
+	return (ref);
 }
 
 void  Weapon::setType(std::string name)
 {
-  type = name;
+	type = name;
 }
 
 Weapon::Weapon() {}
@@ -29,5 +29,5 @@ Weapon::~Weapon() {}
 
 Weapon::Weapon(std::string name)
 {
-  type = name;
+	type = name;
 }
