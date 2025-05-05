@@ -64,5 +64,65 @@ After having both the filename.txt and filename.replace, we start replacing ever
 The method I choose some may say that is a little convoluted but is what I thought at the time, I first take the previous string array and split each line and then insert word for word in the new file, but if the current word is equal to s1 i just switch the current word for s2. I will put bellow a picture to explain better.
 ![alt text](ex04.png)
 
-EX05
+## EX 05
 
+This exercise is asking you to **create a C++ class named `Harl`** that simulates a character (Harl) who makes comments at different severity levels: `DEBUG`, `INFO`, `WARNING`, and `ERROR`.
+
+### What You Need to Do:
+
+**Define a class `Harl`** with:
+
+   * **Four private member functions**:
+
+     * `void debug(void);`
+     * `void info(void);`
+     * `void warning(void);`
+     * `void error(void);`
+       Each of these should output a message that corresponds to its log level (use the examples provided in the instructions or your own).
+
+**One public member function**:
+
+   * `void complain(std::string level);`
+     This function should:
+
+     * Take a string like `"DEBUG"`, `"INFO"`, `"WARNING"`, or `"ERROR"`.
+     * Call the corresponding private function.
+
+**Key Requirement – Use Pointers to Member Functions**:
+
+   * **Do not use if/else or switch statements** to determine which function to call based on the `level` string.
+   * Instead, use **an array or map of strings and function pointers** to call the right function directly.
+
+**Write a test program** that creates a `Harl` object and calls `complain` with different levels to show Harl "complaining."
+
+## EX 06
+
+This exercise builds on the previous one and asks you to:
+
+### **Add Filtering Based on Log Level**
+
+In this one we're now being asked to:
+
+* **Take a log level as a command-line argument** (e.g., `"WARNING"`).
+* **Display all Harl's messages from that level and above** (in order of severity: DEBUG < INFO < WARNING < ERROR).
+* If the level isn't recognized, print a default message.
+
+### Additional Requirements
+
+* **Name your executable `harlFilter`.**
+* You **must use a `switch` statement** — that’s the key learning point of this exercise.
+
+This means you'll need to:
+
+* Map the input level string (like `"INFO"`) to an integer.
+* Use `switch (levelIndex)` to determine which messages to show.
+
+### Summary of What You Need to Implement
+
+1. Parse the input argument.
+2. Convert it to an integer index (e.g., DEBUG = 0, INFO = 1, etc.).
+3. Use a `switch` statement on that index.
+4. Fall through the cases to print all messages from that level up.
+5. If the level is unrecognized, print a default message.
+
+Would you like a sample code structure or help implementing the level-to-index mapping and switch logic?
