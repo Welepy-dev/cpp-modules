@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Harl.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 22:15:47 by welepy            #+#    #+#             */
-/*   Updated: 2025/04/21 11:45:23 by welepy           ###   ########.fr       */
+/*   Updated: 2025/05/05 16:21:03 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	Harl::error(void)
 
 void	Harl::complain(std::string level)
 {
-	void    (Harl::*functionPTRS[])( void ) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
-	std::string complains[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+	void		(Harl::*functionPTRS[])( void ) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
+	std::string	complains[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 
 	int i = 0;
 	for (; i < 4; i++)
@@ -54,23 +54,22 @@ void	Harl::complain(std::string level)
 		if (complains[i] == level)
 			break ;
 	}
-switch(i)
-{
-	case 0:
-		(this->*functionPTRS[0])();
-		break;
-	case 1:
-		(this->*functionPTRS[1])();
-		break;
-	case 2:
-		(this->*functionPTRS[2])();
-		break;
-	case 3:
-		(this->*functionPTRS[3])();
-		break;
-	default:
-		std::cout << "[ Keep complaining ]" << std::endl;
-		break;
-}
-
+	switch(i)
+	{
+		case 0:
+			(this->*functionPTRS[0])();
+			break;
+		case 1:
+			(this->*functionPTRS[1])();
+			break;
+		case 2:
+			(this->*functionPTRS[2])();
+			break;
+		case 3:
+			(this->*functionPTRS[3])();
+			break;
+		default:
+			std::cout << "[ Keep complaining ]" << std::endl;
+			break;
+	}
 }
