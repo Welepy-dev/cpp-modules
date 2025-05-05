@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 23:26:53 by welepy            #+#    #+#             */
-/*   Updated: 2025/04/18 14:13:43 by codespace        ###   ########.fr       */
+/*   Updated: 2025/05/05 15:24:04 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	main(int ac, char **av)
 {
-	std::string replaceName;
-	std::string fileName;
+	std::string	replaceName;
+	std::string	fileName;
 
 	if (ac == 4)
 	{

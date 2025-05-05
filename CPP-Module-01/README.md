@@ -45,3 +45,24 @@ Two member functions:
 ``` setType()```
 to get and set the weapon type.
 
+Then we will create two classes, HumanA and HumanB, both have a weapon, a name and a method ```attack```, that displays something like:
+```<name> attacks with their <weapon type>```
+
+HumanA and HumanB differ at the constructor, HumanA will take a weapon in its constructor and HumanB will not.
+
+This exercise its to show a fundamental thing about references, while pointers can inittialy be NULL references cannot.
+
+## EX 04
+
+This one was my favorite, it askes to make a program that takes three parameters, a filename and two strings s1 and s2. It must open the file and replace every occurence of s1 with s2.
+
+Firstly I worked on making the replace file, I used substr to return the filename until the dot (.) eg. filename.txt will return only filename, then I was just create a file with the filename + .replace and copy all of the content of the original file to this new .replace file.
+
+To copy I used getline to read and pass all the file contents and pass the lines to a string array eg.:```std::string *arr```.
+
+After having both the filename.txt and filename.replace, we start replacing every instance of the s1 with s2.
+The method I choose some may say that is a little convoluted but is what I thought at the time, I first take the previous string array and split each line and then insert word for word in the new file, but if the current word is equal to s1 i just switch the current word for s2. I will put bellow a picture to explain better.
+![alt text](ex04.png)
+
+EX05
+

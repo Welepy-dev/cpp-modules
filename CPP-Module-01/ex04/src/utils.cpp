@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:16:10 by welepy            #+#    #+#             */
-/*   Updated: 2025/04/18 14:20:52 by codespace        ###   ########.fr       */
+/*   Updated: 2025/05/05 15:33:47 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/replace.hpp"
 
-void  copyFile(std::string dstName, std::string src)
+void	copyFile(std::string dstName, std::string src)
 {
 	std::ofstream dstFile(dstName.c_str());
 	if (!dstFile)
@@ -22,7 +22,7 @@ void  copyFile(std::string dstName, std::string src)
 					<< " while opening and/or writing" <<
 		std::endl;
 
-	std::string *allLines = getAllLines(src);
+	std::string	*allLines = getAllLines(src);
 
 	for (int i = 0; i < countLines(src); ++i)
 		 dstFile << allLines[i] << std::endl;
@@ -44,7 +44,7 @@ std::string	*getAllLines(std::string filename)
 	return (lines);
 }
 
-int countLines(const std::string &filename)
+int	countLines(const std::string &filename)
 {
 	int lineCount = 0;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 14:29:41 by welepy            #+#    #+#             */
-/*   Updated: 2025/04/18 14:33:42 by codespace        ###   ########.fr       */
+/*   Updated: 2025/05/05 15:25:41 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 
 int countWords(const std::string &str)
 {
-	std::istringstream stream(str);
-	std::string word;
+	std::istringstream	stream(str);
+	std::string			word;
 	int count = 0;
 
 	while (stream >> word)
