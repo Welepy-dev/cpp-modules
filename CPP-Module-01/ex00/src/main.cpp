@@ -6,13 +6,13 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 18:25:38 by marcilsv          #+#    #+#             */
-/*   Updated: 2025/05/05 12:43:59 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/05/05 13:15:03 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/Zombie.hpp"
 
-Zombie*	newZombie(std::string name)
+Zombie	*newZombie(std::string name)
 {
 	Zombie	*newZ = new Zombie(name);
 	return (newZ);
