@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Fixed.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 12:58:34 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/05/08 18:36:17 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/05/09 18:00:29 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ class Fixed
 		Fixed(const int n);
 		Fixed(const float n);
 		Fixed(const Fixed &other);
-		Fixed &operator=(const Fixed &other);
 		
+		Fixed				&operator=(const Fixed &other);
 		int					getRawBits(void) const;
 		void				setRawBits(int const raw);
 		float				toFloat(void) const;
