@@ -6,25 +6,25 @@
 #    By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/08 12:51:48 by marcsilv          #+#    #+#              #
-#    Updated: 2025/05/09 14:37:21 by marcsilv         ###   ########.fr        #
+#    Updated: 2025/05/09 14:48:44 by marcsilv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	  =			Fixed
+NAME		=			Fixed
 
-CC		  =			c++
+CC			=			c++
 
-CFLAGS	  =			-Wall -Werror -Wextra -std=c++98
+CFLAGS		=			-Wall -Werror -Wextra -std=c++98
 
-SRC_DIR	  =			src/
-OBJ_DIR	  =			obj/
-INC_DIR	  =			inc/
+SRC_DIR		=			src/
+OBJ_DIR		=			obj/
+INC_DIR		=			inc/
 
-SRC_FILES =			Point.cpp main.cpp Fixed.cpp 
-OBJ_FILES =			$(SRC_FILES:.cpp=.o)
+SRC_FILES	=			Point.cpp main.cpp Fixed.cpp 
+OBJ_FILES	=			$(SRC_FILES:.cpp=.o)
 
-SRC		  =			$(addprefix $(SRC_DIR), $(SRC_FILES))
-OBJ		  =			$(addprefix $(OBJ_DIR), $(OBJ_FILES))
+SRC			=			$(addprefix $(SRC_DIR), $(SRC_FILES))
+OBJ			=			$(addprefix $(OBJ_DIR), $(OBJ_FILES))
 
 all: $(NAME)
 

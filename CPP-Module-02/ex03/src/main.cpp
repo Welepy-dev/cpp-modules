@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 16:25:09 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/05/09 14:30:15 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/05/09 15:08:39 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ float triangleArea(Point const a, Point const b, Point const c)
 	float cx = c.getX().toFloat();
 	float cy = c.getY().toFloat();
 
-	return 0.5f * std::abs(ax * (by - cy) + bx * (cy - ay) + cx * (ay - by));
+	return (0.5f * std::abs(ax * (by - cy) + bx * (cy - ay) + cx * (ay - by)));
 }
 
 bool bsp(Point const a, Point const b, Point const c, Point const point)

@@ -68,3 +68,38 @@ Fixed point representation offers a way to represent real fractional numbers in 
 Instead of storing the decimal or binary point dynamically like in floating point, fixed point numbers have a binary point at a fixed position. This allows fractional values to be represented using integer hardware, which is faster and simpler.
 
 Although fixed point numbers have its pros, one drawback that you might want to consider is loss of precision.
+
+## EX 00
+
+This assignment is just to get us acquainted to classes made with ```orthodox canonical form```.
+
+They ask us to create a class ```Fixed``` with two private members, one integer to store the fixed point values, and another, which is constant to store the number of bits which is 8.
+
+For the public members it should have:
+
+ - A default constructor
+ - A copy constructor
+ - A copy assignment operator overload
+ - A destructor
+ - A member function to get the raw value of the fixed-point
+ - A member function to set the raw value of the fixed-point
+
+And it has to run this code:
+
+```
+int	main(void)
+{
+	Fixed a;
+	Fixed b(a);
+	Fixed c;
+	c = b;
+	
+	std::cout << a.getRawBits() << std::endl;
+	std::cout << b.getRawBits() << std::endl;
+	std::cout << c.getRawBits() << std::endl;
+	
+	return (0);
+}
+```
+
+These 
