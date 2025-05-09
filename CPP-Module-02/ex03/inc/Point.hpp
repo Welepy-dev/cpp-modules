@@ -1,34 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Fixed.hpp                                          :+:      :+:    :+:   */
+/*   Point.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/07 19:08:24 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/05/08 17:12:25 by marcsilv         ###   ########.fr       */
+/*   Created: 2025/05/08 18:50:04 by marcsilv          #+#    #+#             */
+/*   Updated: 2025/05/09 13:53:08 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FIXED_HPP
-# define FIXED_HPP
+#ifndef POINT_HPP
+# define POINT_HPP
 
-# include <iostream>
+# include "./Fixed.hpp"
 
-class Fixed
+class Point
 {
 	private:
-		int					fixed_point;
-		static const int	bits = 8;
+		
+		Fixed const x;
+		Fixed const y;
 
 	public:
-		Fixed();									//default constructor
-		~Fixed();									//destructor
-		Fixed(const Fixed &other);					//copy constructor
-		Fixed &operator=(const Fixed &other);		//copy assignment constructor
 		
-		int		getRawBits(void) const;						
-		void	setRawBits(int const raw);
+		Point(void);
+		Point(const float x, const float y);
+		~Point(void);
+		Point(const Point &other);					//copy constructor
+		Point &operator=(const Point &other);		//copy assignment constructor
+		
+		Fixed const	getX(void) const;
+		Fixed const	getY(void) const;
+		// void		setX(Fixed X) const;
+		// void		setY(Fixed Y) const;
 };
 
 #endif
