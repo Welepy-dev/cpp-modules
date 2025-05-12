@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 16:25:09 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/05/09 15:08:39 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/05/10 14:47:50 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ float triangleArea(Point const a, Point const b, Point const c)
 
 bool bsp(Point const a, Point const b, Point const c, Point const point)
 {
+	if (point == a || point == b || point == c)
+		return (0);
 	float totalArea = triangleArea(a, b, c);
 	float area1 = triangleArea(point, b, c);
 	float area2 = triangleArea(a, point, c);
@@ -42,18 +44,18 @@ int main(void)
 	Point b(5.0f, 0.0f);
 	Point c(2.5f, 5.0f);
 
-	Point inside(2.5f, 2.0f);
-	Point outside(5.0f, 5.0f);
-	Point edge(2.5f, 0.0f);
+	Point inside(2.5f, 5.0f);
+	// Point outside(5.0f, 5.0f);
+	// Point edge(2.5f, 0.0f);
 
 	std::cout << "Point inside triangle: " 
 			  << (bsp(a, b, c, inside) ? "YES" : "NO") << std::endl;
 
-	std::cout << "Point outside triangle: " 
-			  << (bsp(a, b, c, outside) ? "YES" : "NO") << std::endl;
+	// std::cout << "Point outside triangle: " 
+	// 		  << (bsp(a, b, c, outside) ? "YES" : "NO") << std::endl;
 
-	std::cout << "Point on edge of triangle: " 
-			  << (bsp(a, b, c, edge) ? "YES" : "NO") << std::endl;
+	// std::cout << "Point on edge of triangle: " 
+	// 		  << (bsp(a, b, c, edge) ? "YES" : "NO") << std::endl;
 
 	return 0;
 }

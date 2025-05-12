@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 20:09:34 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/05/08 18:44:49 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/05/10 14:35:45 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ bool Fixed::operator==(const Fixed& other) const
 
 bool Fixed::operator!=(const Fixed& other) const
 {
-	return (fixed_point == other.fixed_point);
+	return (fixed_point != other.fixed_point);
 }
 
 Fixed Fixed::operator+(const Fixed& other) const
@@ -157,6 +157,13 @@ Fixed Fixed::operator++(int)
 {
 	Fixed temp = *this;
 	++(*this);
+	return (temp);
+}
+
+Fixed Fixed::operator--(int)
+{
+	Fixed temp = *this;
+	--(*this);
 	return (temp);
 }
 

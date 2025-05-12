@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 18:53:46 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/05/09 14:42:44 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/05/10 14:44:13 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,9 @@ Fixed const	Point::getX(void) const
 Fixed const	Point::getY(void) const
 {
 	return (y);
+}
+
+bool Point::operator==(const Point& other) const
+{
+	return ((this->getX() == other.getX()) && (this->getY() == other.getY()));
 }

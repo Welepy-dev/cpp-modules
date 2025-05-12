@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 18:50:04 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/05/09 13:53:08 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/05/10 14:43:14 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ class Point
 		
 		Fixed const	getX(void) const;
 		Fixed const	getY(void) const;
+
+		bool		operator==(const Point &other) const;
 		// void		setX(Fixed X) const;
 		// void		setY(Fixed Y) const;
 };
