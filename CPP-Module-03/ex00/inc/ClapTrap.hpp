@@ -32,7 +32,6 @@ class ClapTrap {
     int         hitPoints;
     int         energyPoints;
     int         attackDamage;
-  
 };
 
 #endif

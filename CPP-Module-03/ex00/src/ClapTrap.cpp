@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../inc/ClapTrap.hpp"
+#include <iostream>
 
 ClapTrap::ClapTrap(std::string name)
 {
@@ -31,10 +32,7 @@ ClapTrap::ClapTrap(const ClapTrap &other)
 {
 	std::cout << "Copy constructor called" << std::endl;
 
-  hitPoints = other.hitPoints;
-  energyPoints = other.energyPoints;
-  attackDamage = other.attackDamage;
-  this->name = other.name;
+  *this = other;
 }
 
 ClapTrap &ClapTrap::operator=(const ClapTrap &other)
@@ -42,9 +40,9 @@ ClapTrap &ClapTrap::operator=(const ClapTrap &other)
 	std::cout << "Copy assignment operator called" << std::endl;
   if (this != &other)
   {
-    hitPoints = other.hitPoints;
-    energyPoints = other.energyPoints;
-    attackDamage = other.attackDamage;
+    this->hitPoints = other.hitPoints;
+    this->energyPoints = other.energyPoints;
+    this->attackDamage = other.attackDamage;
     this->name = other.name;
   }
   return (*this);
@@ -52,7 +50,7 @@ ClapTrap &ClapTrap::operator=(const ClapTrap &other)
 
 void  ClapTrap::attack(const std::string &target)
 {
-  if (this->energyPoints)
+  if (this->energyPoints && this->hitPoints)
   {
     this->energyPoints--;
     std::cout
@@ -71,7 +69,22 @@ void  ClapTrap::attack(const std::string &target)
 
 void  ClapTrap::takeDamage(unsigned int amount)
 {
-  std::cout << "ClapTrap " << this->name << " has taken " << amount << " points of damage!" << std::endl;
+  if (!hitPoints)
+  {
+    std::cout << "ClapTrap " << name << " is already dead!" << std::endl;
+    return ;
+  }
+  hitPoints -= amount;
+  if (hitPoints < 0) hitPoints = 0;
+  std::cout 
+                  << "ClapTrap " 
+                  << name 
+                  << " has taken " 
+                  << amount 
+                  << " points of damage!" 
+                  << " remaining HP: "
+                  << hitPoints << 
+  std::endl;
 }
 
 void  ClapTrap::beRepaired(unsigned int amount)
@@ -79,12 +92,15 @@ void  ClapTrap::beRepaired(unsigned int amount)
   if (this->energyPoints)
   {
     this->energyPoints--;
+    hitPoints += amount;
     std::cout
                     << "ClapTrap "
                     << this->name
                     << " is repairing "
                     << amount
-                    << "points of damage!" << 
+                    << "points of damage!"
+                    << "total HP: "
+                    << hitPoints <<
     std::endl;
   }
   else
