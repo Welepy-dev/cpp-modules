@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/12 13:12:59 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/05/12 13:33:05 by marcsilv         ###   ########.fr       */
+/*   Created: 2025/05/19 12:52:38 by marcsilv          #+#    #+#             */
+/*   Updated: 2025/05/19 12:52:50 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCAVTRAP_HPP
-# define SCAVTRAP_HPP
-  
-# include "ClapTrap.hpp"
+#include "../inc/DiamondTrap.hpp"
 
-class ScavTrap : public ClapTrap
-{
-  public:
-    ScavTrap();
-    ScavTrap(std::string name);
-    ScavTrap(const ScavTrap &other);
-    ScavTrap &operator=(const ScavTrap &other);
-    ~ScavTrap();
-  
-    void  attack(const std::string &target);
-    void  guardGate(void);
+int main() {
+    DiamondTrap d1("Gem");
 
-  private:
-    int guarding_gate;
-};
+    d1.attack("Target1");
+    d1.whoAmI();
+    d1.takeDamage(40);
+    d1.beRepaired(20);
 
-#endif // !ScavTrap
+    return 0;
+}
+

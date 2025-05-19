@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 11:36:39 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/05/12 13:43:27 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/05/19 12:07:47 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,7 @@ ClapTrap::ClapTrap(const ClapTrap &other)
 {
 	std::cout << "ClapTrap Copy constructor called" << std::endl;
 
-  hitPoints = other.hitPoints;
-  energyPoints = other.energyPoints;
-  attackDamage = other.attackDamage;
-  this->name = other.name;
+  *this = other;
 }
 
 ClapTrap &ClapTrap::operator=(const ClapTrap &other)
@@ -60,7 +57,7 @@ ClapTrap &ClapTrap::operator=(const ClapTrap &other)
 
 void  ClapTrap::attack(const std::string &target)
 {
-  if (this->energyPoints)
+  if (this->energyPoints && this->hitPoints)
   {
     this->energyPoints--;
     std::cout
@@ -77,9 +74,19 @@ void  ClapTrap::attack(const std::string &target)
     std::cout << "ClapTrap " << this->name << " has no energy points to attack" << std::endl;
 }
 
-void  ClapTrap::takeDamage(unsigned int amount)
+void ClapTrap::takeDamage(unsigned int amount)
 {
-  std::cout << "ClapTrap " << this->name << " has taken " << amount << " points of damage!" << std::endl;
+    if (hitPoints == 0)
+    {
+        std::cout << "ClapTrap " << name << " is already dead!" << std::endl;
+        return;
+    }
+
+    hitPoints -= amount;
+    if (hitPoints < 0) hitPoints = 0;
+
+    std::cout << "ClapTrap " << name << " takes " << amount
+              << " points of damage! Remaining HP: " << hitPoints << std::endl;
 }
 
 void  ClapTrap::beRepaired(unsigned int amount)
@@ -92,7 +99,7 @@ void  ClapTrap::beRepaired(unsigned int amount)
                     << this->name
                     << " is repairing "
                     << amount
-                    << "points of damage!" << 
+                    << " points of damage!" << 
     std::endl;
   }
   else

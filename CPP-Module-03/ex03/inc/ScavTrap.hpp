@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:12:59 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/05/12 16:20:30 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/05/19 13:00:06 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,6 @@ class ScavTrap : virtual public ClapTrap
     ~ScavTrap();
   
     void  attack(const std::string &target);
-    void  takeDamage(unsigned int amount);
-    void  beRepaired(unsigned int amount);
-
     void  guardGate(void);
 
   private:

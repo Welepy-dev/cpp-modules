@@ -18,14 +18,14 @@
 # include "./ScavTrap.hpp"
 # include <string>
 
-class DiamondTrap
+class DiamondTrap: public FragTrap, public ScavTrap
 {
   public:
     DiamondTrap();
+    DiamondTrap(std::string name);
     DiamondTrap(const DiamondTrap &other);
     DiamondTrap &operator=(const DiamondTrap &other);
     ~DiamondTrap();
-    DiamondTrap(std::string name);
   
     void whoAmI();
     void attack(const std::string &target);

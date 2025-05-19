@@ -6,11 +6,11 @@
 #    By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/08 12:51:48 by marcsilv          #+#    #+#              #
-#    Updated: 2025/05/12 12:55:17 by marcsilv         ###   ########.fr        #
+#    Updated: 2025/05/19 12:33:01 by marcsilv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	  =			ScavTrap
+NAME	  =			FragTrap
 
 CC		  =			c++
 
@@ -20,7 +20,7 @@ SRC_DIR	  =			src/
 OBJ_DIR	  =			obj/
 INC_DIR	  =			inc/
 
-SRC_FILES =			main.cpp ClapTrap.cpp ScavTrap.cpp
+SRC_FILES =			FragTrap.cpp main.cpp ClapTrap.cpp ScavTrap.cpp
 OBJ_FILES =			$(SRC_FILES:.cpp=.o)
 
 SRC		  =			$(addprefix $(SRC_DIR), $(SRC_FILES))

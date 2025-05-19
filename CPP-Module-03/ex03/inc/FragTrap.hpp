@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 15:06:21 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/05/12 16:20:09 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/05/19 12:57:08 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FLAGTRAP_HPP
 
 # include "./ClapTrap.hpp"
+# include "./ScavTrap.hpp"
 
 class FragTrap : virtual public ClapTrap
 {
