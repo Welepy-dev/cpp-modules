@@ -39,10 +39,8 @@ ScavTrap::~ScavTrap()
 ScavTrap &ScavTrap::operator=(const ScavTrap &src)
 {
 	std::cout << "ScavTrap Assignation operator called" << std::endl;
-	this->name = src.name;
-	this->hitPoints = src.hitPoints;
-	this->energyPoints = src.energyPoints;
-	this->attackDamage = src.attackDamage;
+  ClapTrap::operator=(src);
+  guarding_gate = src.guarding_gate;
 	return *this;
 }
 
@@ -54,7 +52,7 @@ ScavTrap::ScavTrap(const ScavTrap &copy): ClapTrap(copy)
 
 void  ScavTrap::attack(const std::string &target)
 {
-  if (this->energyPoints)
+  if (this->energyPoints && this->hitPoints)
   {
     this->energyPoints--;
     std::cout
@@ -71,39 +69,16 @@ void  ScavTrap::attack(const std::string &target)
     std::cout << "ScavTrap " << this->name << " has no energy points to attack" << std::endl;
 }
 
-void  ScavTrap::takeDamage(unsigned int amount)
+void ScavTrap::guardGate()
 {
-  std::cout << "ScavTrap " << this->name << " has taken " << amount << " points of damage!" << std::endl;
+    if (!guarding_gate)
+    {
+        guarding_gate = true;
+        std::cout << "ScavTrap " << name << " has entered Gate keeper mode." << std::endl;
+    }
+    else
+    {
+        std::cout << "ScavTrap " << name << " is already guarding the gate." << std::endl;
+    }
 }
 
-void  ScavTrap::beRepaired(unsigned int amount)
-{
-  if (this->energyPoints)
-  {
-    this->energyPoints--;
-    std::cout
-                    << "ScavTrap "
-                    << this->name
-                    << " is repairing "
-                    << amount
-                    << "points of damage!" << 
-    std::endl;
-  }
-  else
-    std::cout << "ScavTrap " << this->name << " has no energy points to be repaired" << std::endl;
-}
-
-void	ScavTrap::guardGate(void)
-{
-  this->guarding_gate *= -1;
-	if (this->guarding_gate == false)
-	{
-		this->guarding_gate = true;
-		std::cout << "ScavTrap " << this->name << " is now guarding the gate." << std::endl;
-	}
-	else
-  {
-    this->guarding_gate = false;
-		std::cout << "ScavTrap " << this->name << " is already guarding the gate." << std::endl;
-  }
-}
