@@ -98,8 +98,8 @@ void  ClapTrap::beRepaired(unsigned int amount)
                     << this->name
                     << " is repairing "
                     << amount
-                    << "points of damage!"
-                    << "total HP: "
+                    << " points of damage!"
+                    << " total HP: "
                     << hitPoints <<
     std::endl;
   }
