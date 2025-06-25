@@ -20,7 +20,7 @@ SRC_DIR	  =			src/
 OBJ_DIR	  =			obj/
 INC_DIR	  =			inc/
 
-SRC_FILES =			Bureucrat.cpp GradeTooHighException.cpp main.cpp GradeTooLowException.cpp
+SRC_FILES =			Bureucrat.cpp GradeTooHighException.cpp main.cpp GradeTooLowException.cpp Form.cpp 
 OBJ_FILES =			$(SRC_FILES:.cpp=.o)
 
 SRC		  =			$(addprefix $(SRC_DIR), $(SRC_FILES))

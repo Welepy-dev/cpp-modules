@@ -13,6 +13,7 @@
 #include "../inc/Bureucrat.hpp"
 #include "../inc/GradeTooHighException.hpp"
 #include "../inc/GradeTooLowException.hpp"
+#include <exception>
 
 std::string Bureucrat::getName(void) const
 {
@@ -47,7 +48,7 @@ void  Bureucrat::decrementGrade(void)
 
 std::ostream& operator<<(std::ostream &out, const Bureucrat &bureucrat)
 {
-  out << bureucrat.getName() << ", bureucrat grade " << bureucrat.getGrade();
+  out << bureucrat.getName() << ", bureucrat grade " << bureucrat.getGrade() << std::endl;
   return (out);
 }
 
@@ -74,3 +75,12 @@ Bureucrat::Bureucrat(const Bureucrat &other)
   *this = other;
 }
 
+void	Bureucrat::signForm(Form &form)
+{
+	try {
+		form.beSigned(*this);
+		std::cout << *this << "signed" << form.getName() << std::endl;
+	} catch (std::exception &exception) {
+		std::cout << *this << " couldn't sign " << form.getName() << " because " << exception.what() << std::endl;
+	}
+}

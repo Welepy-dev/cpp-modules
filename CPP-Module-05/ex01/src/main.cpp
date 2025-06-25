@@ -11,22 +11,23 @@
 /* ************************************************************************** */
 
 #include "../inc/Bureucrat.hpp"
-#include <exception>
 #include <iostream>
 
-int main () {
-	
-	Bureucrat  a("jose", 1);
-	Bureucrat	b("burocrata", 150);
-	try {
-		a.incrementGrade();
-	} catch (std::exception &e) {
-		std::cout << "exception met" << std::endl;
-	}
-	try {
-	b.decrementGrade();
-	} catch (std::exception &e) {
-		std::cout << "second exception met"	<< std::endl;
-	}
-	return 0;
+int main() {
+    Bureucrat jose("Jose", 1);
+    Bureucrat noob("Intern", 150);
+
+    Form formA("TaxForm", 50, 75);
+
+    std::cout << formA << std::endl;
+
+    // Successful sign
+    jose.signForm(formA);
+
+    // Already signed test
+    std::cout << formA << std::endl;
+
+    // Failing sign (will throw)
+    Form formB("SecretForm", 1, 1);
+    noob.signForm(formB);  // should fail
 }

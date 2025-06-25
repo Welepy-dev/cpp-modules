@@ -13,8 +13,10 @@
 #ifndef BUREUCRAT_HPP
 # define BUREUCRAT_HPP
 
+# include "Form.hpp"
 # include <string>
 # include <iostream>
+
 class Bureucrat 
 {
   public:
@@ -32,7 +34,7 @@ class Bureucrat
     void        incrementGrade(void);
     void        decrementGrade(void);
 
-	void		signForm(void);
+	void		signForm(Form &form);
   
   private:
     std::string name;
