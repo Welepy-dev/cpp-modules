@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Form.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 15:53:24 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/06/23 16:41:09 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/07/13 22:11:39 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ Form &Form::operator=(const Form &other)
 Form::~Form(void) { }
 
 std::string	Form::getName(void) const { return (this->_name); }
-int			Form::getIsSigned(void) const { return (this->_isSigned); }
+bool		Form::getIsSigned(void) const { return (this->_isSigned); }
 int			Form::getSignGrade(void) const { return (this->_signGrade); }
 int			Form::getExecuteGrade(void) const { return (this->_executeGrade); }
 

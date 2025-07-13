@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Form.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 13:53:10 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/06/23 16:35:48 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/07/13 22:10:45 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ class Form {
 		~Form();
 
 		std::string			getName(void) const;
-		int					getIsSigned(void) const;
+		bool				getIsSigned(void) const;
 		int					getSignGrade(void) const;
 		int					getExecuteGrade(void) const;
 
@@ -35,7 +35,7 @@ class Form {
 
 	private:
 		const std::string	_name;
-		int					_isSigned;
+		bool				_isSigned;
 		const int			_signGrade;
 		const int			_executeGrade;
 };
