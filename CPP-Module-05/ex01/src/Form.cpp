@@ -13,21 +13,15 @@
 #include <iostream>
 #include "../inc/Form.hpp"
 #include "../inc/Bureucrat.hpp"
-#include "../inc/GradeTooLowException.hpp"
-#include "../inc/GradeTooHighException.hpp"
 #include <string>
 
 Form::Form(std::string name, int signGrade, int executeGrade):
 _name(name), _isSigned(0), _signGrade(signGrade), _executeGrade(executeGrade)
 {
 	std::cout << "Form's parametized constructor called" << std::endl;
-	if (_signGrade < 1 || _executeGrade < 1) {
-		throw GradeTooHighException("Grade is higher than 1!");
-	}
+	if (_signGrade < 1 || _executeGrade < 1) { throw GradeTooHighException("Grade is higher than 1!"); }
 
-	if (_signGrade > 150 || _executeGrade > 150) {
-		throw GradeTooLowException("Grade is lower than 150!");
-	}
+	if (_signGrade > 150 || _executeGrade > 150) { throw GradeTooLowException("Grade is lower than 150!" ); }
 }
 
 Form::Form(const Form &other): 

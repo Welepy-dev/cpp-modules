@@ -17,12 +17,13 @@
 
 class Bureucrat;
 
-class Form {
+class Form
+{
 	public:
-		Form(std::string name, int signGrade, int executeGrade);
+		~Form();
 		Form(const Form &other);
 		Form &operator=(const Form &other);
-		~Form();
+		Form(std::string name, int signGrade, int executeGrade);
 
 		std::string			getName(void) const;
 		bool				getIsSigned(void) const;
@@ -32,6 +33,28 @@ class Form {
 		void				setIsSigned(int sign);
 
 		void				beSigned(Bureucrat &bureucrat);
+
+		class GradeTooHighException: public std::exception
+		{
+			private:
+				std::string message;
+			public:
+				GradeTooHighException(const std::string &msg): message(msg) { }
+				virtual const char *what() const throw() { return message.c_str(); };
+				virtual ~GradeTooHighException() throw() { };
+				void instantiate(int grade) { if (grade < 1) { throw GradeTooHighException("Grade is too High!"); } }
+		};
+
+		class GradeTooLowException: public std::exception
+		{
+			private:
+				std::string message;
+			public:
+				GradeTooLowException(const std::string &msg): message(msg) { }
+				virtual const char *what() const throw() { return message.c_str(); };
+				virtual ~GradeTooLowException() throw() { };
+				void instantiate(int grade) { if (grade > 150) { throw GradeTooLowException("Grade is too Low!"); } }
+		};
 
 	private:
 		const std::string	_name;
