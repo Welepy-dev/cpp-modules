@@ -1,19 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   GradeTooLowException.cpp                           :+:      :+:    :+:   */
+/*   PresidentialPardonForm.hpp                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/23 12:36:33 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/06/23 13:07:00 by marcsilv         ###   ########.fr       */
+/*   Created: 2025/07/20 17:08:37 by marcsilv          #+#    #+#             */
+/*   Updated: 2025/07/20 17:15:59 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/GradeTooLowException.hpp" 
+#ifndef PRESIDENTIALPARDONFORM_HPP
+# define PRESIDENTIALPARDONFORM_HPP
 
-const char *GradeTooLowException::what() const throw(){
-	return message.c_str();
-}
+# include "AForm.hpp"
 
-GradeTooLowException::~GradeTooLowException( ) throw(){ } 
+class PresidentialPardonForm: public AForm
+{
+	public:
+		PresidentialPardonForm(std::string target);
+		virtual ~PresidentialPardonForm();
+
+		virtual void action() const;
+	
+	private:
+		const std::string _target;
+};
+
+
+#endif // !PRESIDENTIALPARDONFORM_HPP

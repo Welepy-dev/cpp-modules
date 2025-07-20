@@ -11,24 +11,17 @@
 /* ************************************************************************** */
 
 #include <iostream>
-#include "../inc/Form.hpp"
 #include "../inc/AForm.hpp"
 #include "../inc/Bureucrat.hpp"
-#include "../inc/GradeTooLowException.hpp"
-#include "../inc/GradeTooHighException.hpp"
 #include <string>
 
 AForm::AForm(std::string name, int signGrade, int executeGrade):
 _name(name), _isSigned(0), _signGrade(signGrade), _executeGrade(executeGrade)
 {
 	std::cout << "AForm's parametized constructor called" << std::endl;
-	if (_signGrade < 1 || _executeGrade < 1) {
-		throw GradeTooHighException("Grade is higher than 1!");
-	}
+	if (_signGrade < 1 || _executeGrade < 1) { throw GradeTooHighException("Grade is higher than 1!"); }
 
-	if (_signGrade > 150 || _executeGrade > 150) {
-		throw GradeTooLowException("Grade is lower than 150!");
-	}
+	if (_signGrade > 150 || _executeGrade > 150) { throw GradeTooLowException("Grade is lower than 150!" ); }
 }
 
 AForm::AForm(const AForm &other): 
@@ -61,11 +54,11 @@ void		AForm::beSigned(Bureucrat &bureucrat)
 		throw GradeTooLowException("Grade is too low to sign!");
 }
 
-std::ostream& operator<<(std::ostream &out, const AForm &Aform)
+std::ostream& operator<<(std::ostream &out, const AForm &form)
 {
-	out << "AForm: " << Aform.getName()
-	<< ", is " << ((Aform.getIsSigned() < 1) ? "not signed" : "signed")
-	<< " with the execute grade of " << Aform.getExecuteGrade()
-	<< " and a sign grade of " << Aform.getSignGrade() << std::endl;
+	out << "AForm: " << form.getName()
+	<< ", is " << ((form.getIsSigned() < 1) ? "not signed" : "signed")
+	<< " with the execute grade of " << form.getExecuteGrade()
+	<< " and a sign grade of " << form.getSignGrade() << std::endl;
 	return (out);
 }

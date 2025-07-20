@@ -11,23 +11,11 @@
 /* ************************************************************************** */
 
 #include "../inc/Bureucrat.hpp"
+#include "../inc/ShrubberyCreationForm.hpp"
 #include <iostream>
 
 int main() {
-    Bureucrat jose("Jose", 1);
-    Bureucrat noob("Intern", 150);
+	ShrubberyCreationForm a("form");
 
-    Form formA("TaxForm", 50, 75);
-
-    std::cout << formA << std::endl;
-
-    // Successful sign
-    jose.signForm(formA);
-
-    // Already signed test
-    std::cout << formA << std::endl;
-
-    // Failing sign (will throw)
-    Form formB("SecretForm", 1, 1);
-    noob.signForm(formB);  // should fail
+	a.action("file");
 }

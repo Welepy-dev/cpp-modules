@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   GradeTooLowException.hpp                           :+:      :+:    :+:   */
+/*   ShrubberyCreationForm.hpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/23 12:58:28 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/06/23 13:04:05 by marcsilv         ###   ########.fr       */
+/*   Created: 2025/07/20 14:30:39 by marcsilv          #+#    #+#             */
+/*   Updated: 2025/07/20 17:16:09 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GRADETOOLOWEXCEPTION_HPP
-# define GRADETOOLOWEXCEPTION_HPP
+#ifndef SHRUBBERYCREATIONFORM_HPP
+# define SHRUBBERYCREATIONFORM_HPP
 
-# include <exception>
-# include <string>
+# include "AForm.hpp"
 
-class GradeTooLowException: public std::exception 
+class ShrubberyCreationForm: public AForm
 {
 	public:
-		GradeTooLowException(const std::string &msg): message(msg) { };
-		virtual const char *what() const throw();
-		virtual ~GradeTooLowException() throw();
+		ShrubberyCreationForm(std::string target);
+		virtual ~ShrubberyCreationForm();
+
+		virtual void action() const;
 	
 	private:
-	std::string message;
+		const std::string _target;
 		
 };
 
-#endif // !GRADETOOLOWEXCEPTION_HPP
+#endif // !SHRUBBERYCREATIONFORM_HPP

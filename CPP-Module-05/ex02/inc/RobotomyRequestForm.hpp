@@ -1,19 +1,31 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   GradeTooHighException.cpp                          :+:      :+:    :+:   */
+/*   RobotomyRequestForm.hpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/23 12:36:33 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/06/23 12:38:38 by marcsilv         ###   ########.fr       */
+/*   Created: 2025/07/20 14:30:39 by marcsilv          #+#    #+#             */
+/*   Updated: 2025/07/20 14:46:34 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/GradeTooHighException.hpp"
+#ifndef ROBOTOMYREQUESTFORM_HPP
+# define ROBOTOMYREQUESTFORM_HPP
 
-const char *GradeTooHighException::what() const throw(){
-	return message.c_str();
-}
+# include "AForm.hpp"
 
-GradeTooHighException::~GradeTooHighException( ) throw() { } 
+class RobotomyRequestForm: public AForm
+{
+	public:
+		RobotomyRequestForm(std::string target);
+		virtual ~RobotomyRequestForm();
+
+		virtual void action() const;
+	
+	private:
+		const std::string _target;
+};
+
+#endif // !ROBOTOMYREQUESTFORM_HPP
