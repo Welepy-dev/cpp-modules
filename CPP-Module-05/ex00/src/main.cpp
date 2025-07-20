@@ -21,12 +21,18 @@ int main () {
 	try {
 		a.incrementGrade();
 	} catch (std::exception &e) {
-		std::cout << "exception met" << std::endl;
+		std::cout << "exception met " << e.what() << std::endl;
 	}
 	try {
 	b.decrementGrade();
 	} catch (std::exception &e) {
-		std::cout << "second exception met"	<< std::endl;
+		std::cout << "second exception met "	<< e.what() << std::endl;
+	}
+	try {
+		Bureucrat c("marcio", 200);
+	}
+	catch (const std::exception &e) {
+		std::cout << "third exception met " << e.what() << std::endl;
 	}
 	return 0;
 }

@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "../inc/Bureucrat.hpp"
-#include "../inc/GradeTooHighException.hpp"
-#include "../inc/GradeTooLowException.hpp"
 
 std::string Bureucrat::getName(void) const { return (name); }
 
@@ -23,7 +21,7 @@ int   Bureucrat::getGrade(void) const { return (grade); }
 void  Bureucrat::incrementGrade(void)
 {
 	if (grade == 1) {
-		throw GradeTooHighException("Grade at its highest!");
+		throw Bureucrat::GradeTooHighException("Grade at its highest!");
 	}
 	grade--;
 }
@@ -57,7 +55,13 @@ Bureucrat::Bureucrat(const Bureucrat &other)
 	*this = other;
 }
 
-Bureucrat::Bureucrat(void) { std::cout << "Bureucrat's default constructor called" << std::endl; }
+Bureucrat::Bureucrat(void)	{ std::cout << "Bureucrat's default constructor called"<< std::endl; }
 Bureucrat::~Bureucrat(void) { std::cout << "Bureucrat's default destructor called" << std::endl; }
 Bureucrat::Bureucrat(std::string name, int grade): name(name), grade(grade)
-{ std::cout << "Bureucrat's parametized constructor called" << std::endl; }
+{
+	std::cout << "Bureucrat's parametized constructor called" << std::endl;
+	if (grade < 1)
+		throw GradeTooHighException("Grade is too High!");
+	else if (grade > 150)
+		throw GradeTooLowException("Grade is too Low");
+}

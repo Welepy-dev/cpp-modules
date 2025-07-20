@@ -15,6 +15,8 @@
 
 # include <string>
 # include <iostream>
+# include <exception>
+
 class Bureucrat 
 {
 	public:
@@ -31,6 +33,28 @@ class Bureucrat
 
 		void	incrementGrade(void);
 		void	decrementGrade(void);
+	
+		class GradeTooHighException: public std::exception
+		{
+			private:
+				std::string message;
+			public:
+				GradeTooHighException(const std::string &msg): message(msg) { }
+				virtual const char *what() const throw() { return message.c_str(); };
+				virtual ~GradeTooHighException() throw() { };
+				void instantiate(int grade) { if (grade < 1) { throw GradeTooHighException("Grade is too High!"); } }
+		};
+
+		class GradeTooLowException: public std::exception
+		{
+			private:
+				std::string message;
+			public:
+				GradeTooLowException(const std::string &msg): message(msg) { }
+				virtual const char *what() const throw() { return message.c_str(); };
+				virtual ~GradeTooLowException() throw() { };
+				void instantiate(int grade) { if (grade > 150) { throw GradeTooLowException("Grade is too Low!"); } }
+		};
 
 	private:
 		const std::string	name;
@@ -40,3 +64,4 @@ class Bureucrat
 std::ostream& operator<<(std::ostream &out, const Bureucrat &bureucrat);
 
 #endif
+
