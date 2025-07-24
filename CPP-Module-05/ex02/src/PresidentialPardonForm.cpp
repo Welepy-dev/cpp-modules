@@ -12,14 +12,19 @@
 
 #include "../inc/PresidentialPardonForm.hpp"
 #include "../inc/AForm.hpp"
+#include "../inc/Bureucrat.hpp"
 
 PresidentialPardonForm::PresidentialPardonForm(std::string target): AForm("PresidentialPardonForm", 25, 5), _target(target)
 { std::cout << "PresidentialPardonForm parametized constructor called" << std::endl; }
 
 PresidentialPardonForm::~PresidentialPardonForm( ) { } 
 
-void	PresidentialPardonForm::action() const
+void	PresidentialPardonForm::execute(Bureucrat & executor) const
 {
+	if (!this->getIsSigned() || (this->getSignGrade() >= executor.getGrade()) || executor.getGrade() < 1)
+		throw Bureucrat::GradeTooLowException("Grade Is Too Low!");
+	else if (executor.getGrade() > 150)
+		throw Bureucrat::GradeTooHighException("Grade is too high!");
 	std::cout << _target << "has been pardoned by Zaphod Beeblebrox" << std::endl;
 }
 

@@ -29,7 +29,7 @@ class AForm
 		AForm &operator=(const AForm &other);
 		AForm(std::string name, int signGrade, int executeGrade);
 		
-		virtual void	action(const std::string &target) const = 0;
+		virtual void	execute(Bureucrat & executor) const = 0;
 
 		std::string			getName(void) const;
 		bool				getIsSigned(void) const;

@@ -12,14 +12,19 @@
 
 #include "../inc/ShrubberyCreationForm.hpp"
 #include "../inc/AForm.hpp"
+#include "../inc/Bureucrat.hpp"
 
 ShrubberyCreationForm::ShrubberyCreationForm(std::string target): AForm("ShrubberyCreationForm", 145, 137)
 { std::cout << "ShrubberyCreationForm parametized constructor called" << std::endl; }
 
 ShrubberyCreationForm::~ShrubberyCreationForm( ) { } 
 
-void	ShrubberyCreationForm::action() const
+void	ShrubberyCreationForm::execute(Bureucrat & executor) const
 {
+	if (!this->getIsSigned() || (this->getSignGrade() >= executor.getGrade()) || executor.getGrade() < 1)
+		throw Bureucrat::GradeTooLowException("Grade Is Too Low!");
+	else if (executor.getGrade() > 150)
+		throw Bureucrat::GradeTooHighException("Grade is too high!");
 	std::string filename = _target + "_shrubbery";
     std::ofstream file(filename.c_str());
 	

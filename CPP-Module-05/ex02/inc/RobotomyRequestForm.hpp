@@ -22,7 +22,7 @@ class RobotomyRequestForm: public AForm
 		RobotomyRequestForm(std::string target);
 		virtual ~RobotomyRequestForm();
 
-		virtual void action() const;
+		virtual void execute(Bureucrat & executor) const;
 	
 	private:
 		const std::string _target;

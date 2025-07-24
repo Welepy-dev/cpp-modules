@@ -21,7 +21,7 @@ class PresidentialPardonForm: public AForm
 		PresidentialPardonForm(std::string target);
 		virtual ~PresidentialPardonForm();
 
-		virtual void action() const;
+		virtual void execute(Bureucrat & executor) const;
 	
 	private:
 		const std::string _target;
