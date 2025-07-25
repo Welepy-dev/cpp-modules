@@ -12,6 +12,7 @@
 
 #include "../inc/Bureucrat.hpp"
 #include "../inc/AForm.hpp"
+#include <exception>
 
 std::string	Bureucrat::getName(void) const			{ return (name); }
 
@@ -70,5 +71,15 @@ void	Bureucrat::signForm(AForm &form)
 		std::cout << *this << "signed" << form.getName() << std::endl;
 	} catch (std::exception &exception) {
 		std::cout << *this << " couldn't sign " << form.getName() << " because " << exception.what() << std::endl;
+	}
+}
+
+void	Bureucrat::executeForm(AForm const & form) const
+{
+	try {
+		form.execute(*this);
+		std::cout << this->getName() << " executed" << form.getName() << std::endl;
+	} catch (std::exception &exception) {
+		std::cout << this->getName() << " has not executed" << form.getName() << std::endl;
 	}
 }

@@ -22,10 +22,10 @@ RobotomyRequestForm::~RobotomyRequestForm( ) { }
 void	RobotomyRequestForm::execute(Bureucrat & executor) const
 {
 	time_t sec = time(NULL);
-	if (!this->getIsSigned() || (this->getSignGrade() >= executor.getGrade()) || executor.getGrade() < 1)
-		throw Bureucrat::GradeTooLowException("Grade Is Too Low!");
-	else if (executor.getGrade() > 150)
-		throw Bureucrat::GradeTooHighException("Grade is too high!");
+	if (!this->getIsSigned())
+		throw Bureucrat::GradeTooLowException("Form is not signed!");
+	if (executor.getGrade() > this->getExecuteGrade())
+		throw Bureucrat::GradeTooHighException("Grade is too low to execute!");
 
 	std::cout << " ** Drilling noises ** " << std::endl;
 	if (sec % 2 == 0)

@@ -12,10 +12,24 @@
 
 #include "../inc/Bureucrat.hpp"
 #include "../inc/ShrubberyCreationForm.hpp"
-#include <iostream>
+#include "../inc/RobotomyRequestForm.hpp"
+#include "../inc/PresidentialPardonForm.hpp"
 
 int main() {
-	ShrubberyCreationForm a("form");
+    Bureucrat alice("Alice", 1); // High enough to do anything
 
-	a.action("file");
+    ShrubberyCreationForm form("home");
+
+    alice.signForm(form);
+    alice.executeForm(form);  // Should create file "home_shrubbery"
+
+    RobotomyRequestForm robo("Bender");
+    alice.signForm(robo);
+    alice.executeForm(robo);
+
+    PresidentialPardonForm pardon("Ford Prefect");
+    alice.signForm(pardon);
+    alice.executeForm(pardon);
+
+    return 0;
 }
