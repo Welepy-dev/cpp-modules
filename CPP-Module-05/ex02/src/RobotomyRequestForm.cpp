@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RobotomyRequestForm.cpp                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 16:23:01 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/07/20 17:17:07 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/07/26 23:17:19 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ RobotomyRequestForm::RobotomyRequestForm(std::string target): AForm("RobotomyReq
 
 RobotomyRequestForm::~RobotomyRequestForm( ) { } 
 
-void	RobotomyRequestForm::execute(Bureucrat & executor) const
+void	RobotomyRequestForm::execute(Bureucrat const & executor) const
 {
 	time_t sec = time(NULL);
 	if (!this->getIsSigned())

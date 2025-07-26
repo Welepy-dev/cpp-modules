@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 13:53:10 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/07/13 22:10:45 by codespace        ###   ########.fr       */
+/*   Updated: 2025/07/26 23:16:32 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ class Form
 				GradeTooHighException(const std::string &msg): message(msg) { }
 				virtual const char *what() const throw() { return message.c_str(); };
 				virtual ~GradeTooHighException() throw() { };
-				void instantiate(int grade) { if (grade < 1) { throw GradeTooHighException("Grade is too High!"); } }
 		};
 
 		class GradeTooLowException: public std::exception
@@ -53,7 +52,6 @@ class Form
 				GradeTooLowException(const std::string &msg): message(msg) { }
 				virtual const char *what() const throw() { return message.c_str(); };
 				virtual ~GradeTooLowException() throw() { };
-				void instantiate(int grade) { if (grade > 150) { throw GradeTooLowException("Grade is too Low!"); } }
 		};
 
 	private:

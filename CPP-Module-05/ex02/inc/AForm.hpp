@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 13:53:10 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/07/20 14:48:28 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/07/26 23:17:56 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ class AForm
 		AForm &operator=(const AForm &other);
 		AForm(std::string name, int signGrade, int executeGrade);
 		
-		virtual void	execute(Bureucrat & executor) const = 0;
+		virtual void	execute(Bureucrat const & executor) const = 0;
 
 		std::string			getName(void) const;
 		bool				getIsSigned(void) const;
@@ -48,7 +48,6 @@ class AForm
 				GradeTooHighException(const std::string &msg): message(msg) { };
 				virtual const char *what() const throw() { return message.c_str(); };
 				virtual ~GradeTooHighException() throw() { };
-				void instantiate(int grade) { if (grade < 1) { throw GradeTooHighException("Grade is too High!"); } }
 		};
 
 		class GradeTooLowException: public std::exception
@@ -59,7 +58,6 @@ class AForm
 				GradeTooLowException(const std::string &msg): message(msg) { }
 				virtual const char *what() const throw() { return message.c_str(); };
 				virtual ~GradeTooLowException() throw() { };
-				void instantiate(int grade) { if (grade > 150) { throw GradeTooLowException("Grade is too Low!"); } }
 		};
 
 	protected:

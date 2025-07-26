@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ShrubberyCreationForm.hpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:30:39 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/07/20 17:16:09 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/07/26 23:19:21 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ class ShrubberyCreationForm: public AForm
 		ShrubberyCreationForm(std::string target);
 		virtual ~ShrubberyCreationForm();
 
-		virtual void execute(Bureucrat & executor) const;
+		virtual void execute(Bureucrat const & executor) const;
 	
 	private:
 		const std::string _target;

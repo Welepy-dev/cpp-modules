@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PresidentialPardonForm.hpp                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 17:08:37 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/07/20 17:15:59 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/07/26 23:19:14 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ class PresidentialPardonForm: public AForm
 		PresidentialPardonForm(std::string target);
 		virtual ~PresidentialPardonForm();
 
-		virtual void execute(Bureucrat & executor) const;
+		virtual void execute(Bureucrat const & executor) const;
 	
 	private:
 		const std::string _target;

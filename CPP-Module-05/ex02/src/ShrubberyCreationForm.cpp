@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ShrubberyCreationForm.cpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:42:06 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/07/20 17:19:41 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/07/26 23:18:27 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ ShrubberyCreationForm::ShrubberyCreationForm(std::string target): AForm("Shrubbe
 
 ShrubberyCreationForm::~ShrubberyCreationForm( ) { } 
 
-void	ShrubberyCreationForm::execute(Bureucrat & executor) const
+void	ShrubberyCreationForm::execute(Bureucrat const & executor) const
 {
 	if (!this->getIsSigned())
 		throw Bureucrat::GradeTooLowException("Form is not signed!");
