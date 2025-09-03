@@ -4,6 +4,8 @@
 # include <iostream>
 # include <string>
 # include <cctype>
+# include <sstream>
+# include <cstdlib>
 
 class ScalarConverter
 {
@@ -15,10 +17,13 @@ class ScalarConverter
 	
 	private:
 		ScalarConverter();
-		ScalarConverter(const ScalarConverter &other);
+		/*ScalarConverter(const ScalarConverter &other);*/
 
 };
 
 void	convertToChar(const std::string& str);
+void	convertToInt(const std::string& str);
+void	convertToFloat(const std::string& str);
+//void	convertToDouble(const std::string& str);
 
 #endif

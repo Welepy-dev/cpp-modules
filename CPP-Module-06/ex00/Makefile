@@ -11,7 +11,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	  =			Forms
+NAME	  =			convert
 
 CC		  =			c++
 
@@ -21,7 +21,7 @@ SRC_DIR	  =			src/
 OBJ_DIR	  =			obj/
 INC_DIR	  =			inc/
 
-SRC_FILES =			main.cpp ScalarConverter.cpp convertToChar.cpp
+SRC_FILES =			main.cpp ScalarConverter.cpp convertToChar.cpp convertToInt.cpp
 OBJ_FILES =			$(SRC_FILES:.cpp=.o)
 
 SRC		  =			$(addprefix $(SRC_DIR), $(SRC_FILES))
