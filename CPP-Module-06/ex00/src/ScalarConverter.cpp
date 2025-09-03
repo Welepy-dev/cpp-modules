@@ -28,7 +28,7 @@ ScalarConverter::~ScalarConverter()
 void	ScalarConverter::convert(const std::string &literal)
 {
 	convertToChar(literal);
-	convertToInt(literal);
-	convertToFloat(literal);
+	//convertToInt(literal);
+	//convertToFloat(literal);
 	//convertToDouble(literal);
 }

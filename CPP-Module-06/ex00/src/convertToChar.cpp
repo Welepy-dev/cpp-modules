@@ -11,12 +11,13 @@
 /* ************************************************************************** */
 
 #include "../inc/ScalarConverter.hpp"
+#include <cctype>
 
 void	convertToChar(const std::string& str)
 {
 	std::cout << "char: ";
 	char c = 0;
-	if (str == "nan" || str == "inf" || str == "-inf" || str == "nanf" || str == "inff" || str == "-inff")
+	if (str.length() > 1 && !std::isdigit(str[0]))
 	{
 		std::cout << "impossible" << std::endl;
 		return ;
