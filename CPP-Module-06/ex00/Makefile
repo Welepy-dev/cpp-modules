@@ -1,4 +1,3 @@
-
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
@@ -7,7 +6,7 @@
 #    By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/08 12:51:48 by marcsilv          #+#    #+#              #
-#    Updated: 2025/06/23 12:53:37 by marcsilv         ###   ########.fr        #
+#    Updated: 2025/09/07 20:39:16 by marcsilv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +20,7 @@ SRC_DIR	  =			src/
 OBJ_DIR	  =			obj/
 INC_DIR	  =			inc/
 
-SRC_FILES =			main.cpp ScalarConverter.cpp convertToChar.cpp convertToInt.cpp
+SRC_FILES =			main.cpp ScalarConverter.cpp convertToChar.cpp convertToInt.cpp convertToFloat.cpp convertToDouble.cpp 
 OBJ_FILES =			$(SRC_FILES:.cpp=.o)
 
 SRC		  =			$(addprefix $(SRC_DIR), $(SRC_FILES))
