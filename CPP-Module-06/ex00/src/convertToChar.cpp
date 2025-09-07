@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   convertToChar.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: marcsilv <marcsilv@student.42.fr>        +#+  +:+       +#+          */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/31 16:27:26 by marvin            #+#    #+#             */
-/*   Updated: 2025/08/02 11:16:17 by codespace        ###   ########.fr       */
+/*   Created: 2025/07/31 16:27:26 by marcsilv          #+#    #+#             */
+/*   Updated: 2025/09/07 16:42:03 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ScalarConverter.hpp"
-#include <cctype>
 
 void	convertToChar(const std::string& str)
 {
 	std::cout << "char: ";
 	char c = 0;
-	if (str.length() > 1 && !std::isdigit(str[0]))
+	bool hasDigit = str.find_first_of("0123456789") != std::string::npos;
+	bool hasAlpha = str.find_first_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ") != std::string::npos;
+	if (str.length() > 1 && hasAlpha && hasDigit)
 	{
 		std::cout << "impossible" << std::endl;
 		return ;
@@ -33,3 +34,11 @@ void	convertToChar(const std::string& str)
 	else
 		std::cout << "Non displayable" << std::endl;
 }
+/*
+bool hasDigit = str.find_first_of("0123456789") != std::string::npos;
+bool hasAlpha = str.find_first_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ") != std::string::npos;
+
+if (str.length() > 1 && hasDigit && hasAlpha)
+{
+    // mixed letters+digits, e.g. "2a" or "a2" — invalid as a numeric literal
+}*/

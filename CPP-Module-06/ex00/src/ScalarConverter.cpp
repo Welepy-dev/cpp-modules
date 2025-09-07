@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ScalarConverter.cpp                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/07 16:42:21 by marcsilv          #+#    #+#             */
+/*   Updated: 2025/09/07 20:41:03 by marcsilv         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/ScalarConverter.hpp"
 
 ScalarConverter::ScalarConverter()
@@ -28,7 +40,7 @@ ScalarConverter::~ScalarConverter()
 void	ScalarConverter::convert(const std::string &literal)
 {
 	convertToChar(literal);
-	//convertToInt(literal);
-	//convertToFloat(literal);
-	//convertToDouble(literal);
+	convertToInt(literal);
+	convertToFloat(literal);
+	convertToDouble(literal);
 }

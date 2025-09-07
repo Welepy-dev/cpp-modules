@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   convertToFloat.cpp                                 :+:      :+:    :+:   */
+/*   convertToDouble.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/02 11:25:58 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/09/07 20:39:53 by marcsilv         ###   ########.fr       */
+/*   Created: 2025/09/07 20:38:59 by marcsilv          #+#    #+#             */
+/*   Updated: 2025/09/07 20:41:16 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ScalarConverter.hpp"
 
-void	convertToFloat(const std::string &str)
+void	convertToDouble(const std::string &str)
 {
 	char	*end;
 
-	std::cout << "float: ";
+	std::cout << "double: ";
 
 	errno = 0;
-    float value = std::strtof(str.c_str(), &end);
+    double value = std::strtof(str.c_str(), &end);
 
 	if (str.length() == 1 && !std::isdigit(str[0]))
 		value = str[0];
@@ -34,8 +34,8 @@ void	convertToFloat(const std::string &str)
 	}
 	else
 	{
-        std::cout << std::fixed << std::setprecision(1) << value << "f" << std::endl;
+        std::cout << std::fixed << std::setprecision(1) << value << std::endl;
 		if (errno == ERANGE || value > FLT_MAX || value < -FLT_MAX)
-			std::cout << "Out of range for float\n";
+			std::cout << "Out of range for double\n";
     }
 }

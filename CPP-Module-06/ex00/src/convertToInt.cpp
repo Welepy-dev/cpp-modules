@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convertToInt.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/02 11:09:21 by codespace         #+#    #+#             */
-/*   Updated: 2025/08/02 11:20:31 by codespace        ###   ########.fr       */
+/*   Created: 2025/08/02 11:09:21 by marcsilv          #+#    #+#             */
+/*   Updated: 2025/09/07 16:42:12 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ void	convertToInt(const std::string& str)
 		c = str[0];
 	else
 		c = std::atoi(str.c_str());
-	if (str == "nan" || str == "inf" || str == "-inf" || str == "nanf" || str == "inff" || str == "-inff")
+	bool hasDigit = str.find_first_of("0123456789") != std::string::npos;
+	bool hasAlpha = str.find_first_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ") != std::string::npos;
+	if (str.length() > 1 && hasAlpha && hasDigit)
 	{
 		std::cout << "impossible" << std::endl;
 		return ;
