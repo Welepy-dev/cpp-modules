@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Serializer.hpp                                     :+:      :+:    :+:   */
+/*   Data.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/09 18:20:23 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/09/19 13:09:25 by marcsilv         ###   ########.fr       */
+/*   Created: 2025/09/19 13:00:54 by marcsilv          #+#    #+#             */
+/*   Updated: 2025/09/19 13:01:43 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SERIALIZER_HPP
-# define SERIALIZER_HPP
+#ifndef DATA_HPP
+# define DATA_HPP
+# include <string>
 
-# include <cstdint>
-# include "Data.hpp"
-
-class Serializer
+typedef struct MyStruct
 {
-	public:
-		Serializer &operator=(const Serializer &other);
-		~Serializer();
+	int			i;
+	std::string	name;
+}	Data;
 
-		static uintptr_t	serialize(Data* ptr);
-		static Data*		deserialize(uintptr_t raw);
-
-	private:
-		Serializer();
-		/*Serializer(const Serializer &other);*/
-};
-
-#endif // !DEBUG
+#endif // !DATA_HPP
