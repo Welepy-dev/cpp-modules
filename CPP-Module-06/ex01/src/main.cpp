@@ -10,29 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/ScalarConverter.hpp"
+#include "../inc/Serializer.hpp"
+#include <iostream>
+#include "../inc/Data.hpp"
 
-//have to verify if have a letter that I dont find
-//if it starts with a dot
-// if has multimple dots
-//in the case of +42? or -42?
-//check mixed stuff
+int	randomInRange(int min, int max) { return (min + (rand() % (max - min + 1))); }
 
-/*bool	checkNums(std::string str)
+int main(void)
 {
-	for (int i = 0; i < str.length(); i++)
-		if(!std::isdigit(str[i]))
-			return (false);
-	return (true);
-}*/
+	Data data(randomInRange(0, 127), randomInRange(-5000, 5000));
 
-int main(int ac, char **av)
-{
-	if (ac != 2)
+	Data *original = &data;
+
+	uintptr_t raw = Serializer::serialize(original);
+
+    // Deserialize -> Data*
+	Data* restored = Serializer::deserialize(raw);
+	if (restored == original)
 	{
-		std::cerr << "Usage: ./convert <literal>" << std::endl;
-		return 1;
+		std::cout << "Success! Pointers match.\n";
+		std::cout << "Value: " << restored->getInteger() << std::endl;
 	}
-	ScalarConverter::convert(std::string(av[1]));
+	else
+		std::cout << "Error: Pointers do not match.\n";
 	return (0);
 }

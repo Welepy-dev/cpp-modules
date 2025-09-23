@@ -21,6 +21,7 @@
 # include <cerrno>
 # include <cfloat>
 # include <iomanip>
+# include <algorithm> // for std::count
 # include <ios>
 
 class ScalarConverter
