@@ -50,7 +50,7 @@ bool is_all_digits(const std::string &s)
 {
     if (s.empty()) return (false);
     for (std::string::size_type i = 0; i < s.size(); ++i)
-        if (!std::isdigit(static_cast<unsigned char>(s[i])))
+        if (!std::isdigit(static_cast<unsigned char>(s[i])) && (s[i] != '-' && s[i] != '+' && s[i] != '.'))
             return false;
     return true;
 }
@@ -65,16 +65,14 @@ char	identify(const std::string &literal)
 		return (0);
 	else if (is_all_digits(literal) && !has_multiple_occurrences(literal, '+') && !has_multiple_occurrences(literal, '-') && !(literal.find('+') != std::string::npos && literal.find('-') != std::string::npos))
 		return ('i');
-	else if (literal.)
+	//else if (literal.)
 	return (0);
 }
 
 void	ScalarConverter::convert(const std::string &literal)
 {
-	if (!identify(literal))
-	{
-		std::cout << "IMPOSSIVEL" << std::endl; exit(1);
-	}
+  int id = identify(literal);
+	if (!id) { std::cout << "IMPOSSIBLE" << std::endl; exit(1); }
 	convertToChar(literal);
 	convertToInt(literal);
 	convertToFloat(literal);
