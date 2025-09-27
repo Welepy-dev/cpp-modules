@@ -11,47 +11,27 @@
 /* ************************************************************************** */
 
 #include "../inc/ScalarConverter.hpp"
-#include <cctype>
+#include <climits>
+#include <cstdlib>
 
 ScalarConverter::ScalarConverter()
 {
 	std::cout << "ScalarConverter's default constructor called" << std::endl;
 } 
- 
-/*ScalarConverter& ScalarConverter::operator=(const ScalarConverter &other)
-{ 
-	std::cout << "ScalarConverter's copy assignment operator called" << std::endl;
-
-	return (*this);
-}*/
- 
-/*ScalarConverter::ScalarConverter(const ScalarConverter &other)
-{ 
-	std::cout << "ScalarConverter's copy constructor called" << std::endl;
- 
-	*this = other;
-	(void)other;
-
-
-	else if (literal.find_first_of(".f") != std::string::npos)
-		return ('f');
-	else if (literal.find_first_of(".f") != std::string::npos)
-		return ('f');
-	else if (literal.find_first_of(".f") != std::string::npos)
-		return ('f');
-
-}*/
 
 ScalarConverter::~ScalarConverter()
 { 
 	std::cout << "ScalarConverter's default destructor called" << std::endl;
 }
+
 bool is_all_digits(const std::string &s)
 {
     if (s.empty()) return (false);
-    for (std::string::size_type i = 0; i < s.size(); ++i)
-        if (!std::isdigit(static_cast<unsigned char>(s[i])) && (s[i] != '-' && s[i] != '+' && s[i] != '.'))
-            return false;
+	for (std::string::size_type i = 0; i < s.size(); ++i)
+		if (!std::isdigit(static_cast<unsigned char>(s[i])) && (s[i] != '-' && s[i] != '+' && s[i] != '.'))
+			return false;
+	if (s[s.length() - 1] == '-' || s[s.length() - 1] == '+' || s[s.length() - 1] == '.')
+		return false;
     return true;
 }
 
@@ -61,18 +41,26 @@ char	identify(const std::string &literal)
 {
 	if (literal.length() == 1)
 		return ('c');
-	else if (literal.length() == 0)
+	else if (literal.length() == 0 || std::atol(literal.c_str()) > INT_MAX || std::atol(literal.c_str()) < INT_MIN)
 		return (0);
 	else if (is_all_digits(literal) && !has_multiple_occurrences(literal, '+') && !has_multiple_occurrences(literal, '-') && !(literal.find('+') != std::string::npos && literal.find('-') != std::string::npos))
 		return ('i');
-	//else if (literal.)
 	return (0);
+}
+
+void	impossible(void)
+{
+	std::cout << "char: impossible" << std::endl;
+	std::cout << "int: impossible" << std::endl;
+	std::cout << "float: impossible" << std::endl;
+	std::cout << "double: impossible" << std::endl;
+	exit (1);
 }
 
 void	ScalarConverter::convert(const std::string &literal)
 {
-  int id = identify(literal);
-	if (!id) { std::cout << "IMPOSSIBLE" << std::endl; exit(1); }
+	int id = identify(literal);
+	if (!id) impossible();
 	convertToChar(literal);
 	convertToInt(literal);
 	convertToFloat(literal);
