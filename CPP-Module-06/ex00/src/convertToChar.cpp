@@ -27,7 +27,7 @@ void	convertToChar(const std::string& str)
 		c = str[0];
 	else
 		c = static_cast<char>(std::atoi(str.c_str()));
-	if (std::isprint(c))
+	if (std::isprint(c) && c != 32)
 		std::cout << "'" << c << "'" << std::endl;
 	else if (static_cast<unsigned char>(c) > 127)
 		std::cout << "impossible" << std::endl;
