@@ -20,17 +20,15 @@ int   Bureucrat::getGrade(void) const { return (grade); }
 
 void  Bureucrat::incrementGrade(void)
 {
-	if (grade == 1) {
+	if (grade == 1)
 		throw Bureucrat::GradeTooHighException("Grade at its highest!");
-	}
 	grade--;
 }
 
 void  Bureucrat::decrementGrade(void)
 {
-	if (grade == 150) {
+	if (grade == 150)
 		throw GradeTooLowException("Grade at its lowest!");
-	}
 	grade++;
 }
 
