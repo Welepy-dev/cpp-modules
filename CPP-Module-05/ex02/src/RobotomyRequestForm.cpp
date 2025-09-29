@@ -14,7 +14,7 @@
 #include "../inc/AForm.hpp"
 #include "../inc/Bureucrat.hpp"
 
-RobotomyRequestForm::RobotomyRequestForm(std::string target): AForm("RobotomyRequestForm", 72, 45)
+RobotomyRequestForm::RobotomyRequestForm(std::string target): AForm("RobotomyRequestForm", 72, 45), _target(target)
 { std::cout << "RobotomyRequestForm parametized constructor called" << std::endl; }
 
 RobotomyRequestForm::~RobotomyRequestForm( ) { } 
