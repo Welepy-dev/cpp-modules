@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:42:21 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/09/07 20:41:03 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/09/30 20:43:02 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ char	identify(const std::string &literal)
 			&& !has_multiple_occurrences(literal, '-') && !(literal.find('+') != std::string::npos 
 			&& literal.find('-') != std::string::npos))
 		return ('i');
+	else if (literal.compare("nan") || literal.compare("nanf") || literal.compare("inf") || literal.compare("inff") || literal.compare("-inf")
+		|| literal.compare("-inff") || literal.compare("+inf") || literal.compare("+inff"))
+			return ('a');
 	return (0);
 }
 
@@ -66,5 +69,10 @@ void	ScalarConverter::convert(const std::string &literal)
 }
 
 /*
- * nan naf inf inff -inf -inff +inf +inff
+ * nan nanf inf inff -inf -inff +inf +inff
+ *
+char: impossible
+int: impossible
+float: nanf
+double: nan
 */

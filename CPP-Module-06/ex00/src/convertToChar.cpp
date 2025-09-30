@@ -18,7 +18,7 @@ void	convertToChar(const std::string& str)
 	char c = 0;
 	bool hasDigit = str.find_first_of("0123456789") != std::string::npos;
 	bool hasAlpha = str.find_first_of("abcdeghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ") != std::string::npos;
-	if (str.length() > 1 && hasAlpha && hasDigit)
+	if ((str.length() > 1 && hasAlpha && hasDigit) || (str.compare("nan")) )
 	{
 		std::cout << "impossible" << std::endl;
 		return ;
