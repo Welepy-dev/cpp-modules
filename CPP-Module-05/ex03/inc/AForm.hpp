@@ -24,7 +24,7 @@ class Bureucrat;
 class AForm
 {
 	public:
-		~AForm();
+		virtual ~AForm();
 		AForm(const AForm &other);
 		AForm &operator=(const AForm &other);
 		AForm(std::string name, int signGrade, int executeGrade);
@@ -60,7 +60,7 @@ class AForm
 				virtual ~GradeTooLowException() throw() { };
 		};
 
-	protected:
+	private:
 		const std::string	_name;
 		bool				_isSigned;
 		const int			_signGrade;

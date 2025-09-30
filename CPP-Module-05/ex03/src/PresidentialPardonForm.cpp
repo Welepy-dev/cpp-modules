@@ -28,4 +28,3 @@ void	PresidentialPardonForm::execute(Bureucrat const & executor) const
 	std::cout << _target << "has been pardoned by Zaphod Beeblebrox" << std::endl;
 }
 
-

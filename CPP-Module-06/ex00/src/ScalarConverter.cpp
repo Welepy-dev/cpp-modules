@@ -14,21 +14,17 @@
 #include <climits>
 #include <cstdlib>
 
-ScalarConverter::ScalarConverter()
-{
-	std::cout << "ScalarConverter's default constructor called" << std::endl;
-} 
+bool isSymbol(char c) { return (c == '-' || c == '+' || c == '.' || c == 'f'); }
 
-ScalarConverter::~ScalarConverter()
-{ 
-	std::cout << "ScalarConverter's default destructor called" << std::endl;
-}
+ScalarConverter::ScalarConverter() { std::cout << "ScalarConverter's default constructor called" << std::endl; } 
+
+ScalarConverter::~ScalarConverter() { std::cout << "ScalarConverter's default destructor called" << std::endl; }
 
 bool is_all_digits(const std::string &s)
 {
     if (s.empty()) return (false);
 	for (std::string::size_type i = 0; i < s.size(); ++i)
-		if (!std::isdigit(static_cast<unsigned char>(s[i])) && (s[i] != '-' && s[i] != '+' && s[i] != '.'))
+		if (!std::isdigit(static_cast<unsigned char>(s[i])) && isSymbol(s[i]))
 			return false;
 	if (s[s.length() - 1] == '-' || s[s.length() - 1] == '+' || s[s.length() - 1] == '.')
 		return false;
@@ -43,7 +39,9 @@ char	identify(const std::string &literal)
 		return ('c');
 	else if (literal.length() == 0 || std::atol(literal.c_str()) > INT_MAX || std::atol(literal.c_str()) < INT_MIN)
 		return (0);
-	else if (is_all_digits(literal) && !has_multiple_occurrences(literal, '+') && !has_multiple_occurrences(literal, '-') && !(literal.find('+') != std::string::npos && literal.find('-') != std::string::npos))
+	else if (is_all_digits(literal) && !has_multiple_occurrences(literal, '.') &&!has_multiple_occurrences(literal, '+') 
+			&& !has_multiple_occurrences(literal, '-') && !(literal.find('+') != std::string::npos 
+			&& literal.find('-') != std::string::npos))
 		return ('i');
 	return (0);
 }
@@ -66,3 +64,7 @@ void	ScalarConverter::convert(const std::string &literal)
 	convertToFloat(literal);
 	convertToDouble(literal);
 }
+
+/*
+ * nan naf inf inff -inf -inff +inf +inff
+*/
