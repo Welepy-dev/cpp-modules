@@ -36,10 +36,12 @@ void	Base::identify(Base *p)
 {
 	if (A *a = dynamic_cast<A*>(p))
 		std::cout << "Type A identified" << std::endl;
-	if (B *b = dynamic_cast<B*>(p))
+	else if (B *b = dynamic_cast<B*>(p))
 		std::cout << "Type B identified" << std::endl;
-	if (C *c = dynamic_cast<C*>(p))
+	else if (C *c = dynamic_cast<C*>(p))
 		std::cout << "Type C identified" << std::endl;
+	else
+		std::cout << "Unknow type" << std::endl;
 }
 
 /*
