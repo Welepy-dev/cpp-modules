@@ -7,12 +7,12 @@
 
 Base::Base()
 {
-    std::cout << "Base's default constructor called" << std::endl;
+	std::cout << "Base's default constructor called" << std::endl;
 } 
  
 Base::~Base()
 { 
-    std::cout << "Base's default destructor called" << std::endl;
+	std::cout << "Base's default destructor called" << std::endl;
 }
 
 Base	*Base::generate(void)
@@ -44,13 +44,39 @@ void	Base::identify(Base *p)
 		std::cout << "Unknow type" << std::endl;
 }
 
+void	Base::identify(Base &p)
+{
+	try {
+		A& a = dynamic_cast<A&>(p);
+		std::cout << "Type A identified" << std::endl;
+		return;
+	} catch (std::bad_cast&) {
+		std::cout << "Bad cast" << std::endl;
+	}
+	try {
+		B& b = dynamic_cast<B&>(p);
+		std::cout << "B\n";
+		return;
+	} catch (std::bad_cast&) {
+		std::cout << "Bad cast" << std::endl;
+	}
+	try {
+		C& c = dynamic_cast<C&>(p);
+		std::cout << "C\n";
+		return;
+	} catch (std::bad_cast&) {
+		std::cout << "Bad cast" << std::endl;
+	}
+
+}
+
 /*
 Base* b = new Derived();
 
 if (Derived* d = dynamic_cast<Derived*>(b)) {
-    std::cout << "It’s a Derived\n";
+	std::cout << "It’s a Derived\n";
 } else {
-    std::cout << "Not a Derived\n";
+	std::cout << "Not a Derived\n";
 }
 */
 
