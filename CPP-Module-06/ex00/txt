@@ -10,5 +10,6 @@
 ./convert --
 ./convert 9+
 ./convert 46546-546-5641
+./convert "\0"
 
 fazer duas verificacoes, quando o symbol (-+.) esta no final e quando esta depois de outro symbol
