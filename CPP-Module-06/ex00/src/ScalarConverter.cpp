@@ -11,8 +11,12 @@
 /* ************************************************************************** */
 
 #include "../inc/ScalarConverter.hpp"
-#include <climits>
+#include <cctype>
+#include <cmath>
 #include <cstdlib>
+#include <cstring>
+#include <iomanip>
+#include <string>
 
 /*bool isSymbol(char c) { return (c == '-' || c == '+' || c == '.' || c == 'f'); }
 
@@ -68,12 +72,68 @@ void	ScalarConverter::convert(const std::string &literal)
 	convertToDouble(literal);
 }*/
 
-
-
-void	ScalarConverter::convert(std::string &literal)
+template <typename T>
+Container cast(T a)
 {
-	char	id = identify(&literal);
-	
+	Container container;
+	container.charValue = static_cast<char>(a);
+	container.intValue = static_cast<int>(a);
+	container.floatValue = static_cast<float>(a);
+	container.doubleValue = static_cast<double>(a);
+	return container;
+}
+// nan nanf inf inff -inf -inff +inf +inff
+
+Container	identify(const std::string &literal)
+{
+	Container	container;
+	if (!(!literal.compare("nan") || !literal.compare("nanf") || !literal.compare("inf") || !literal.compare("inff")
+		|| !literal.compare("-inf") || !literal.compare("-inff") || !literal.compare("+inf") || !literal.compare("+inff")))
+	{
+		if (literal.length() == 1)
+			container = cast(literal[0]);
+		else if (std::strspn(literal.c_str(), "0123456789+-.f") == literal.length())
+			container = cast(std::atof(literal.c_str()));
+		else if (std::strspn(literal.c_str(), "0123456789+-.") == literal.length())
+			container = cast(static_cast<double>(std::atof(literal.c_str())));
+		else if (std::strspn(literal.c_str(), "0123456789+-") == literal.length())
+			container = cast(std::atoi(literal.c_str()));
+	}
+	return (container);
+}
+
+void	printConversion(double d)
+{
+	std::cout << "Double: " << std::fixed << std::setprecision(1) << std::showpoint << d << std::endl;
+}
+
+void	printConversion(float f)
+{
+	std::cout << "Float: " << std::fixed << std::setprecision(1) << std::showpoint << f << "f" << std::endl;
+}
+void	printConversion(int i)
+{
+	std::cout << "Int: "  << i << std::endl;
+}
+
+void	printConversion(char c)
+{
+	if (std::isspace(c) || !std::isprint(c))
+		std::cout << "Non displayable" << std::endl;
+	else if (c < 0) //lol
+		std::cout << "Impossible" << std::endl;
+	else
+		std::cout << "Char: "  << c << std::endl;
+}
+
+void	ScalarConverter::convert(const std::string &literal)
+{
+	Container container = identify(literal);
+
+	printConversion(container.charValue);
+	printConversion(container.intValue);
+	printConversion(container.floatValue);
+	printConversion(container.doubleValue);
 }
 
 /*

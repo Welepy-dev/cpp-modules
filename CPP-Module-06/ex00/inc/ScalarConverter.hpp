@@ -27,12 +27,21 @@
 class ScalarConverter
 {
 	public:
-		static void	convert(std::string &literal);
+		static void	convert(const std::string &literal);
 
 	private:
 		ScalarConverter();
 
 };
+
+typedef struct s_container
+{
+	char	type; 
+	char	charValue;
+	float	floatValue;
+	double	doubleValue;
+	int		intValue;
+} Container;
 
 void	convertToInt(const std::string& str);
 void	convertToChar(const std::string& str);
