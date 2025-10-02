@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ScalarConverter.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:42:35 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/09/07 20:40:13 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/10/02 15:25:52 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCALARCONVERTER_HPP
-#define SCALARCONVERTER_HPP
+# define SCALARCONVERTER_HPP
 
 # include <iostream>
 # include <string>
@@ -27,14 +27,10 @@
 class ScalarConverter
 {
 	public:
-		ScalarConverter &operator=(const ScalarConverter &other);
-		~ScalarConverter();
-	
-	static void	convert(const std::string &literal);
+		static void	convert(std::string &literal);
 
 	private:
 		ScalarConverter();
-		/*ScalarConverter(const ScalarConverter &other);*/
 
 };
 

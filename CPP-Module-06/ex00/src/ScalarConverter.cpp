@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScalarConverter.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:42:21 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/09/30 20:43:02 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/10/02 15:25:47 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <climits>
 #include <cstdlib>
 
-bool isSymbol(char c) { return (c == '-' || c == '+' || c == '.' || c == 'f'); }
+/*bool isSymbol(char c) { return (c == '-' || c == '+' || c == '.' || c == 'f'); }
 
 ScalarConverter::ScalarConverter() { std::cout << "ScalarConverter's default constructor called" << std::endl; } 
 
@@ -66,13 +66,16 @@ void	ScalarConverter::convert(const std::string &literal)
 	convertToInt(literal);
 	convertToFloat(literal);
 	convertToDouble(literal);
+}*/
+
+
+
+void	ScalarConverter::convert(std::string &literal)
+{
+	char	id = identify(&literal);
+	
 }
 
 /*
  * nan nanf inf inff -inf -inff +inf +inff
- *
-char: impossible
-int: impossible
-float: nanf
-double: nan
 */

@@ -1,13 +1,3 @@
-/*
-template <class T>
-class Box {
-    T value;
-public:
-    Box(T v) : value(v) {}
-    T get() { return value; }
-};
-
-*/
 #ifndef ARRAY_HPP
 # define ARRAY_HPP
 
@@ -27,6 +17,5 @@ class	Array
 		T			_array;
 		unsigned	_size;
 }
-
 
 #endif
