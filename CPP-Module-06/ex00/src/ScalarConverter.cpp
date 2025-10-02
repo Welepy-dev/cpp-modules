@@ -76,11 +76,11 @@ template <typename T>
 Container cast(T a)
 {
 	Container container;
-	container.charValue = static_cast<char>(a);
 	container.intValue = static_cast<int>(a);
+	container.charValue = static_cast<char>(a);
 	container.floatValue = static_cast<float>(a);
 	container.doubleValue = static_cast<double>(a);
-	return container;
+	return (container);
 }
 // nan nanf inf inff -inf -inff +inf +inff
 
@@ -118,18 +118,38 @@ void	printConversion(int i)
 
 void	printConversion(char c)
 {
-	if (std::isspace(c) || !std::isprint(c))
-		std::cout << "Non displayable" << std::endl;
-	else if (c < 0) //lol
+	if (c < 0 || c > 127)
 		std::cout << "Impossible" << std::endl;
+	else if (std::isspace(c) || !std::isprint(c))
+		std::cout << "Non displayable" << std::endl;
 	else
 		std::cout << "Char: "  << c << std::endl;
 }
 
+void	impossible(void)
+{
+	std::cout << "int: impossible" << std::endl;
+	std::cout << "char: impossible" << std::endl;
+	std::cout << "float: impossible" << std::endl;
+	std::cout << "double: impossible" << std::endl;
+	exit (1);
+}
+
+bool	validate(const std::string literal)
+{
+	bool hasDigit = literal.find_first_of("0123456789") != std::string::npos;
+	bool hasAlpha = literal.find_first_of("abcdeghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ") != std::string::npos;
+	if (hasAlpha && hasDigit)
+		return (false);
+	return (true);
+}
+
 void	ScalarConverter::convert(const std::string &literal)
 {
-	Container container = identify(literal);
+	if (validate(literal) == false)
+		impossible();
 
+	Container container = identify(literal);
 	printConversion(container.charValue);
 	printConversion(container.intValue);
 	printConversion(container.floatValue);
