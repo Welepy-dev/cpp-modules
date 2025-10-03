@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:42:21 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/10/02 22:23:54 by codespace        ###   ########.fr       */
+/*   Updated: 2025/10/03 14:28:03 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <iomanip>
+#include <climits>
 #include <string>
 
 /*bool isSymbol(char c) { return (c == '-' || c == '+' || c == '.' || c == 'f'); }
@@ -92,7 +93,7 @@ Container	identify(const std::string &literal)
 	{
 		if (literal.length() == 1)
 			container = cast(literal[0]);
-		else if (std::strspn(literal.c_str(), "0123456789+-.f") == literal.length())
+		else if (std::strspn(literal.c_str(), NUMBERS_AND_SYMBOLS) == literal.length())
 			container = cast(std::atof(literal.c_str()));
 		else if (std::strspn(literal.c_str(), "0123456789+-.") == literal.length())
 			container = cast(static_cast<double>(std::atof(literal.c_str())));
@@ -126,6 +127,8 @@ void	printConversion(char c)
 		std::cout << "Char: "  << c << std::endl;
 }
 
+bool has_multiple_occurrences(const std::string &s, char c) { return std::count(s.begin(), s.end(), c) > 1; }
+
 void	impossible(void)
 {
 	std::cout << "int: impossible" << std::endl;
@@ -137,11 +140,21 @@ void	impossible(void)
 
 bool	validate(const std::string literal)
 {
-	bool hasDigit = literal.find_first_of("0123456789") != std::string::npos;
-	bool hasAlpha = literal.find_first_of("abcdeghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ") != std::string::npos;
+	if (literal.length() == 0 || std::atol(literal.c_str()) > INT_MAX || std::atol(literal.c_str()) < INT_MIN)
+		return (false);
+	if (literal.length() > 1 && std::strcspn(literal.c_str(), NUMBERS_AND_SYMBOLS) == literal.length())
+		return (false);
+	if (has_multiple_occurrences(literal, '.') || has_multiple_occurrences(literal, '+') 
+		|| has_multiple_occurrences(literal, '-') || has_multiple_occurrences(literal, 'f'))
+		return (false);
+	if ((literal.find_first_of("f") == literal.length() - 1) || literal.find_first_of("+") > 0 || literal.find_first_of("-") > 0)
+		return (false);
+	if (literal.find_first_of(".") == 0 || literal.find_first_of(".") == literal.length() - 1)
+		return (false);
+	bool hasDigit = literal.find_first_of(NUMBERS) != std::string::npos;
+	bool hasAlpha = literal.find_first_of(ALPHABETS) != std::string::npos;
 	if (hasAlpha && hasDigit)
 		return (false);
-	
 	return (true);
 }
 
