@@ -6,12 +6,16 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:42:35 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/10/02 15:25:52 by codespace        ###   ########.fr       */
+/*   Updated: 2025/10/03 14:10:20 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCALARCONVERTER_HPP
 # define SCALARCONVERTER_HPP
+# define NUMBERS "0123456789"
+# define ALPHABETS "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+# define SYMBOLS "-+f."
+# define NUMBERS_AND_SYMBOLS "0123456789-+f."
 
 # include <iostream>
 # include <string>
