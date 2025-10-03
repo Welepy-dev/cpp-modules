@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:42:21 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/10/02 15:25:47 by codespace        ###   ########.fr       */
+/*   Updated: 2025/10/02 22:23:54 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ bool	validate(const std::string literal)
 	bool hasAlpha = literal.find_first_of("abcdeghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ") != std::string::npos;
 	if (hasAlpha && hasDigit)
 		return (false);
+	
 	return (true);
 }
 

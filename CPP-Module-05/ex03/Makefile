@@ -6,7 +6,7 @@
 #    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/08 12:51:48 by marcsilv          #+#    #+#              #
-#    Updated: 2025/07/27 09:02:14 by codespace        ###   ########.fr        #
+#    Updated: 2025/10/03 13:46:10 by codespace        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRC_DIR	  =			src/
 OBJ_DIR	  =			obj/
 INC_DIR	  =			inc/
 
-SRC_FILES =			main.cpp Bureucrat.cpp AForm.cpp ShrubberyCreationForm.cpp PresidentialPardonForm.cpp RobotomyRequestForm.cpp
+SRC_FILES =			main.cpp Intern.cpp Bureucrat.cpp AForm.cpp ShrubberyCreationForm.cpp PresidentialPardonForm.cpp RobotomyRequestForm.cpp
 OBJ_FILES =			$(SRC_FILES:.cpp=.o)
 
 SRC		  =			$(addprefix $(SRC_DIR), $(SRC_FILES))
