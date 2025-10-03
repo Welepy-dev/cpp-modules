@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:42:21 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/10/03 14:28:03 by codespace        ###   ########.fr       */
+/*   Updated: 2025/10/03 15:18:27 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,6 @@ Container cast(T a)
 Container	identify(const std::string &literal)
 {
 	Container	container;
-	if (!(!literal.compare("nan") || !literal.compare("nanf") || !literal.compare("inf") || !literal.compare("inff")
-		|| !literal.compare("-inf") || !literal.compare("-inff") || !literal.compare("+inf") || !literal.compare("+inff")))
-	{
 		if (literal.length() == 1)
 			container = cast(literal[0]);
 		else if (std::strspn(literal.c_str(), NUMBERS_AND_SYMBOLS) == literal.length())
@@ -99,7 +96,6 @@ Container	identify(const std::string &literal)
 			container = cast(static_cast<double>(std::atof(literal.c_str())));
 		else if (std::strspn(literal.c_str(), "0123456789+-") == literal.length())
 			container = cast(std::atoi(literal.c_str()));
-	}
 	return (container);
 }
 
@@ -129,6 +125,12 @@ void	printConversion(char c)
 
 bool has_multiple_occurrences(const std::string &s, char c) { return std::count(s.begin(), s.end(), c) > 1; }
 
+bool	isPseudoLiteral(const std::string &literal)
+{
+	return (!literal.compare("nan") || !literal.compare("nanf") || !literal.compare("inf") || !literal.compare("inff")
+		|| !literal.compare("-inf") || !literal.compare("-inff") || !literal.compare("+inf") || !literal.compare("+inff"));
+}
+
 void	impossible(void)
 {
 	std::cout << "int: impossible" << std::endl;
@@ -140,6 +142,8 @@ void	impossible(void)
 
 bool	validate(const std::string literal)
 {
+	if (!isPseudoLiteral(literal))
+	{
 	if (literal.length() == 0 || std::atol(literal.c_str()) > INT_MAX || std::atol(literal.c_str()) < INT_MIN)
 		return (false);
 	if (literal.length() > 1 && std::strcspn(literal.c_str(), NUMBERS_AND_SYMBOLS) == literal.length())
@@ -155,6 +159,7 @@ bool	validate(const std::string literal)
 	bool hasAlpha = literal.find_first_of(ALPHABETS) != std::string::npos;
 	if (hasAlpha && hasDigit)
 		return (false);
+	}
 	return (true);
 }
 
@@ -162,6 +167,29 @@ void	ScalarConverter::convert(const std::string &literal)
 {
 	if (validate(literal) == false)
 		impossible();
+
+if (isPseudoLiteral(literal)) {
+        // Handle char
+        std::cout << "char: impossible" << std::endl;
+        // Handle int
+        std::cout << "int: impossible" << std::endl;
+
+        // Handle float / double depending on suffix
+        if (literal == "nan" || literal == "+inf" || literal == "-inf")
+        {
+            // double literal, so float version just adds "f"
+            std::cout << "float: " << literal << "f" << std::endl;
+            std::cout << "double: " << literal << std::endl;
+        }
+        else // nanf, +inff, -inff
+        {
+            // float literal, so double version just removes trailing "f"
+            std::cout << "float: " << literal << std::endl;
+            std::cout << "double: " << literal.substr(0, literal.size() - 1) << std::endl;
+        }
+        return;
+    }
+
 
 	Container container = identify(literal);
 	printConversion(container.charValue);
