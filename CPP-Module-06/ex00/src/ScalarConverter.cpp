@@ -19,60 +19,6 @@
 #include <climits>
 #include <string>
 
-/*bool isSymbol(char c) { return (c == '-' || c == '+' || c == '.' || c == 'f'); }
-
-ScalarConverter::ScalarConverter() { std::cout << "ScalarConverter's default constructor called" << std::endl; } 
-
-ScalarConverter::~ScalarConverter() { std::cout << "ScalarConverter's default destructor called" << std::endl; }
-
-bool is_all_digits(const std::string &s)
-{
-    if (s.empty()) return (false);
-	for (std::string::size_type i = 0; i < s.size(); ++i)
-		if (!std::isdigit(static_cast<unsigned char>(s[i])) && isSymbol(s[i]))
-			return false;
-	if (s[s.length() - 1] == '-' || s[s.length() - 1] == '+' || s[s.length() - 1] == '.')
-		return false;
-    return true;
-}
-
-bool has_multiple_occurrences(const std::string &s, char c) { return std::count(s.begin(), s.end(), c) > 1; }
-
-char	identify(const std::string &literal)
-{
-	if (literal.length() == 1)
-		return ('c');
-	else if (literal.length() == 0 || std::atol(literal.c_str()) > INT_MAX || std::atol(literal.c_str()) < INT_MIN)
-		return (0);
-	else if (is_all_digits(literal) && !has_multiple_occurrences(literal, '.') &&!has_multiple_occurrences(literal, '+') 
-			&& !has_multiple_occurrences(literal, '-') && !(literal.find('+') != std::string::npos 
-			&& literal.find('-') != std::string::npos))
-		return ('i');
-	else if (literal.compare("nan") || literal.compare("nanf") || literal.compare("inf") || literal.compare("inff") || literal.compare("-inf")
-		|| literal.compare("-inff") || literal.compare("+inf") || literal.compare("+inff"))
-			return ('a');
-	return (0);
-}
-
-void	impossible(void)
-{
-	std::cout << "char: impossible" << std::endl;
-	std::cout << "int: impossible" << std::endl;
-	std::cout << "float: impossible" << std::endl;
-	std::cout << "double: impossible" << std::endl;
-	exit (1);
-}
-
-void	ScalarConverter::convert(const std::string &literal)
-{
-	int id = identify(literal);
-	if (!id) impossible();
-	convertToChar(literal);
-	convertToInt(literal);
-	convertToFloat(literal);
-	convertToDouble(literal);
-}*/
-
 template <typename T>
 Container cast(T a)
 {
@@ -83,7 +29,6 @@ Container cast(T a)
 	container.doubleValue = static_cast<double>(a);
 	return (container);
 }
-// nan nanf inf inff -inf -inff +inf +inff
 
 Container	identify(const std::string &literal)
 {
@@ -115,7 +60,7 @@ void	printConversion(int i)
 
 void	printConversion(char c)
 {
-	if (c < 0 || c > 127)
+	if (c < 0)
 		std::cout << "Impossible" << std::endl;
 	else if (std::isspace(c) || !std::isprint(c))
 		std::cout << "Non displayable" << std::endl;
@@ -127,8 +72,8 @@ bool has_multiple_occurrences(const std::string &s, char c) { return std::count(
 
 bool	isPseudoLiteral(const std::string &literal)
 {
-	return (!literal.compare("nan") || !literal.compare("nanf") || !literal.compare("inf") || !literal.compare("inff")
-		|| !literal.compare("-inf") || !literal.compare("-inff") || !literal.compare("+inf") || !literal.compare("+inff"));
+	return (literal == "nan" || literal == "nanf" || literal == "inf" || literal == "inff"
+          || literal == "-inf" || literal == "-inff" || literal == "+inf" || literal == "+inff");
 }
 
 void	impossible(void)
@@ -137,28 +82,34 @@ void	impossible(void)
 	std::cout << "char: impossible" << std::endl;
 	std::cout << "float: impossible" << std::endl;
 	std::cout << "double: impossible" << std::endl;
-	exit (1);
 }
 
 bool	validate(const std::string literal)
 {
-	if (!isPseudoLiteral(literal))
+	if (isPseudoLiteral(literal) == false)
 	{
-	if (literal.length() == 0 || std::atol(literal.c_str()) > INT_MAX || std::atol(literal.c_str()) < INT_MIN)
-		return (false);
-	if (literal.length() > 1 && std::strcspn(literal.c_str(), NUMBERS_AND_SYMBOLS) == literal.length())
-		return (false);
-	if (has_multiple_occurrences(literal, '.') || has_multiple_occurrences(literal, '+') 
-		|| has_multiple_occurrences(literal, '-') || has_multiple_occurrences(literal, 'f'))
-		return (false);
-	if ((literal.find_first_of("f") == literal.length() - 1) || literal.find_first_of("+") > 0 || literal.find_first_of("-") > 0)
-		return (false);
-	if (literal.find_first_of(".") == 0 || literal.find_first_of(".") == literal.length() - 1)
-		return (false);
-	bool hasDigit = literal.find_first_of(NUMBERS) != std::string::npos;
-	bool hasAlpha = literal.find_first_of(ALPHABETS) != std::string::npos;
-	if (hasAlpha && hasDigit)
-		return (false);
+    if (literal.length() == 0 || std::atol(literal.c_str()) > INT_MAX || std::atol(literal.c_str()) < INT_MIN)
+      return (false);
+    if (literal.length() > 1 && std::strcspn(literal.c_str(), NUMBERS_AND_SYMBOLS) == literal.length())
+      return (false);
+    if (has_multiple_occurrences(literal, '.') || has_multiple_occurrences(literal, '+') 
+      || has_multiple_occurrences(literal, '-') || has_multiple_occurrences(literal, 'f'))
+      return (false);
+    size_t fPos = literal.find('f');
+    if (fPos != std::string::npos && fPos != literal.length() - 1)
+      return false;
+    size_t plusPos = literal.find('+');
+    if (plusPos != std::string::npos && plusPos != literal.length() - 1)
+      return false;
+    size_t minusPos = literal.find('-');
+    if (minusPos != std::string::npos && minusPos != literal.length() - 1)
+      return false;
+    if (literal.find_first_of(".") == 0 || literal.find_first_of(".") == literal.length() - 1)
+      return (false);
+    bool hasDigit = literal.find_first_of(NUMBERS) != std::string::npos;
+    bool hasAlpha = literal.find_first_of(ALPHABETS) != std::string::npos;
+    if (hasAlpha && hasDigit)
+      return (false);
 	}
 	return (true);
 }
@@ -166,7 +117,10 @@ bool	validate(const std::string literal)
 void	ScalarConverter::convert(const std::string &literal)
 {
 	if (validate(literal) == false)
+  {
 		impossible();
+    return ;
+  }
 
 if (isPseudoLiteral(literal)) {
         // Handle char
@@ -189,8 +143,6 @@ if (isPseudoLiteral(literal)) {
         }
         return;
     }
-
-
 	Container container = identify(literal);
 	printConversion(container.charValue);
 	printConversion(container.intValue);
