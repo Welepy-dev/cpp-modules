@@ -23,6 +23,7 @@ void printElem(U x)
 void incrementInt(int x)
 {
     ++x;
+    std::cout << x << std::endl;
 }
 
 int main()
@@ -30,21 +31,9 @@ int main()
     int arr[] = {1, 2, 3};
     const std::size_t n = 3;
 
-    // 1) Print in ts (printElem<int> is an instantiated function template)
     iter(arr, n, printElem);   // prints 1 2 3 (each on its own line)
 
-    // 2) Mutate array elements
-    iter<int>(arr, n, incrementInt);     // increments arr elements in-place
-    iter(arr, n, printElem<int>);   // prints 2 3 4
-
-    // 3) Strings (modifiable)
-    std::string sarr[] = {"hi", "42"};
-
-    // 4) const array: only functions taking const-ref or value allowed
-    const int carr[] = {10, 20, 30};
-    iter(carr, 3, printElem); // OK: printElem<int> takes const int&
-
-    // iter(carr, 3, incrementInt); // ERROR: can't bind int& to const int
+    iter(arr, n, incrementInt);     // increments arr elements in-place
 
     return 0;
 }
