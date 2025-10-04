@@ -1,3 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   whatever.hpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/03 16:14:03 by codespace         #+#    #+#             */
+/*   Updated: 2025/10/03 16:14:14 by codespace        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef WHATEVER_HPP
+# define WHATEVER_HPP
+
 /*
 template <typename T>
 T add(T a, T b) {
@@ -18,3 +33,5 @@ A min(A a, A b) { return ((a < b) ? a : b); }
 
 template <typename B>
 B max(B a, B b) { return ((a > b) ? a : b); }
+
+#endif
