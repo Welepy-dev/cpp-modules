@@ -103,9 +103,7 @@ bool	validate(const std::string literal)
 		size_t minusPos = literal.find('-');
 		if (minusPos != std::string::npos && minusPos != literal.length() - 1)
 		  return false;*/
-		if (literal.find("+") == literal.length() - 1)
-		  return (false);
-		if (literal.find("-") == literal.length() - 1)
+		if (literal.find("+") != 0)
 		  return (false);
 		bool hasDigit = literal.find_first_of(NUMBERS) != std::string::npos;
 		bool hasAlpha = literal.find_first_of(ALPHABETS) != std::string::npos;
