@@ -29,3 +29,4 @@ double: impossible
 ./convert -00000.9
 ./convert -00000.9
 ./convert -0.f
+./convert 12+3
