@@ -34,19 +34,19 @@ Container	identify(const std::string &literal)
 {
 	Container	container;
 		if (literal.length() == 1)
-			container = cast(literal[0]);
-		else if (std::strspn(literal.c_str(), NUMBERS_AND_SYMBOLS) == literal.length())
+			container = cast(literal[0]); //char int
+		else if (std::strspn(literal.c_str(), NUMBERS_AND_SYMBOLS) == literal.length()) //float
 			container = cast(std::atof(literal.c_str()));
-		else if (std::strspn(literal.c_str(), "0123456789+-.") == literal.length())
+		else if (std::strspn(literal.c_str(), "0123456789+-.") == literal.length()) //double
 			container = cast(static_cast<double>(std::atof(literal.c_str())));
-		else if (std::strspn(literal.c_str(), "0123456789+-") == literal.length())
+		else if (std::strspn(literal.c_str(), "0123456789+-") == literal.length()) //int
 			container = cast(std::atoi(literal.c_str()));
 	return (container);
 }
 
 void	printConversion(double d)
 {
-	std::cout << "Double: " << std::fixed << std::setprecision(1) << std::showpoint << d << std::endl;
+	std::cout << "Double: " << std::fixed << std::setprecision(1) << std::showpoint << d << std::endl; // fix setprecision
 }
 
 void	printConversion(float f)
@@ -60,12 +60,11 @@ void	printConversion(int i)
 
 void	printConversion(char c)
 {
-	if (c < 0)
-		std::cout << "Impossible" << std::endl;
-	else if (std::isspace(c) || !std::isprint(c))
+	if (c < 0 || std::isspace(c) || !std::isprint(c))
 		std::cout << "Non displayable" << std::endl;
 	else
 		std::cout << "Char: "  << c << std::endl;
+	// impossible
 }
 
 bool has_multiple_occurrences(const std::string &s, char c) { return std::count(s.begin(), s.end(), c) > 1; }
@@ -95,17 +94,17 @@ bool	validate(const std::string literal)
     if (has_multiple_occurrences(literal, '.') || has_multiple_occurrences(literal, '+') 
       || has_multiple_occurrences(literal, '-') || has_multiple_occurrences(literal, 'f'))
       return (false);
-    size_t fPos = literal.find('f');
-    if (fPos != std::string::npos && fPos != literal.length() - 1)
-      return false;
+    //size_t fPos = literal.find('f');
+    //if (fPos != std::string::npos && fPos != literal.length() - 1)
+    //  return false;
     size_t plusPos = literal.find('+');
     if (plusPos != std::string::npos && plusPos != literal.length() - 1)
       return false;
     size_t minusPos = literal.find('-');
     if (minusPos != std::string::npos && minusPos != literal.length() - 1)
       return false;
-    if (literal.find_first_of(".") == 0 || literal.find_first_of(".") == literal.length() - 1)
-      return (false);
+    //if (literal.find_first_of(".") == 0 && literal.length() > 1)
+    //  return (false);
     bool hasDigit = literal.find_first_of(NUMBERS) != std::string::npos;
     bool hasAlpha = literal.find_first_of(ALPHABETS) != std::string::npos;
     if (hasAlpha && hasDigit)
@@ -117,37 +116,37 @@ bool	validate(const std::string literal)
 void	ScalarConverter::convert(const std::string &literal)
 {
 	if (validate(literal) == false)
-  {
+	{
 		impossible();
-    return ;
-  }
+		return ;
+	}
 
-if (isPseudoLiteral(literal)) {
-        // Handle char
-        std::cout << "char: impossible" << std::endl;
-        // Handle int
-        std::cout << "int: impossible" << std::endl;
-
-        // Handle float / double depending on suffix
-        if (literal == "nan" || literal == "+inf" || literal == "-inf")
-        {
-            // double literal, so float version just adds "f"
-            std::cout << "float: " << literal << "f" << std::endl;
-            std::cout << "double: " << literal << std::endl;
-        }
-        else // nanf, +inff, -inff
-        {
-            // float literal, so double version just removes trailing "f"
-            std::cout << "float: " << literal << std::endl;
-            std::cout << "double: " << literal.substr(0, literal.size() - 1) << std::endl;
-        }
-        return;
-    }
-	Container container = identify(literal);
-	printConversion(container.charValue);
-	printConversion(container.intValue);
-	printConversion(container.floatValue);
-	printConversion(container.doubleValue);
+	if (isPseudoLiteral(literal)) {
+	        // Handle char
+	        std::cout << "char: impossible" << std::endl;
+	        // Handle int
+	        std::cout << "int: impossible" << std::endl;
+	
+	        // Handle float / double depending on suffix
+	        if (literal == "nan" || literal == "+inf" || literal == "-inf")
+	        {
+	            // double literal, so float version just adds "f"
+	            std::cout << "float: " << literal << "f" << std::endl;
+	            std::cout << "double: " << literal << std::endl;
+	        }
+	        else // nanf, +inff, -inff
+	        {
+	            // float literal, so double version just removes trailing "f"
+	            std::cout << "float: " << literal << std::endl;
+	            std::cout << "double: " << literal.substr(0, literal.size() - 1) << std::endl;
+	        }
+	        return;
+	    }
+		Container container = identify(literal);
+		printConversion(container.charValue);
+		printConversion(container.intValue);
+		printConversion(container.floatValue);
+		printConversion(container.doubleValue);
 }
 
 /*

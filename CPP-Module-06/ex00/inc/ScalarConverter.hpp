@@ -13,7 +13,7 @@
 #ifndef SCALARCONVERTER_HPP
 # define SCALARCONVERTER_HPP
 # define NUMBERS "0123456789"
-# define ALPHABETS "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+# define ALPHABETS "abcdeghijklmnopqrstuvwxyzABCDEGHIJKLMNOPQRSTUVWXYZ"
 # define SYMBOLS "-+f."
 # define NUMBERS_AND_SYMBOLS "0123456789-+f."
 
@@ -46,10 +46,5 @@ typedef struct s_container
 	double	doubleValue;
 	int		intValue;
 } Container;
-
-void	convertToInt(const std::string& str);
-void	convertToChar(const std::string& str);
-void	convertToFloat(const std::string& str);
-void	convertToDouble(const std::string& str);
 
 #endif

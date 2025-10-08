@@ -14,7 +14,18 @@
 ./convert 2a
 ./convert a2
 ./convert 12.4
+./convert 12.
 
 
 
 fazer duas verificacoes, quando o symbol (-+.) esta no final e quando esta depois de outro symbol
+int: impossible
+char: impossible
+float: impossible
+double: impossible
+./convert .0F
+./convert 2f tem que dar erro
+./convert 222222222222222222222222222222.0 inf
+./convert -00000.9
+./convert -00000.9
+./convert -0.f
