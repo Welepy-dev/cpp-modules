@@ -61,7 +61,7 @@ void	printConversion(int i)
 
 void	printConversion(char c)
 {
-	if (c < 0 || std::isspace(c) || !std::isprint(c))
+	if (c < 32 || c == 127)
 		std::cout << "Non displayable" << std::endl;
 	else
 		std::cout << "Char: "  << c << std::endl;
