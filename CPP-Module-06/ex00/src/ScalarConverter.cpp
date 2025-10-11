@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ScalarConverter.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: codespace <marcsilv@student.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 16:42:21 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/10/03 15:18:27 by codespace        ###   ########.fr       */
+/*   Updated: 2025/10/11 12:56:44 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ScalarConverter.hpp"
 #include <cctype>
 #include <cmath>
+#include <cstddef>
 #include <cstdlib>
 #include <cstring>
 #include <iomanip>
@@ -94,17 +95,12 @@ bool	validate(const std::string literal)
 		if (has_multiple_occurrences(literal, '.') || has_multiple_occurrences(literal, '+') 
 		  || has_multiple_occurrences(literal, '-') || has_multiple_occurrences(literal, 'f'))
 		  return (false);
-		//size_t fPos = literal.find('f');
-		//if (fPos != std::string::npos && fPos != literal.length() - 1)
-		//  return false;
-		/*size_t plusPos = literal.find('+');
-		if (plusPos != std::string::npos && plusPos != literal.length() - 1)
-		  return false;
-		size_t minusPos = literal.find('-');
-		if (minusPos != std::string::npos && minusPos != literal.length() - 1)
-		  return false;*/
-		if (literal.find("+") != 0)
-		  return (false);
+		size_t plusPos = literal.find('+');
+		if (plusPos != std::string::npos && plusPos != 0)
+			return false;
+		size_t minusPos = literal.find('+');
+		if (minusPos != std::string::npos && minusPos != 0)
+			return false;
 		bool hasDigit = literal.find_first_of(NUMBERS) != std::string::npos;
 		bool hasAlpha = literal.find_first_of(ALPHABETS) != std::string::npos;
 		if (hasAlpha && hasDigit)
