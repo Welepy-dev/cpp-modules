@@ -10,36 +10,36 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	  =			templates
+NAME		= whatever
 
-CC		  =			c++
+CXX			= c++
+CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
 
-CFLAGS	  =			-Wall -Werror -Wextra -std=c++98
+SRC_DIR		= src/
+OBJ_DIR		= obj/
+INC_DIR		= inc/
 
-SRC_DIR	  =			src/
-OBJ_DIR	  =			obj/
-INC_DIR	  =			inc/
+SRC_FILES	= main.cpp
+HEADERS		= whatever.hpp
 
-SRC_FILES =			main.cpp
-OBJ_FILES =			$(SRC_FILES:.cpp=.o)
-
-SRC		  =			$(addprefix $(SRC_DIR), $(SRC_FILES))
-OBJ		  =			$(addprefix $(OBJ_DIR), $(OBJ_FILES))
+SRC			= $(addprefix $(SRC_DIR), $(SRC_FILES))
+OBJ			= $(addprefix $(OBJ_DIR), $(SRC_FILES:.cpp=.o))
+INC			= $(addprefix $(INC_DIR), $(HEADERS))
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	$(CXX) $(CXXFLAGS) $(OBJ) -o $(NAME)
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.cpp
+$(OBJ_DIR)%.o: $(SRC_DIR)%.cpp $(INC)
 	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(CFLAGS) -I $(INC_DIR) -o $@ -c $<
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	@rm -rf $(OBJ_DIR)
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@rm -f $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
 
