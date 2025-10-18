@@ -14,16 +14,15 @@
 
 // A generic print function template (takes element by const ref)
 template <typename U>
-void printElem(U x)
+void printElem(U &x)
 {
     std::cout << x << std::endl;
 }
 
 // A function that mutates ints (must be used with non-const int arrays)
-void incrementInt(int x)
+void incrementInt(int &x)
 {
     ++x;
-    std::cout << x << std::endl;
 }
 
 int main()

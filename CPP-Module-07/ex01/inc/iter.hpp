@@ -27,7 +27,7 @@ T add(T a, T b) {
 
 
 template <typename T>
-void	iter(T *a, const size_t size, void(*f)(T t))
+void	iter(T *a, const size_t size, void(*f)(T &t))
 {
 	for (size_t i = 0; i < size; i++)
 		f(a[i]);
