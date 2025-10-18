@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../inc/whatever.hpp"
-#include <iostream>
 
 int	main(void)
 {

@@ -12,13 +12,7 @@
 
 #ifndef WHATEVER_HPP
 # define WHATEVER_HPP
-
-/*
-template <typename T>
-T add(T a, T b) {
-    return a + b;
-}
-*/
+# include <iostream>
 
 template <typename T>
 void swap(T a, T b)
