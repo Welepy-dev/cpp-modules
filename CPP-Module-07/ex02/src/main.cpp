@@ -55,19 +55,6 @@ int main() {
     for (unsigned int i = 0; i < d.size(); i++)
         std::cout << d[i] << " ";
     std::cout << std::endl;
-/*
-    std::cout << "Modifying d[1] = 777..." << std::endl;
-    d[1] = 777;
-    std::cout << "d[1]: " << d[1] << ", b[1]: " << b[1] << std::endl;
-
-    std::cout << "\n=== Out of bounds test ===" << std::endl;
-    try {
-        std::cout << "Accessing b[10]..." << std::endl;
-        std::cout << b[10] << std::endl;
-    } catch (const std::exception &e) {
-        std::cerr << "Exception caught: " << e.what() << std::endl;
-    }*/
-
     std::cout << "\n=== Const correctness test ===" << std::endl;
     const Array<int> e(b);
     std::cout << "Const copy contents: ";
