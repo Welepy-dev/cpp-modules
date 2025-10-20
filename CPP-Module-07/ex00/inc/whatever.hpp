@@ -6,12 +6,13 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:14:03 by codespace         #+#    #+#             */
-/*   Updated: 2025/10/03 16:14:14 by codespace        ###   ########.fr       */
+/*   Updated: 2025/10/20 17:13:30 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WHATEVER_HPP
 # define WHATEVER_HPP
+
 # include <iostream>
 
 template <typename T>
