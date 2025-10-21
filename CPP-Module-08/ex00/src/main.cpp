@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 20:40:57 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/10/06 20:42:45 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/10/21 15:10:18 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,5 @@ int main()
     {
         std::cerr << e.what() << std::endl;
     }
-
-    return 0;
+   return 0;
+}

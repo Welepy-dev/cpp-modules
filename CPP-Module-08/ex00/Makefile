@@ -6,40 +6,40 @@
 #    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/08 12:51:48 by marcsilv          #+#    #+#              #
-#    Updated: 2025/10/01 09:02:05 by codespace        ###   ########.fr        #
+#    Updated: 2025/10/21 15:10:18 by marcsilv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	  =			templates
+NAME		= easyfind
 
-CC		  =			c++
+CXX			= c++
+CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
 
-CFLAGS	  =			-Wall -Werror -Wextra -std=c++98
+SRC_DIR		= src/
+OBJ_DIR		= obj/
+INC_DIR		= inc/
 
-SRC_DIR	  =			src/
-OBJ_DIR	  =			obj/
-INC_DIR	  =			inc/
+SRC_FILES	= main.cpp
+HEADERS		= easyfind.hpp
 
-SRC_FILES =			main.cpp
-OBJ_FILES =			$(SRC_FILES:.cpp=.o)
-
-SRC		  =			$(addprefix $(SRC_DIR), $(SRC_FILES))
-OBJ		  =			$(addprefix $(OBJ_DIR), $(OBJ_FILES))
+SRC			= $(addprefix $(SRC_DIR), $(SRC_FILES))
+OBJ			= $(addprefix $(OBJ_DIR), $(SRC_FILES:.cpp=.o))
+INC			= $(addprefix $(INC_DIR), $(HEADERS))
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	$(CXX) $(CXXFLAGS) $(OBJ) -o $(NAME)
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.cpp
+$(OBJ_DIR)%.o: $(SRC_DIR)%.cpp $(INC)
 	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(CFLAGS) -I $(INC_DIR) -o $@ -c $<
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	@rm -rf $(OBJ_DIR)
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@rm -f $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
 
