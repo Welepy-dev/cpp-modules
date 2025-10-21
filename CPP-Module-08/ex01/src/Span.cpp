@@ -39,24 +39,36 @@ void	Span::addNumber(int n) {
 		throw std::length_error("Exceeded number of elements!");
 }
 
-int	Span::shortestSpan(void) {
+void	Span::addNumber(std::vector<int>::iterator first, std::vector<int>::iterator last) {
+	unsigned int limit = 0;
+	for (std::vector<int>::iterator it = first; it != last; ++it) {
+		addNumber(*it);
+		limit++;
+		if (limit > _size)
+			throw std::length_error("Exceeded number of elements!");
+	}
+}
+
+long	Span::shortestSpan(void) {
 	if (_data.size() == 1)
 		throw std::length_error("Can't have span with 1 number!");
 
-	int	temp = _data[1] - _data[0];
-	int	span = temp;
+	long	temp = static_cast<long>(_data[1]) - _data[0];
+	long	span = temp;
 
 	for (unsigned int i = 1; i < _number_of_elements; ++i)
 	{
-		temp = _data[i] - _data[i - 1];
+		temp = static_cast<long>(_data[i]) - _data[i - 1];
 		if (temp < span)
 			span = temp;
 	}
 	return (span);
 }
 
-int	Span::longestSpan(void) {
+long	Span::longestSpan(void) {
 	if (_data.size() == 1)
 		throw std::length_error("Can't have span with 1 number!");
-	return (_data.back() - _data.front());
+	long i1 = _data.back();
+	long i2 = _data.front();
+	return (i1 - i2);
 }

@@ -26,10 +26,11 @@ class Span {
 		Span &operator=(const Span &other);
 		~Span() { };
 
-		void	addNumber(int n);
-		int		longestSpan(void);
-		int		shortestSpan(void);
-	
+		void		addNumber(int n);
+		long		longestSpan(void);
+		long		shortestSpan(void);
+		void		addNumber(std::vector<int>::iterator first, std::vector<int>::iterator last);
+
 	private:
 		unsigned int		_size;
 		std::vector<int>	_data;
