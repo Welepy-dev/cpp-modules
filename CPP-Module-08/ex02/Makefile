@@ -19,7 +19,7 @@ SRC_DIR		= src/
 OBJ_DIR		= obj/
 INC_DIR		= inc/
 
-SRC_FILES	= main.cpp MutantStack.cpp
+SRC_FILES	= main.cpp 
 HEADERS		= MutantStack.hpp
 
 SRC			= $(addprefix $(SRC_DIR), $(SRC_FILES))
