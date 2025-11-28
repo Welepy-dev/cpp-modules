@@ -10,16 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-#include <vector>
-#include <list>
 #include "../inc/easyfind.hpp"   // Include your template function
 
 int main()
 {
     std::cout << "Testing std::vector<int>...\n";
 
-    const std::vector<int> numbers;
     std::vector<int> vec;
     vec.push_back(10);
     vec.push_back(20);
@@ -27,19 +23,12 @@ int main()
     vec.push_back(40);
     vec.push_back(50);
 
-    try
-    {
-        std::vector<int>::const_iterator it = easyfind(vec, 20);
-        std::cout << "Found: " << *it << std::endl;
+	std::vector<int>::const_iterator it = easyfind(vec, 20);
+	std::cout << "Found: " << *it << std::endl;
 
-        std::cout << "Searching for 99...\n";
-        it = easyfind(vec, 99); // Should throw
-        std::cout << "Found: " << *it << std::endl;
-    }
-    catch (const std::exception &e)
-    {
-        std::cerr << e.what() << std::endl;
-    }
+	std::cout << "Searching for 99...\n";
+	it = easyfind(vec, 99);
+	std::cout << "Found: " << *it << std::endl;
 
     std::cout << "\nTesting std::list<int>...\n";
 
@@ -48,19 +37,13 @@ int main()
     lst.push_back(10);
     lst.push_back(15);
     lst.push_back(20);
+    lst.push_back(25);
 
-    try
-    {
-        std::list<int>::iterator it = easyfind(lst, 15);
-        std::cout << "Found: " << *it << std::endl;
+	std::list<int>::iterator iterator = easyfind(lst, 15);
+	std::cout << "Found: " << *iterator << std::endl;
 
-        std::cout << "Searching for 42...\n";
-        it = easyfind(lst, 42); // Should throw
-        std::cout << "Found: " << *it << std::endl;
-    }
-    catch (const std::exception &e)
-    {
-        std::cerr << e.what() << std::endl;
-    }
-   return 0;
+	std::cout << "Searching for 42...\n";
+	iterator = easyfind(lst, 43);
+	std::cout << "Found: " << *it << std::endl;
+	return 0;
 }

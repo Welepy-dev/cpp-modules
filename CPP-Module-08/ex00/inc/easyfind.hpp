@@ -11,6 +11,9 @@
 /* ************************************************************************** */
 
 #include <algorithm>
+#include <iostream>
+#include <vector>
+#include <list>
 
 template <typename T>
 typename T::iterator easyfind(T &t, int i) { return (std::find(t.begin(), t.end(), i)); }
