@@ -40,11 +40,16 @@ void BitcoinExchange::getFile(const char *filepath) {
 		throw std::runtime_error("Wrong file extension, use a csv.");
 
 	std::string line;
+	int	line_number = 1;
 	std::getline(_file, line);
-	std::cout << "First line: " << line << std::endl; //validar com value ou exchange_rate
+	std::cout << "First line: " << line << std::endl; //value ou exchange_rate?
+	std::stringstream ss;
 	while (std::getline(_file, line)) {
-		// Process the line
-		std::cout << line << std::endl;
+		line_number++;
+		ss << line_number;
+		Line curline(line, ss.str());
+		ss.str("");
+		ss.clear();
 	}
 
 }
