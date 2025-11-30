@@ -42,7 +42,6 @@ void BitcoinExchange::getFile(const char *filepath) {
 	std::string line;
 	int	line_number = 1;
 	std::getline(_file, line);
-	std::cout << "First line: " << line << std::endl; //value ou exchange_rate?
 	std::stringstream ss;
 	while (std::getline(_file, line)) {
 		line_number++;

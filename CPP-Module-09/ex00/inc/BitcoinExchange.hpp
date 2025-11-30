@@ -55,8 +55,6 @@ class BitcoinExchange {
 						throw std::runtime_error("Error at line: " + line_number + " Bitcoin did not exist in this date!");
 					if (this->is_valid_date(this->year, this->month, this->day) == false)
 						throw std::runtime_error("Error at line: " + line_number + " Invalid date.");
-					if (0 > value || value > 1000)
-						throw std::runtime_error("Error at line: " + line_number + " value out of bounds.");
 				};
 				Line	 &operator=(const Line &other) {
 					if (this != &other) {
