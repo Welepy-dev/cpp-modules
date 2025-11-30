@@ -50,7 +50,7 @@ void	Span::addNumber(std::vector<int>::iterator first, std::vector<int>::iterato
 }
 
 long	Span::shortestSpan(void) {
-	if (_data.size() == 1)
+	if (_data.size() == 1 || _data.size() == 0)
 		throw std::length_error("Can't have span with 1 number!");
 
 	long	temp = static_cast<long>(_data[1]) - _data[0];
@@ -66,7 +66,7 @@ long	Span::shortestSpan(void) {
 }
 
 long	Span::longestSpan(void) {
-	if (_data.size() == 1)
+	if (_data.size() == 1 || _data.size() == 0)
 		throw std::length_error("Can't have span with 1 number!");
 	long i1 = _data.back();
 	long i2 = _data.front();
