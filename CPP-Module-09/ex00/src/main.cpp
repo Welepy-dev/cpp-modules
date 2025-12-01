@@ -13,12 +13,13 @@
 #include "../inc/BitcoinExchange.hpp"
 
 int main (int argc, char **argv) {
+	const char *csv = "data.csv";
 	if (argc != 2) {
 		std::cout << "Wrong input" << std::endl << "Right input: ./btc file." << std::endl;
 		return (0);
 	}
 	try {
-		BitcoinExchange btc(argv[1]);
+		BitcoinExchange btc(csv, argv[1]);
 	} catch (const std::exception &e) {
         std::cerr << "Error: " << e.what() << std::endl;
         return 1;
