@@ -21,10 +21,11 @@ BitcoinExchange::BitcoinExchange(const BitcoinExchange &other) {
 
 BitcoinExchange	&BitcoinExchange::operator=(const BitcoinExchange &other) {
 	if (this != &other) {
-		this->_filepath = other._filepath;
-		this->_file.close();
-		this->_file.clear();
-		this->_file.open(other._filepath.c_str());
+		this->_csv_path = other._csv_path;
+		this->_txt_path = other._txt_path;
+		this->_csv.close();
+		this->_csv.clear();
+		this->_csv.open(other._csv_path.c_str());
 		this->_year = other._year;
 		this->_month = other._month;
 		this->_day = other._day;
@@ -34,49 +35,77 @@ BitcoinExchange	&BitcoinExchange::operator=(const BitcoinExchange &other) {
 	return (*this);
 }
 
-void BitcoinExchange::getFile(const char *csv, const char *txt) {
+std::vector<std::string> BitcoinExchange::split(const std::string& s, const std::string& delimiter) {
+    std::vector<std::string>	tokens;
+    std::string::size_type		start = 0;
+    std::string::size_type		end;
+
+    while ((end = s.find(delimiter, start)) != std::string::npos) {
+        tokens.push_back(s.substr(start, end - start));
+        start = end + delimiter.size();
+    }
+
+    tokens.push_back(s.substr(start));
+    return (tokens);
+}
+
+void BitcoinExchange::getFiles(const char *csv, const char *txt) {
 	this->_csv.open(csv);
 	this->_txt.open(txt);
-	if (this->_csv.good() == 0)
+	if (this->_csv.good() == false)
 		throw std::runtime_error("File not found: " + std::string(csv) + ".");
-	if (this->_txt.good() == 0)
+	if (this->_txt.good() == false)
 		throw std::runtime_error("File not found: " + std::string(txt) + ".");
 
 	this->_csv_path = csv;
+	this->_txt_path = txt;
 	size_t pos = this->_csv_path.rfind(".csv");
 	if (pos == std::string::npos || pos != this->_csv_path.length() - 4)
 		throw std::runtime_error("Wrong file extension, use a csv.");
 
-	std::string line;
-	int	line_number = 1;
-	std::getline(_csv, line);
-	std::stringstream ss;
-	while (std::getline(_csv, line)) {
-		line_number++;
-		ss << line_number;
-		this->convert(line, ss.str());
-		ss.str("");
-		ss.clear();
+	std::string	csv_line;
+	std::string	txt_line;
+	std::getline(this->_csv, csv_line);
+	std::vector<std::string> csv_header = this->split(csv_line, ",");
+
+	if (csv_header[0].compare("date") != 0 || csv_header[1].compare("exchange_rate") != 0)
+		std::cerr << "Error: bad input => " + csv_line << std::endl;
+
+	std::getline(this->_txt, txt_line);
+	std::vector<std::string> txt_header = this->split(txt_line, " | ");
+
+	if (txt_header[0].compare("date") != 0 || txt_header[1].compare("value") != 0)
+		std::cerr << "Error: bad input => " + txt_line << std::endl;
+
+	while (std::getline(this->_txt, txt_line)) {
+		this->convert(csv_line, txt_line);
 	}
 }
 
 BitcoinExchange::BitcoinExchange(const char *csv, const char *txt) {
-	getFile(csv, txt);
+	getFiles(csv, txt);
 }
 
 bool BitcoinExchange::is_valid_date(int year, int month, int day) {
-	if (month < 1 || month > 12) return (false);
+	if ((this->_year < 2009) || (this->_year == 2009 && this->_day < 3 && this->_month < 1)) 
+		return (false);
+	if (month < 1 || month > 12)
+		return (false);
 	
 
 	int maxDay = this->days_in_month(month, year);
-	if (day < 1 || day > maxDay) return (false);
+	if (day < 1 || day > maxDay)
+		return (false);
 	
 	return (true);
 }
 
-void BitcoinExchange::convert(std::string csv_line, std::string txt_line, std::string line_number) {
+bool BitcoinExchange::validate_line(std::string line, std::string delimiter) {
+
+	std::vector<std::string> date = this->split(line, delimiter);
+	std::string file_type;
+	/*std::string yearStr, monthStr, dayStr, valueStr;
 	std::stringstream ss(line);
-	std::string yearStr, monthStr, dayStr, valueStr;
 	std::getline(ss, yearStr, '-');
 	std::getline(ss, monthStr, '-');
 	std::getline(ss, dayStr, ',');
@@ -85,11 +114,18 @@ void BitcoinExchange::convert(std::string csv_line, std::string txt_line, std::s
 	std::stringstream(yearStr) >> this->_year;
 	std::stringstream(monthStr) >> this->_month;
 	std::stringstream(dayStr) >> this->_day;
-	std::stringstream(valueStr) >> this->_value;
-	if ((this->_year < 2009) || (this->_year == 2009 && this->_day < 3 && this->_month < 1)) 
-		throw std::runtime_error("Error at line: " + line_number + " Bitcoin did not exist in this date!");
+	std::stringstream(valueStr) >> this->_value;*/
+	if (delimiter.find("|"))
+		file_type = "txt";
+	else
+		file_type = "csv";
+
 	if (this->is_valid_date(this->_year, this->_month, this->_day) == false)
-		throw std::runtime_error("Error at line: " + line_number + " Invalid date.");
+		std::cerr << "Error in " << file_type << " : bad input => " << date[0] << std::endl;
+	return (true);
+}
+
+void BitcoinExchange::convert(std::string csv_line, std::string txt_line) {
 }
 
 int BitcoinExchange::days_in_month(int month, int year) {
