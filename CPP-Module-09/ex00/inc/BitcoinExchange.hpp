@@ -19,6 +19,8 @@
 #include <stdexcept>
 #include <fstream>
 #include <vector>
+#include <map>
+#include <limits>
 
 class BitcoinExchange {
 
@@ -39,15 +41,16 @@ class BitcoinExchange {
 		short							_month;
 		std::string						_csv_path;
 		std::string						_txt_path;
-		std::vector<std::string>		_csv_vector;
-		std::vector<std::string>		_txt_vector;
+		std::map<std::string, double>	_csv_dict;
+		std::map<std::string, double>	_txt_dict;
 		int								_line_number;
 
 		int								days_in_month(int month, int year);
 		void							getFiles(const char *csv, const char *txt);
 		bool							is_valid_date(int year, int month, int day);
-		void							convert(std::string csv_line, std::string txt_line);
 		bool							check_line(std::string line, std::string line_number);
 		std::vector<std::string>		split(const std::string &s, const std::string &delimiter);
-		bool							validate_line(std::string csv_line, std::string txt_line);
+		void							convert(const std::string &csv_line, const std::string &txt_line);
+		bool							validate_line(const std::string &line, const std::string &delimiter);
+		std::map<std::string, double>	append_to_dict(const std::string &line, const std::string &delimiter);
 };

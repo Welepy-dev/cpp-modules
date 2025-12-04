@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../inc/BitcoinExchange.hpp"
+#include <cstdlib>
 
 BitcoinExchange::BitcoinExchange( ) { }
 BitcoinExchange::~BitcoinExchange( ) { }
@@ -53,13 +54,11 @@ std::vector<std::string> BitcoinExchange::split(const std::string& s, const std:
 		tokens.push_back(trim(token));
 		start = end + delimiter.size();
 	}
-
 	// Last token
 	tokens.push_back(trim(s.substr(start)));
 
 	return (tokens);
 }
-
 
 void BitcoinExchange::getFiles(const char *csv, const char *txt) {
 	this->_csv.open(csv);
@@ -90,8 +89,73 @@ void BitcoinExchange::getFiles(const char *csv, const char *txt) {
 		std::cerr << "Error: bad input => " + txt_line << std::endl;
 
 	while (std::getline(this->_txt, txt_line)) {
-		this->convert(csv_line, txt_line);
+		this->_txt_dict = this->append_to_dict(txt_line, "|");
 	}
+	while (std::getline(this->_csv, csv_line)) {
+		this->_csv_dict = this->append_to_dict(csv_line, ",");
+	}
+}
+
+void BitcoinExchange::convert(const std::string &csv_line, const std::string &txt_line) {
+    // Split lines
+    std::vector<std::string> txt_date = this->split(txt_line, "|");
+    std::vector<std::string> csv_date = this->split(csv_line, ",");
+
+    // Validate split results
+    if (txt_date.size() < 2 || csv_date.size() < 2) {
+        std::cerr << "Error: malformed input line\n";
+        return;
+    }
+
+    // Trim whitespace (recommended to implement trim())
+    std::string txt_key = trim(txt_date[0]);
+    std::string csv_key = trim(csv_date[0]);
+
+    // Convert values
+    double txt_value = std::atof(txt_date[1].c_str());
+    double csv_value = std::atof(csv_date[1].c_str());
+
+    // Check for matching dates
+    if (txt_key == csv_key) {
+        double result = txt_value * csv_value;
+        _dict[txt_key] = result;
+
+        std::cout << csv_line << " " << txt_line << " -> " << result << std::endl;
+    } 
+    else {
+        // Store zero only for the txt date (optional, based on your design)
+        _dict[txt_key] = 0.0;
+
+        std::cerr << "Warning: dates do not match: "
+                  << txt_key << " vs " << csv_key << std::endl;
+    }
+}
+
+std::map<std::string, double> BitcoinExchange::append_to_dict (
+    const std::string& line,
+    const std::string& delimiter)
+{
+    std::vector<std::string> a = this->split(line, delimiter);
+
+    std::map<std::string, double> m;
+
+    // Case 1: Not enough tokens → malformed input
+    if (a.size() < 2) {
+        m[line] = std::numeric_limits<double>::quiet_NaN(); 
+        return m;
+    }
+    // Case 2: Value is invalid
+    char* end;
+    double value = std::strtod(a[1].c_str(), &end);
+
+    if (*end != '\0') {  // not a fully valid number
+        m[a[0]] = std::numeric_limits<double>::quiet_NaN();
+        return m;
+    }
+    // Case 3: Valid entry
+    m[a[0]] = value;
+	std::cout << "date: " << a[0] <<  std::endl;
+    return m;
 }
 
 BitcoinExchange::BitcoinExchange(const char *csv, const char *txt) {
@@ -112,9 +176,9 @@ bool BitcoinExchange::is_valid_date(int year, int month, int day) {
 	return (true);
 }
 
-bool BitcoinExchange::validate_line(std::string csv_line, std::string txt_line) {
-
-	std::vector<std::string> date = this->split(csv_line, delimiter);
+/*bool BitcoinExchange::validate_line(const std::string &line, const std::string &delimiter) {
+	
+	std::vector<std::string> date = this->split(line, delimiter);
 	std::string file_type;
 	
 	if (delimiter.find("|"))
@@ -127,24 +191,8 @@ bool BitcoinExchange::validate_line(std::string csv_line, std::string txt_line) 
 		return (false);
 	}
 	return (true);
-}
+}*/
 
-void BitcoinExchange::convert(std::string csv_line, std::string txt_line) {
-	std::vector<std::string> txt_date = this->split(txt_line, "|");
-	std::vector<std::string> csv_date = this->split(csv_line, ",");
-
-	if (txt_line[0].compare(csv_data) == 0) {
-		this->_dict.insert (
-			std::pair<std::string, double> (
-					'txt_date[0]', std::atof(txt_date[1].c_str()) * std::atof(csv_date[1].c_str())
-			)
-		)
-	} else {
-		this->_dict.insert (std::pair<std::string, double> ('txt_date[0]', 0))
-		this->_dict.insert (std::pair<std::string, double> ('csv_date[0]', 0))
-	}
-		
-}
 
 int BitcoinExchange::days_in_month(int month, int year) {
 	switch (month) {
@@ -156,7 +204,7 @@ int BitcoinExchange::days_in_month(int month, int year) {
 			if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
 				return (29);
 			else
-				return (29);
+				return (28);
 	}
 	return (0);
 }
