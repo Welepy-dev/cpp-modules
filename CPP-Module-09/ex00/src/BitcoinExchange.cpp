@@ -27,11 +27,16 @@ BitcoinExchange	&BitcoinExchange::operator=(const BitcoinExchange &other) {
 		this->_csv.close();
 		this->_csv.clear();
 		this->_csv.open(other._csv_path.c_str());
+		this->_txt.close();
+		this->_txt.clear();
+		this->_txt.open(other._txt_path.c_str());
 		this->_year = other._year;
 		this->_month = other._month;
 		this->_day = other._day;
 		this->_value = other._value;
 		this->_line_number = other._line_number;
+		this->_csv_dict = other._csv_dict;
+		this->_txt_dict = other._txt_dict;
 	}
 	return (*this);
 }
@@ -88,9 +93,9 @@ void BitcoinExchange::getFiles(const char *csv, const char *txt) {
 	if (txt_header[0].compare("date") != 0 || txt_header[1].compare("value") != 0)
 		std::cerr << "Error: bad input => " + txt_line << std::endl;
 
-	while (std::getline(this->_txt, txt_line)) {
+	/*while (std::getline(this->_txt, txt_line)) {
 		this->_txt_dict = this->append_to_dict(txt_line, "|");
-	}
+	}*/
 	while (std::getline(this->_csv, csv_line)) {
 		this->_csv_dict = this->append_to_dict(csv_line, ",");
 	}
@@ -167,7 +172,6 @@ bool BitcoinExchange::is_valid_date(int year, int month, int day) {
 		return (false);
 	if (month < 1 || month > 12)
 		return (false);
-	
 
 	int maxDay = this->days_in_month(month, year);
 	if (day < 1 || day > maxDay)
