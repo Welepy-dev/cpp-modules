@@ -14,6 +14,7 @@
 # define BITCOINEXCHANGE_HPP
 # include <cstdint>
 # include <cstdlib>
+# include <ctime>
 # include <iostream>
 # include <sstream>
 # include <string>
@@ -23,6 +24,8 @@
 # include <vector>
 # include <map>
 # include <limits>
+# include <utility>
+# include <cstring>
 
 class BitcoinExchange {
 
@@ -39,12 +42,12 @@ class BitcoinExchange {
 		std::string					_txt_path;
 		std::map<time_t, double>	_csv_dict;
 
-		std::ifstream				fill_csv_dict(void);
+		void						fill_csv_dict(void);
+		bool						get_csv_pair(const std::string &line, std::pair<time_t, double> *pair);
 		void						get_files(const char *csv, const char *txt);
 		void						check_and_assign_files(const char *csv, const char *txt);
 		std::vector<std::string>	split(const std::string& s, const std::string& delimiter);
 		std::map<time_t, double>	append_to_dict(const std::string &line, const std::string &delimiter);
-		void						validate_line(const std::string &line);
 };
 
 #endif
