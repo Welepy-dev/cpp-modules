@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+        */
+/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 14:30:08 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/12/08 14:30:51 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/12/10 18:24:44 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,9 @@ std::vector<std::string> BitcoinExchange::split(const std::string& s, const std:
 	return (tokens);
 }
 
-
 bool BitcoinExchange::get_csv_pair(const std::string &line, std::pair<time_t, double> *pair) {
 	std::vector<std::string> split_line = this->split(line, ",");
-    if (split_line.size() < 2)  {
+	if (split_line.size() < 2)  {
 		std::cerr << "Error: " << line << std::endl;
 		return (false);
 	}
@@ -98,14 +97,38 @@ bool BitcoinExchange::get_csv_pair(const std::string &line, std::pair<time_t, do
 	return (true);
 }
 
+void BitcoinExchange::print_value(const std::string &line) {
+	std::vector<std::string> split_line = this->split(line, "|");
+	if (split_line.size() < 2)  {
+		std::cerr << "Error: " << line << std::endl;
+		return ;
+	}
+	double exchange_rate = std::atof(split_line[1].c_str());
+	if (exchange_rate > 1000.0f) {
+		std::cerr << "value too high" << std::endl;
+	}
+	time_t date;
+
+	struct tm t;
+	memset(&t, 0, sizeof(t));
+
+	const char *ret = strptime(split_line[0].c_str(), "%Y-%m-%d", &t);
+	if (!ret || *ret != '\0') {
+		std::cerr << "Error: " << line << std::endl;
+		return ;
+	}
+
+	t.tm_isdst = -1;
+	date = mktime(&t);
+	std::cout << this->_csv_dict[date] * exchange_rate << std::endl;
+}
+
 void BitcoinExchange::fill_csv_dict(void) {
-    if (!_csv.is_open()) {
-        throw std::runtime_error("CSV file not open.");
-    }
+	if (!this->_csv.is_open()) {
+		throw std::runtime_error("CSV file not open.");
+	}
 
-    std::string line;
-
-    // Read header
+	// Read header
 	std::string					line;
 	std::pair<time_t, double>	pair;
 	
@@ -115,8 +138,6 @@ void BitcoinExchange::fill_csv_dict(void) {
 	if (csv_header[0].compare("date") != 0 || csv_header[1].compare("exchange_rate") != 0)
 		std::cerr << "Error: bad input => " + line << std::endl;
 
-	//put each line of the data to this->_csv_dict
-	//also validate
 	while(std::getline(this->_csv, line)) {
 		if (this->get_csv_pair(line, &pair) == false)
 			continue ;
@@ -124,38 +145,33 @@ void BitcoinExchange::fill_csv_dict(void) {
 	}
 }
 
+void BitcoinExchange::conversion(void) {
+	if (!this->_txt.is_open()) {
+		throw std::runtime_error("input file not open.");
+	}
+
+	// Read header
+	std::string					line;
+	
+	std::getline(this->_txt, line);
+
+	std::vector <std::string> csv_header = this->split(line, "|");
+	if (csv_header[0].compare("date") != 0 || csv_header[1].compare("value") != 0)
+		std::cerr << "Error: bad input => " + line << std::endl;
+
+	while(std::getline(this->_txt, line)) {
+		this->print_value(line);
+	}
+	
+}
+
 void BitcoinExchange::get_files(const char *csv, const char *txt) {
 	this->check_and_assign_files(csv, txt);
 	this->fill_csv_dict();
+	this->conversion();
 }
 
 BitcoinExchange::BitcoinExchange(const char *csv, const char *txt) {
 	get_files(csv, txt);
 }
 
-/*std::map<time_t, double> BitcoinExchange::append_to_dict (
-    const std::string& line,
-    const std::string& delimiter)
-{
-    std::vector<std::string> a = this->split(line, delimiter);
-
-    std::map<std::string, double> m;
-
-    // Case 1: Not enough tokens → malformed input
-    if (a.size() < 2) {
-        m[line] = std::numeric_limits<double>::quiet_NaN(); 
-        return m;
-    }
-    // Case 2: Value is invalid
-    char* end;
-    double value = std::strtod(a[1].c_str(), &end);
-
-    if (*end != '\0') {  // not a fully valid number
-        m[a[0]] = std::numeric_limits<double>::quiet_NaN();
-        return m;
-    }
-    // Case 3: Valid entry
-    m[a[0]] = value;
-	std::cout << "date: " << a[0] <<  std::endl;
-    return m;
-}*/
