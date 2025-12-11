@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 11:36:46 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/12/07 11:38:21 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/12/11 14:10:32 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int main (int argc, char **argv) {
 	try {
 		BitcoinExchange btc(csv, argv[1]);
 	}	catch (const std::exception &e) {
-        std::cerr << "Error: " << e.what() << std::endl;
-        return 1;
-    }
+		std::cerr << "Error: " << e.what() << std::endl;
+		return 1;
+	}
 	return (0);
 }
