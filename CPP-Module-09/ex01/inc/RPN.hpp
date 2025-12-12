@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 14:14:47 by codespace         #+#    #+#             */
-/*   Updated: 2025/12/11 16:53:56 by codespace        ###   ########.fr       */
+/*   Updated: 2025/12/12 10:43:01 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stack>
 # include <cstdlib>
+# include <sstream>
 # include <iostream>
 # include <exception>
 
@@ -28,7 +29,11 @@ class RPN
 
 	private:
 		std::string			_expr;
-		std::stack<short>	_list;
+		std::stack<short>	_stack;
+		int					_result;
+		
+		short				get_top();
+		int					char_to_int(char c);
 };
 
 
