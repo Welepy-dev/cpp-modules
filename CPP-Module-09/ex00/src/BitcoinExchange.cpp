@@ -106,7 +106,6 @@ void BitcoinExchange::print_value(const std::string &line) {
 	double exchange_rate = std::atof(split_line[1].c_str());
 	if (exchange_rate > 1000.0f) {
 		std::cerr << "value too high" << std::endl;
-		return ;
 	}
 	time_t date;
 
@@ -169,10 +168,10 @@ void BitcoinExchange::conversion(void) {
 void BitcoinExchange::get_files(const char *csv, const char *txt) {
 	this->check_and_assign_files(csv, txt);
 	this->fill_csv_dict();
-	this->conversion();
 }
 
 BitcoinExchange::BitcoinExchange(const char *csv, const char *txt) {
-	get_files(csv, txt);
+	this->get_files(csv, txt);
+	this->conversion();
 }
 
