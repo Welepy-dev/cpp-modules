@@ -11,10 +11,11 @@
 /* ************************************************************************** */
 
 #include "../inc/PmergeMe.hpp"
+#include <cstdlib>
 
 int main (int argc, char **argv) {
 	if (argc == 1) {
-		std::cout << "Imprima algo valido" << std::endl;
+		std::cout << "Insert a positive integer sequence" << std::endl;
 		return (0);
 	}
 	try {

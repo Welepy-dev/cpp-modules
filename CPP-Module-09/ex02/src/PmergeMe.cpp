@@ -23,7 +23,7 @@ PmergeMe::PmergeMe(char **av) {
 	std::vector<std::string>::size_type size = this->chopped_string.size();
 	for (size_t i = 0; i < size; i++) {
 		if (this->chopped_string[i].find_first_not_of("0123456789") != std::string::npos)
-			std::cerr << "Error, bad argument: " << this->chopped_string[i] << std::endl;
+			throw std::runtime_error("Error.");
 		this->numbers.push_back(std::atoi(this->chopped_string[i].c_str()));
 	}
 	
