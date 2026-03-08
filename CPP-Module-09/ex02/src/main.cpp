@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../inc/PmergeMe.hpp"
-#include <cstdlib>
 
 int main (int argc, char **argv) {
 	if (argc == 1) {
