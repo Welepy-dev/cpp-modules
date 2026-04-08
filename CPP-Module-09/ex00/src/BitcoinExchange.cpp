@@ -98,29 +98,52 @@ bool BitcoinExchange::get_csv_pair(const std::string &line, std::pair<time_t, do
 }
 
 void BitcoinExchange::print_value(const std::string &line) {
-	std::vector<std::string> split_line = this->split(line, "|");
-	if (split_line.size() < 2)  {
-		std::cerr << "Error: " << line << std::endl;
-		return ;
-	}
-	double exchange_rate = std::atof(split_line[1].c_str());
-	if (exchange_rate > 1000.0f) {
-		std::cerr << "value too high" << std::endl;
-	}
-	time_t date;
+    std::vector<std::string> split_line = this->split(line, "|");
 
-	struct tm t;
-	memset(&t, 0, sizeof(t));
+    if (split_line.size() < 2) {
+        std::cerr << "Error: bad input => " << line << std::endl;
+        return;
+    }
 
-	const char *ret = strptime(split_line[0].c_str(), "%Y-%m-%d", &t);
-	if (!ret || *ret != '\0') {
-		std::cerr << "Error: " << line << std::endl;
-		return ;
-	}
+    double exchange_rate = std::atof(split_line[1].c_str());
 
-	t.tm_isdst = -1;
-	date = mktime(&t);
-	std::cout << this->_csv_dict[date] * exchange_rate << std::endl;
+    if (exchange_rate < 0) {
+        std::cerr << "Error: not a positive number." << std::endl;
+        return;
+    }
+
+    if (exchange_rate > 1000.0f) {
+        std::cerr << "Error: too large a number." << std::endl;
+        return;
+    }
+
+    struct tm t;
+    memset(&t, 0, sizeof(t));
+
+    const char *ret = strptime(split_line[0].c_str(), "%Y-%m-%d", &t);
+    if (!ret || *ret != '\0') {
+        std::cerr << "Error: bad input => " << split_line[0] << std::endl;
+        return;
+    }
+
+    t.tm_isdst = -1;
+    time_t date = mktime(&t);
+
+    std::map<time_t, double>::iterator it = this->_csv_dict.lower_bound(date);
+
+    if (it == this->_csv_dict.end() || it->first != date) {
+        if (it == this->_csv_dict.begin()) {
+            std::cerr << "Error: no earlier data available." << std::endl;
+            return;
+        }
+        --it;
+    }
+
+    double result = it->second * exchange_rate;
+
+    std::cout << split_line[0]
+              << " => " << exchange_rate
+              << " = " << result << std::endl;
 }
 
 void BitcoinExchange::fill_csv_dict(void) {

@@ -12,7 +12,6 @@
 
 #ifndef BITCOINEXCHANGE_HPP
 # define BITCOINEXCHANGE_HPP
-# include <cstdint>
 # include <cstdlib>
 # include <ctime>
 # include <iostream>
