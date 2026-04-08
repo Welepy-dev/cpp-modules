@@ -231,52 +231,43 @@ void PmergeMe::ford_johnson(std::deque<int>& arr) {
 //Each insertion uses binary search on  limited range
 
 void PmergeMe::sort(void) {
-	struct timeval beggining, end;
-	long seconds, microseconds, totalTime;
+        struct timeval beggining, end;
+        long seconds, microseconds, totalTime;
 
-	std::cout << "Before: ";
-	std::deque<int>::size_type size = this->deque.size();
-	for (size_t i = 0; i < size; i++) {
-		std::cout << this->deque[i] << " ";
-	}
-	std::cout << std::endl;
+        std::cout << "Before: ";
+        std::deque<int>::size_type size = this->deque.size();
+        for (size_t i = 0; i < size; i++) {
+                std::cout << this->deque[i] << " ";
+        }
+        std::cout << std::endl;
 
-	gettimeofday(&beggining, NULL);
+        gettimeofday(&beggining, NULL);
 
-	ford_johnson(deque);
-	
-	gettimeofday(&end, NULL);
+        ford_johnson(deque);
 
-	seconds = end.tv_sec - beggining.tv_sec;
+        gettimeofday(&end, NULL);
+
+        seconds = end.tv_sec - beggining.tv_sec;
     microseconds = end.tv_usec - beggining.tv_usec;
     totalTime = (seconds * 1000000) + microseconds;
 
-	std::cout << "After: ";
-	std::cout << "deque: ";
-	for (size_t i = 0; i < size; i++) {
-		std::cout << this->deque[i] << " ";  // ✅ OK, deque foi ordenado
-	}
+        std::cout << "After: ";
+        for (size_t i = 0; i < size; i++) {
+                std::cout << this->deque[i] << " ";
+        }
+        std::cout << std::endl;
+        std::cout << "Time to process a range of " << size << " elements with std::deque: " << totalTime << " us" << std::endl;
 
-	
-	std::cout << std::endl;
+        gettimeofday(&beggining, NULL);
 
-	std::cout << "Time top process a range of " << size << "with std::deque: " << totalTime << std::endl;
-	
-	gettimeofday(&beggining, NULL);
+        ford_johnson(list);
 
-	ford_johnson(list);
-	
-	gettimeofday(&end, NULL);
-	std::cout << "list: ";
-	for (std::list<int>::iterator it = list.begin(); it != list.end(); ++it) {
-		std::cout << *it << " ";
-	}
-
-	seconds = end.tv_sec - beggining.tv_sec;
+        gettimeofday(&end, NULL);
+        seconds = end.tv_sec - beggining.tv_sec;
     microseconds = end.tv_usec - beggining.tv_usec;
     totalTime = (seconds * 1000000) + microseconds;
 
-	std::cout << "Time top process a range of " << size << "with std::list: " << totalTime << std::endl;
+        std::cout << "Time to process a range of " << size << " elements with std::list: " << totalTime << " us" << std::endl;
 }
 
 std::list<std::string> PmergeMe::split(const std::string& input) {
