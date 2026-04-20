@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/11 14:10:54 by marcsilv          #+#    #+#             */
+/*   Created: 2025/12/11 14:10:54 by codespace         #+#    #+#             */
 /*   Updated: 2025/12/15 16:40:16 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/PmergeMe.hpp"
 
-int main(int argc, char **argv) {
+int main (int argc, char **argv) {
 	if (argc == 1) {
-		std::cout << "Usage: ./PmergeMe <positive integer sequence>" << std::endl;
-		return 0;
+		std::cout << "Usage: PmergeMe <positive integer sequence>" << std::endl;
+		return (0);
 	}
 	try {
 		PmergeMe pmergeme(argv);
