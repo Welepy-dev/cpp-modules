@@ -28,6 +28,8 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &other) {
 
 // ── Constructor ───────────────────────────────────────────────────────────────
 
+// FIX: use strtol instead of atoi to detect overflow and non-numeric input.
+// FIX: guard against empty sequence after parsing.
 PmergeMe::PmergeMe(char **av) {
 	std::list<std::string> tokens;
 	std::list<std::string> temp;

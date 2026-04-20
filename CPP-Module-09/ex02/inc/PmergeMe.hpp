@@ -15,7 +15,6 @@
 
 # include <list>
 # include <deque>
-# include <cmath>
 # include <cstddef>
 # include <iostream>
 # include <stdexcept>
@@ -39,7 +38,7 @@ class PmergeMe {
 		PmergeMe(char **argv);
 		PmergeMe(const PmergeMe &other);
 		PmergeMe &operator=(const PmergeMe &other);
-		
+
 		void						sort();
 
 	private:
@@ -49,6 +48,8 @@ class PmergeMe {
 		void						ford_johnson(std::deque<int> &arr);
 		void						ford_johnson(std::list<int> &arr);
 		std::list<std::string>		split(const std::string &s);
+		// FIX: replaced floating-point pow() formula with exact integer recurrence
+		// to avoid rounding errors on large n.
 		int							get_jacobsthal(int n) const;
 
 		// Binary search helper for std::list (O(log n) comparisons, O(n) iterator advances)
