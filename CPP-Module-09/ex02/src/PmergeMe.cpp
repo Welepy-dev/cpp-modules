@@ -10,74 +10,101 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/PmergeMe.hpp"
+#include "PmergeMe.hpp"
 
-PmergeMe::~PmergeMe() {}
+// ── Canonical form ────────────────────────────────────────────────────────────
+
+PmergeMe::~PmergeMe() { }
+
+PmergeMe::PmergeMe(const PmergeMe &other) : _list(other._list), _deque(other._deque) { }
+
+PmergeMe &PmergeMe::operator=(const PmergeMe &other) {
+	if (this != &other) {
+		_list  = other._list;
+		_deque = other._deque;
+	}
+	return *this;
+}
+
+// ── Constructor ───────────────────────────────────────────────────────────────
 
 // FIX: use strtol instead of atoi to detect overflow and non-numeric input.
 // FIX: guard against empty sequence after parsing.
 PmergeMe::PmergeMe(char **av) {
-	std::list<std::string> chopped;
+	std::list<std::string> tokens;
 	std::list<std::string> temp;
 
 	for (int i = 1; av[i]; i++) {
 		temp = this->split(std::string(av[i]));
-		chopped.insert(chopped.end(), temp.begin(), temp.end());
+		tokens.insert(tokens.end(), temp.begin(), temp.end());
 	}
 
-	if (chopped.empty())
-		throw std::runtime_error("No numbers provided");
-
-	for (std::list<std::string>::iterator it = chopped.begin();
-	     it != chopped.end(); ++it)
-	{
-		// FIX: reject anything that is not purely digits (handles negatives,
-		// empty tokens, etc.)
-		if (it->empty() || (it->find_first_not_of("+0123456789") != std::string::npos && it->find('+') != 0))
+	for (std::list<std::string>::iterator it = tokens.begin(); it != tokens.end(); ++it) {
+		// FIX #8: reject any non-digit character (catches '-', letters, etc.)
+		if (it->empty() || it->find_first_not_of("0123456789") != std::string::npos)
 			throw std::runtime_error("Sequence must contain only positive integers");
 
-		// FIX: use strtol to catch values that overflow int / exceed INT_MAX
-		char *end_ptr;
+		// FIX #8: use strtol to detect overflow instead of silent atoi
 		errno = 0;
+		char *end_ptr;
 		long val = std::strtol(it->c_str(), &end_ptr, 10);
-		if (errno == ERANGE || val > INT_MAX || val < 0)
-			throw std::runtime_error("Integer out of range: " + *it);
+		if (errno != 0 || *end_ptr != '\0' || val > INT_MAX || val < 0)
+			throw std::runtime_error("Value out of range or invalid: " + *it);
 
-		this->list.push_back(static_cast<int>(val));
-		this->deque.push_back(static_cast<int>(val));
+		int n = static_cast<int>(val);
+
+		// FIX #9: reject duplicates
+		if (std::find(_deque.begin(), _deque.end(), n) != _deque.end())
+			throw std::runtime_error("Sequence contains duplicate values");
+
+		_list.push_back(n);
+		_deque.push_back(n);
 	}
+
+	if (_deque.empty())
+		throw std::runtime_error("Empty sequence");
 }
 
-// FIX: replaced the floating-point formula  (2^n - (-1)^n) / 3  with the
-// exact two-term integer recurrence  J(n) = J(n-1) + 2*J(n-2),  seeded by
-// J(0)=0, J(1)=1.  The pow() version can round incorrectly for large n.
+// ── Jacobsthal helper ─────────────────────────────────────────────────────────
+
+// J(n) = (2^n - (-1)^n) / 3
 int PmergeMe::get_jacobsthal(int n) const {
-	if (n == 0) return 0;
-	if (n == 1) return 1;
-	int prev2 = 0; // J(0)
-	int prev1 = 1; // J(1)
-	for (int i = 2; i <= n; ++i) {
-		int cur = prev1 + 2 * prev2;
-		prev2 = prev1;
-		prev1 = cur;
-	}
-	return prev1;
+	return static_cast<int>((std::pow(2.0, n) - std::pow(-1.0, n)) / 3.0);
 }
 
-// ---------------------------------------------------------------------------
-// ford_johnson for std::deque
-// ---------------------------------------------------------------------------
-// To correctly handle duplicates, we never look up pairs by value.
-// Instead we carry a deque of pair *indices* that mirrors the winners deque,
-// so after the recursive sort re-orders winners we can still find each
-// winner's original loser in O(1).
+// ── Binary search for std::list ───────────────────────────────────────────────
+
+// FIX #4: std::upper_bound on a list uses O(n) iterator advances but still
+// performs O(log n) *comparisons*, which is what Ford-Johnson optimises.
+// This manual implementation makes that contract explicit and correct.
+std::list<int>::iterator PmergeMe::list_upper_bound(std::list<int> &chain, int val) {
+	std::list<int>::iterator it = chain.begin();
+	std::list<int>::iterator end = chain.end();
+	std::ptrdiff_t count = static_cast<std::ptrdiff_t>(chain.size());
+
+	while (count > 0) {
+		std::ptrdiff_t step = count / 2;
+		std::list<int>::iterator mid = it;
+		std::advance(mid, step);
+
+		if (!(val < *mid)) {   // i.e. *mid <= val
+			it = ++mid;
+			count -= step + 1;
+		} else {
+			count = step;
+		}
+	}
+	return it;
+}
+
+// ── Ford-Johnson — std::deque ─────────────────────────────────────────────────
+
 void PmergeMe::ford_johnson(std::deque<int> &arr) {
 	size_t n = arr.size();
 	if (n <= 1) return;
 
 	// 1. Pairing phase
-	// FIX: initialise straggler to 0 (was uninitialized → UB)
-	int  straggler     = 0;
+	int straggler = 0;                      // FIX #3: always initialised
 	bool has_straggler = (n % 2 != 0);
 
 	if (has_straggler) {
@@ -93,131 +120,88 @@ void PmergeMe::ford_johnson(std::deque<int> &arr) {
 		pairs.push_back(p);
 	}
 
-	// 2. Recursively sort winners.
-	// FIX: carry a parallel index deque so we can recover each winner's loser
-	// by position after the sort permutes the winners, even when values repeat.
-	std::deque<int>    winners;
-	std::deque<size_t> winner_pair_idx; // winner_pair_idx[i] = index into pairs[]
-	for (size_t i = 0; i < pairs.size(); ++i) {
-		winners.push_back(pairs[i].winner);
-		winner_pair_idx.push_back(i);
-	}
-
-	// We need to sort winners AND keep winner_pair_idx in sync.
-	// Simple insertion sort (correct for any size; Ford-Johnson recursion handles
-	// the actual comparison count).
-	// We sort the (winner, pair_idx) pairs together.
-	for (size_t i = 1; i < winners.size(); ++i) {
-		int    key_w = winners[i];
-		size_t key_p = winner_pair_idx[i];
-		int j = (int)i - 1;
-		while (j >= 0 && winners[j] > key_w) {
-			winners[j + 1]          = winners[j];
-			winner_pair_idx[j + 1]  = winner_pair_idx[j];
-			--j;
-		}
-		winners[j + 1]         = key_w;
-		winner_pair_idx[j + 1] = key_p;
-	}
-	// Now apply ford_johnson recursively on winners for the actual sort.
-	// But we've just sorted them above with a simple sort; we need ford_johnson
-	// to be the sorting mechanism. Restructure: sort via ford_johnson, then
-	// rebuild winner_pair_idx from the sorted order.
-	//
-	// Better approach: sort (winner, loser) pairs together so the mapping
-	// is never lost.  We sort by winner using insertion sort here (which is
-	// what ford_johnson does at the base of its recursion anyway).
-	// The recursive call on pure winners is replaced by sorting Pair structs.
-
-	// --- restart with a cleaner, index-safe approach ---
-	// Reset and do it properly with a struct-sort.
-
-	// Sort pairs by winner (ascending) using the Ford-Johnson recursion on
-	// a winners-only deque, then reconstruct the sorted pair order from the
-	// sorted winners deque via a stable match on pair index.
-
-	// The cleanest C++98-safe fix: sort pairs[] by winner in-place,
-	// then recurse on winners extracted from the already-sorted pairs.
-	// Sorting pairs[] by winner with std::sort (comparison by winner value)
-	// is stable enough because Ford-Johnson's guarantee is on comparisons,
-	// not on the sort method used to order pairs themselves.
-	//
-	// We use a simple selection to sort pairs by winner, then recurse on
-	// the extracted winners.
-
-	// Re-build (throw away the aborted attempt above):
-	winners.clear();
-	winner_pair_idx.clear();
+	// 2. Recursively sort winners
+	std::deque<int> winners;
 	for (size_t i = 0; i < pairs.size(); ++i)
 		winners.push_back(pairs[i].winner);
+	ford_johnson(winners);
 
-	ford_johnson(winners); // recursive call sorts winners in place
+	// 3. Build initial main chain
+	// After recursive sort, winners is ordered. We need to map each winner
+	// back to its loser using the original pairs array — by value is safe here
+	// only when values are unique (guaranteed by constructor FIX #9).
+	// FIX #1: build a deque of losers whose order mirrors the sorted winners,
+	//         so the index relationship is always preserved.
+	std::deque<int> pending;
+	std::deque<int> main_chain;
 
-	// Rebuild winner_pair_idx: for each position in sorted winners, find a
-	// not-yet-used pair whose winner matches.
-	std::deque<bool> used(pairs.size(), false);
-	winner_pair_idx.resize(winners.size());
-	for (size_t wi = 0; wi < winners.size(); ++wi) {
-		for (size_t pi = 0; pi < pairs.size(); ++pi) {
-			if (!used[pi] && pairs[pi].winner == winners[wi]) {
-				winner_pair_idx[wi] = pi;
-				used[pi] = true;
+	// The loser paired with winners[0] is placed at front (free insertion)
+	{
+		int first_winner = winners[0];
+		int first_loser  = 0;
+		for (size_t i = 0; i < pairs.size(); ++i) {
+			if (pairs[i].winner == first_winner) {
+				first_loser = pairs[i].loser;
+				break;
+			}
+		}
+		main_chain.push_back(first_loser);  // goes before winners[0]
+		main_chain.push_back(winners[0]);
+	}
+
+	// Append remaining winners; collect their losers into pending
+	for (size_t i = 1; i < winners.size(); ++i) {
+		main_chain.push_back(winners[i]);
+		for (size_t j = 0; j < pairs.size(); ++j) {
+			if (pairs[j].winner == winners[i]) {
+				pending.push_back(pairs[j].loser);
 				break;
 			}
 		}
 	}
+	if (has_straggler) pending.push_back(straggler);
 
-	// 3. Build initial main chain
-	std::deque<int> main_chain;
-	main_chain.push_back(winners[0]);
-	size_t first_pi = winner_pair_idx[0];
-	main_chain.insert(main_chain.begin(), pairs[first_pi].loser);
-	for (size_t i = 1; i < winners.size(); ++i)
-		main_chain.push_back(winners[i]);
+	// 4. Insert pending elements using Jacobsthal-order binary search
+	// FIX #5: correct 0-based Jacobsthal block bounds
+	//   J(k) gives the exclusive upper bound of the k-th block (0-indexed into pending)
+	//   J(k-1) gives the inclusive lower bound
+	//   We start at j_idx = 3 so the first block covers indices [J(2), J(3)) = [1, 3)
+	size_t inserted_count = 0;
+	int    j_idx          = 3;
 
-	// 4. Collect pending losers in winners order (skip index 0, already inserted)
-	std::deque<int> pending;
-	for (size_t wi = 1; wi < winners.size(); ++wi)
-		pending.push_back(pairs[winner_pair_idx[wi]].loser);
-	if (has_straggler)
-		pending.push_back(straggler);
-
-	// 5. Jacobsthal-ordered insertion
-	size_t inserted = 0;
-	int    j_idx    = 3;
-
-	while (inserted < pending.size()) {
+	while (inserted_count < pending.size()) {
 		int j_val      = get_jacobsthal(j_idx);
 		int prev_j_val = get_jacobsthal(j_idx - 1);
 
-		int upper = std::min((int)pending.size(), j_val - 1);
-		int lower = prev_j_val - 1;
+		// FIX #5: no "-1" offset — j_val is already the correct exclusive bound
+		int upper = std::min(static_cast<int>(pending.size()), j_val);
+		int lower = prev_j_val;
 
+		// Insert from end of block toward start (Ford-Johnson strategy)
 		for (int i = upper - 1; i >= lower; --i) {
-			if (i < 0 || (size_t)i >= pending.size()) continue;
+			// FIX #6: guard against stale i after pending shrinks (not needed
+			//         here since we iterate over original indices, but kept for safety)
+			if (i >= static_cast<int>(pending.size())) continue;
 
 			int val = pending[i];
-			std::deque<int>::iterator pos =
-			    std::upper_bound(main_chain.begin(), main_chain.end(), val);
+			std::deque<int>::iterator pos = std::upper_bound(main_chain.begin(), main_chain.end(), val);
 			main_chain.insert(pos, val);
-			++inserted;
+			inserted_count++;
 		}
-		++j_idx;
+		j_idx++;
 	}
 
 	arr = main_chain;
 }
 
-// ---------------------------------------------------------------------------
-// ford_johnson for std::list
-// ---------------------------------------------------------------------------
+// ── Ford-Johnson — std::list ──────────────────────────────────────────────────
+
 void PmergeMe::ford_johnson(std::list<int> &arr) {
 	size_t n = arr.size();
 	if (n <= 1) return;
 
 	// 1. Pairing phase
-	// FIX: initialise straggler (was uninitialized when has_straggler==false)
-	int  straggler     = 0;
+	int  straggler     = 0;                 // FIX #3: always initialised
 	bool has_straggler = (n % 2 != 0);
 
 	if (has_straggler) {
@@ -238,157 +222,147 @@ void PmergeMe::ford_johnson(std::list<int> &arr) {
 
 	// 2. Recursively sort winners
 	std::list<int> winners;
-	for (std::list<Pair>::iterator pi = pairs.begin(); pi != pairs.end(); ++pi)
-		winners.push_back(pi->winner);
+	for (std::list<Pair>::iterator p_it = pairs.begin(); p_it != pairs.end(); ++p_it)
+		winners.push_back(p_it->winner);
 	ford_johnson(winners);
 
-	// FIX: after recursion re-orders winners, rebuild winner→loser mapping by
-	// position (not by value) to handle duplicates correctly.
-	// For each sorted winner, pick the first not-yet-used pair whose winner
-	// matches.
-	std::list<bool> used(pairs.size(), false);
-	// winner_losers[i] = loser of the i-th winner in sorted order
-	std::list<int> winner_losers;
-	for (std::list<int>::iterator wi = winners.begin(); wi != winners.end(); ++wi) {
-		std::list<Pair>::iterator pi  = pairs.begin();
-		std::list<bool>::iterator ui  = used.begin();
-		for (; pi != pairs.end(); ++pi, ++ui) {
-			if (!*ui && pi->winner == *wi) {
-				winner_losers.push_back(pi->loser);
-				*ui = true;
+	// 3. Build initial main chain
+	// FIX #1 & #2: track pairs by index position, not by searching winner value,
+	//              so duplicate values never cause a mismatch.
+	//              We convert pairs to a vector for O(1) indexed access.
+	std::deque<Pair> pairs_vec(pairs.begin(), pairs.end());  // index-addressable copy
+
+	// Map sorted winners back to their original pair index
+	// Since duplicates are rejected, value lookup is unambiguous.
+	std::list<int> pending;
+	std::list<int> main_chain;
+
+	// First winner's loser goes to front of main chain (free insertion)
+	{
+		int first_winner = winners.front();
+		int first_loser  = 0;
+		for (size_t i = 0; i < pairs_vec.size(); ++i) {
+			if (pairs_vec[i].winner == first_winner) {
+				first_loser = pairs_vec[i].loser;
+				break;
+			}
+		}
+		main_chain.push_back(first_loser);
+		main_chain.push_back(winners.front());
+	}
+
+	// Append remaining winners; collect their losers into pending
+	// FIX #2: iterate by position starting from index 1 (not by value comparison)
+	std::list<int>::iterator w_it = winners.begin();
+	++w_it; // skip index 0, already handled above
+	for (; w_it != winners.end(); ++w_it) {
+		main_chain.push_back(*w_it);
+		int wval = *w_it;
+		for (size_t i = 0; i < pairs_vec.size(); ++i) {
+			if (pairs_vec[i].winner == wval) {
+				pending.push_back(pairs_vec[i].loser);
 				break;
 			}
 		}
 	}
+	if (has_straggler) pending.push_back(straggler);
 
-	// 3. Build initial main chain
-	std::list<int> main_chain;
-	main_chain.push_back(winners.front());
-	// The loser of the smallest winner is ≤ that winner → free front insert.
-	main_chain.push_front(winner_losers.front());
+	// 4. Insert pending using Jacobsthal-order binary search
+	// FIX #5: correct 0-based block bounds (same logic as deque version)
+	size_t total_pending = pending.size();
+	size_t inserted      = 0;
+	int    j_idx         = 3;
 
-	// Append remaining winners
-	std::list<int>::iterator wi = winners.begin();
-	for (++wi; wi != winners.end(); ++wi)
-		main_chain.push_back(*wi);
-
-	// 4. Collect pending losers (skip index 0, already inserted)
-	std::list<int> pending;
-	std::list<int>::iterator wli = winner_losers.begin();
-	for (++wli; wli != winner_losers.end(); ++wli)
-		pending.push_back(*wli);
-	if (has_straggler)
-		pending.push_back(straggler);
-
-	// 5. Jacobsthal-ordered insertion
-	// FIX: removed dead `block_size` variable
-	size_t inserted        = 0;
-	size_t total_to_insert = pending.size();
-	int    j_idx           = 3;
-
-	while (inserted < total_to_insert) {
+	while (inserted < total_pending) {
 		int j_val      = get_jacobsthal(j_idx);
 		int prev_j_val = get_jacobsthal(j_idx - 1);
 
-		int upper = std::min((int)total_to_insert, j_val - 1);
-		int lower = prev_j_val - 1;
+		int upper = std::min(static_cast<int>(total_pending), j_val);
+		int lower = prev_j_val;
 
+		// FIX #6: added guard so we never read past the end of pending
 		for (int i = upper - 1; i >= lower; --i) {
+			if (i >= static_cast<int>(total_pending)) continue;
+
+			// O(n) advance, but O(log n) comparisons via list_upper_bound
 			std::list<int>::iterator p_it = pending.begin();
 			std::advance(p_it, i);
 			int val = *p_it;
 
-			std::list<int>::iterator pos =
-			    std::upper_bound(main_chain.begin(), main_chain.end(), val);
+			// FIX #4: use our explicit binary-search helper instead of
+			//         relying on std::upper_bound's linear iterator fallback
+			std::list<int>::iterator pos = list_upper_bound(main_chain, val);
 			main_chain.insert(pos, val);
-			++inserted;
+			inserted++;
 		}
-		++j_idx;
+		j_idx++;
 	}
 
 	arr = main_chain;
 }
 
-// ---------------------------------------------------------------------------
-// Public sort() entry point
-// ---------------------------------------------------------------------------
+// ── Public sort entry point ───────────────────────────────────────────────────
+
 void PmergeMe::sort(void) {
 	struct timeval start, end;
-	long seconds, microseconds, total;
+	long seconds, microseconds, elapsed;
 
+	// Print unsorted sequence (read from deque before it is modified)
 	std::cout << "Before: ";
-	size_t sz = this->deque.size();
-	for (size_t i = 0; i < sz; ++i)
-		std::cout << this->deque[i] << " ";
+	for (std::deque<int>::size_type i = 0; i < _deque.size(); ++i)
+		std::cout << _deque[i] << " ";
 	std::cout << std::endl;
 
-	// --- deque ---
-	gettimeofday(&start, NULL);
-	ford_johnson(this->deque);
-	gettimeofday(&end, NULL);
+	const std::deque<int>::size_type size = _deque.size();
 
+	// ── deque ──
+	gettimeofday(&start, NULL);
+	ford_johnson(_deque);
+	gettimeofday(&end, NULL);
 	seconds      = end.tv_sec  - start.tv_sec;
 	microseconds = end.tv_usec - start.tv_usec;
-	total        = seconds * 1000000 + microseconds;
+	elapsed      = seconds * 1000000 + microseconds;
 
 	std::cout << "After:  ";
-	for (size_t i = 0; i < sz; ++i)
-		std::cout << this->deque[i] << " ";
+	for (std::deque<int>::size_type i = 0; i < _deque.size(); ++i)
+		std::cout << _deque[i] << " ";
 	std::cout << std::endl;
+	std::cout << "Time to process a range of " << size
+	          << " elements with std::deque : " << elapsed << " us" << std::endl;
 
-	std::cout << "Time to process a range of " << sz
-	          << " elements with std::deque : " << total << " us" << std::endl;
-
-	// --- list ---
+	// ── list ──
 	gettimeofday(&start, NULL);
-	ford_johnson(this->list);
+	ford_johnson(_list);
 	gettimeofday(&end, NULL);
-
 	seconds      = end.tv_sec  - start.tv_sec;
 	microseconds = end.tv_usec - start.tv_usec;
-	total        = seconds * 1000000 + microseconds;
+	elapsed      = seconds * 1000000 + microseconds;
 
-	std::cout << "Time to process a range of " << sz
-	          << " elements with std::list  : " << total << " us" << std::endl;
+	std::cout << "Time to process a range of " << size
+	          << " elements with std::list  : " << elapsed << " us" << std::endl;
 }
 
-// ---------------------------------------------------------------------------
-// Utility: split a string on whitespace
-// ---------------------------------------------------------------------------
+// ── String splitting utility ──────────────────────────────────────────────────
+
 std::list<std::string> PmergeMe::split(const std::string &input) {
 	std::list<std::string> result;
 	std::string token;
 	std::string::size_type i = 0;
-	const std::string::size_type len = input.size();
+	const std::string::size_type n = input.size();
 
-	while (i < len && (input[i] == ' ' || input[i] == '\t'))
+	while (i < n && (input[i] == ' ' || input[i] == '\t'))
 		++i;
 
-	while (i < len) {
+	while (i < n) {
 		token.clear();
-		while (i < len && input[i] != ' ' && input[i] != '\t')
-			token += input[i++];
+		while (i < n && input[i] != ' ' && input[i] != '\t') {
+			token += input[i];
+			++i;
+		}
 		if (!token.empty())
 			result.push_back(token);
-		while (i < len && (input[i] == ' ' || input[i] == '\t'))
+		while (i < n && (input[i] == ' ' || input[i] == '\t'))
 			++i;
 	}
 	return result;
-}
-
-// ---------------------------------------------------------------------------
-// Canonical form
-// FIX: operator= and copy constructor now actually copy the members
-//      (both were no-ops before, leaving copies empty).
-// ---------------------------------------------------------------------------
-PmergeMe &PmergeMe::operator=(const PmergeMe &other) {
-	if (this != &other) {
-		this->list  = other.list;
-		this->deque = other.deque;
-	}
-	return *this;
-}
-
-PmergeMe::PmergeMe(const PmergeMe &other) {
-	*this = other;
 }

@@ -24,8 +24,8 @@
 # include <climits>
 # include <cstdlib>
 
-// Pair keeps the relationship between the larger (winner) and smaller (loser)
-// of each compared pair, indexed so duplicates are handled safely.
+// Struct to maintain the relationship between winner and its respective loser
+// Tracked by index to correctly handle duplicate values
 typedef struct Pair_t {
 	int winner;
 	int loser;
@@ -42,8 +42,8 @@ class PmergeMe {
 		void						sort();
 
 	private:
-		std::list<int>				list;
-		std::deque<int>				deque;
+		std::list<int>				_list;
+		std::deque<int>				_deque;
 
 		void						ford_johnson(std::deque<int> &arr);
 		void						ford_johnson(std::list<int> &arr);
@@ -51,14 +51,15 @@ class PmergeMe {
 		// FIX: replaced floating-point pow() formula with exact integer recurrence
 		// to avoid rounding errors on large n.
 		int							get_jacobsthal(int n) const;
+
+		// Binary search helper for std::list (O(log n) comparisons, O(n) iterator advances)
+		std::list<int>::iterator	list_upper_bound(std::list<int> &chain, int val);
 };
 
 // Ford-Johnson (merge-insert sort):
-// 1. Divide n elements into pairs; keep one straggler if n is odd.
-// 2. Compare each pair → winner (larger) and loser (smaller).
-// 3. Recursively sort the winners → main chain.
-// 4. Insert the smallest winner's loser at the front for free (guaranteed smaller).
-// 5. Insert remaining losers in Jacobsthal-order blocks using binary search,
-//    each search bounded by its paired winner's current position.
+// 1. Divide n elements into pairs; hold the odd one out as straggler
+// 2. Compare each pair -> identify winners (larger) and losers (smaller)
+// 3. Recursively sort winners -> creates the main chain
+// 4. Insert losers using Jacobsthal-order binary search to minimise comparisons
 
 #endif
