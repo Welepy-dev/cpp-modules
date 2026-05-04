@@ -72,7 +72,7 @@ std::vector<std::string> BitcoinExchange::split(const std::string& s, const std:
         return (tokens);
 }
 
-bool BitcoinExchange::get_csv_pair(const std::string &line, std::pair<time_t, double> *pair) {
+bool BitcoinExchange::get_csv_pair(const std::string &line, std::pair<time_t, double> &pair) {
         std::vector<std::string> split_line = this->split(line, ",");
         if (split_line.size() < 2)  {
                 std::cerr << "Error: " << line << std::endl;
@@ -83,7 +83,7 @@ bool BitcoinExchange::get_csv_pair(const std::string &line, std::pair<time_t, do
         time_t date;
 
         struct tm t;
-        memset(&t, 0, sizeof(t));
+        std::memset(&t, 0, sizeof(t));
 
         const char *ret = strptime(split_line[0].c_str(), "%Y-%m-%d", &t);
         if (!ret || *ret != '\0') {
@@ -92,8 +92,8 @@ bool BitcoinExchange::get_csv_pair(const std::string &line, std::pair<time_t, do
         }
 
         t.tm_isdst = -1;
-        date = mktime(&t);
-        *pair = std::make_pair(date, exchange_rate);
+        date = std::mktime(&t);
+        pair = std::make_pair(date, exchange_rate);
         return (true);
 }
 
@@ -119,7 +119,7 @@ void BitcoinExchange::print_value(const std::string &line) {
     }
 
     struct tm t;
-    memset(&t, 0, sizeof(t));
+    std::memset(&t, 0, sizeof(t));
 
     const char *ret = strptime(split_line[0].c_str(), "%Y-%m-%d", &t);
     if (!ret || *ret != '\0') {
@@ -128,7 +128,7 @@ void BitcoinExchange::print_value(const std::string &line) {
     }
 
     t.tm_isdst = -1;
-    time_t date = mktime(&t);
+    time_t date = std::mktime(&t);
 
     std::map<time_t, double>::iterator it = this->_csv_dict.lower_bound(date);
 
@@ -163,7 +163,7 @@ void BitcoinExchange::fill_csv_dict(void) {
                 std::cerr << "Error: bad input => " + line << std::endl;
 
         while(std::getline(this->_csv, line)) {
-                if (this->get_csv_pair(line, &pair) == false)
+                if (this->get_csv_pair(line, pair) == false)
                         continue ;
                 this->_csv_dict.insert(pair);
         }
