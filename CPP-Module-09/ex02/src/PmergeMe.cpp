@@ -26,9 +26,7 @@ PmergeMe::PmergeMe(char **av) {
 	if (chopped.empty())
 		throw std::runtime_error("No numbers provided");
 
-	for (std::list<std::string>::iterator it = chopped.begin();
-	     it != chopped.end(); ++it)
-	{
+	for (std::list<std::string>::iterator it = chopped.begin(); it != chopped.end(); ++it) {
 		if (it->empty() || (it->find_first_not_of("+0123456789") != std::string::npos && it->find('+') != 0))
 			throw std::runtime_error("Sequence must contain only positive integers");
 
@@ -53,7 +51,7 @@ int PmergeMe::get_jacobsthal(int n) const {
 		prev2 = prev1;
 		prev1 = cur;
 	}
-	return prev1;
+	return (prev1);
 }
 
 // ---------------------------------------------------------------------------
@@ -78,8 +76,14 @@ void PmergeMe::ford_johnson(std::deque<int> &arr) {
 	std::deque<Pair> pairs;
 	for (size_t i = 0; i < arr.size(); i += 2) {
 		Pair p;
-		if (arr[i] > arr[i + 1]) { p.winner = arr[i];     p.loser = arr[i + 1]; }
-		else                      { p.winner = arr[i + 1]; p.loser = arr[i];     }
+		if (arr[i] > arr[i + 1]) {
+			p.winner = arr[i];
+			p.loser = arr[i + 1];
+		}
+		else {
+			p.winner = arr[i + 1];
+			p.loser = arr[i];
+		}
 		pairs.push_back(p);
 	}
 
