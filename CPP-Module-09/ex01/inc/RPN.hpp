@@ -22,6 +22,8 @@
 class RPN {
 	public:
 		RPN(const char *expr);
+		RPN(const RPN &other);
+		RPN &operator=(const RPN &other);
 		~RPN();
 
 		void		calculate(void);
