@@ -17,6 +17,18 @@ RPN::RPN(const char *expr) {
 	this->_result = 0;
 }
 
+RPN &RPN::operator=(const RPN &other) {
+	this._expr = other._expr;
+	this._stack = other._stack;
+	this._result = other._result;	
+	return (*this);
+}
+
+RPN::RPN(const RPN &other) {
+	*this = other;
+}
+
+
 RPN::~RPN(void) { }
 
 int RPN::char_to_int(char c) {
