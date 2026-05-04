@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 14:30:08 by marcsilv          #+#    #+#             */
-/*   Updated: 2026/04/09 09:53:01 by marcsilv         ###   ########.fr       */
+/*   Updated: 2026/05/04 13:52:46 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,6 @@ bool BitcoinExchange::get_csv_pair(const std::string &line, std::pair<time_t, do
                 std::cerr << "Error: " << line << std::endl;
                 return (false);
         }
-        size_t plus = 0;
-        plus = split_line[1].rfind('-');
-        size_t minus = 0;
-        minus = split_line[1].rfind('+');
-
-        if (minus != 0 || plus != 0) {
-                std::cerr << "Error: " << line << std::endl;
-                return (false);
-        }
 
         double exchange_rate = std::atof(split_line[1].c_str());
         time_t date;
@@ -114,15 +105,6 @@ void BitcoinExchange::print_value(const std::string &line) {
         return;
     }
 
-        size_t plus = 0;
-        plus = split_line[1].rfind('-');
-        size_t minus = 0;
-        minus = split_line[1].rfind('+');
-
-        if (minus != 0 || plus != 0) {
-                std::cerr << "Error: " << line << std::endl;
-                return ;
-        }
 
     double exchange_rate = std::atof(split_line[1].c_str());
 
@@ -171,8 +153,8 @@ void BitcoinExchange::fill_csv_dict(void) {
         }
 
         // Read header
-        std::string                                     line;
-        std::pair<time_t, double>       pair;
+        std::string                 line;
+        std::pair<time_t, double>	pair;
 
         std::getline(this->_csv, line);
 
