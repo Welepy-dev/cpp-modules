@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RPN.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/11 14:14:47 by codespace         #+#    #+#             */
-/*   Updated: 2025/12/12 10:43:01 by codespace        ###   ########.fr       */
+/*   Created: 2026/05/04 13:19:26 by marcsilv          #+#    #+#             */
+/*   Updated: 2026/05/04 13:23:50 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@
 # include <iostream>
 # include <exception>
 
-class RPN
-{
+class RPN {
 	public:
 		RPN(const char *expr);
 		~RPN();

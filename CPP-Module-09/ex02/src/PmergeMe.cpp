@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 14:40:34 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/12/15 16:46:06 by marcsilv         ###   ########.fr       */
+/*   Updated: 2026/05/04 13:35:31 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 PmergeMe::~PmergeMe() {}
 
-// FIX: use strtol instead of atoi to detect overflow and non-numeric input.
-// FIX: guard against empty sequence after parsing.
 PmergeMe::PmergeMe(char **av) {
 	std::list<std::string> chopped;
 	std::list<std::string> temp;
@@ -31,12 +29,9 @@ PmergeMe::PmergeMe(char **av) {
 	for (std::list<std::string>::iterator it = chopped.begin();
 	     it != chopped.end(); ++it)
 	{
-		// FIX: reject anything that is not purely digits (handles negatives,
-		// empty tokens, etc.)
 		if (it->empty() || (it->find_first_not_of("+0123456789") != std::string::npos && it->find('+') != 0))
 			throw std::runtime_error("Sequence must contain only positive integers");
 
-		// FIX: use strtol to catch values that overflow int / exceed INT_MAX
 		char *end_ptr;
 		errno = 0;
 		long val = std::strtol(it->c_str(), &end_ptr, 10);
@@ -48,9 +43,6 @@ PmergeMe::PmergeMe(char **av) {
 	}
 }
 
-// FIX: replaced the floating-point formula  (2^n - (-1)^n) / 3  with the
-// exact two-term integer recurrence  J(n) = J(n-1) + 2*J(n-2),  seeded by
-// J(0)=0, J(1)=1.  The pow() version can round incorrectly for large n.
 int PmergeMe::get_jacobsthal(int n) const {
 	if (n == 0) return 0;
 	if (n == 1) return 1;
@@ -75,8 +67,6 @@ void PmergeMe::ford_johnson(std::deque<int> &arr) {
 	size_t n = arr.size();
 	if (n <= 1) return;
 
-	// 1. Pairing phase
-	// FIX: initialise straggler to 0 (was uninitialized → UB)
 	int  straggler     = 0;
 	bool has_straggler = (n % 2 != 0);
 
@@ -94,7 +84,6 @@ void PmergeMe::ford_johnson(std::deque<int> &arr) {
 	}
 
 	// 2. Recursively sort winners.
-	// FIX: carry a parallel index deque so we can recover each winner's loser
 	// by position after the sort permutes the winners, even when values repeat.
 	std::deque<int>    winners;
 	std::deque<size_t> winner_pair_idx; // winner_pair_idx[i] = index into pairs[]
@@ -208,15 +197,11 @@ void PmergeMe::ford_johnson(std::deque<int> &arr) {
 	arr = main_chain;
 }
 
-// ---------------------------------------------------------------------------
-// ford_johnson for std::list
-// ---------------------------------------------------------------------------
 void PmergeMe::ford_johnson(std::list<int> &arr) {
 	size_t n = arr.size();
 	if (n <= 1) return;
 
 	// 1. Pairing phase
-	// FIX: initialise straggler (was uninitialized when has_straggler==false)
 	int  straggler     = 0;
 	bool has_straggler = (n % 2 != 0);
 
@@ -242,7 +227,6 @@ void PmergeMe::ford_johnson(std::list<int> &arr) {
 		winners.push_back(pi->winner);
 	ford_johnson(winners);
 
-	// FIX: after recursion re-orders winners, rebuild winner→loser mapping by
 	// position (not by value) to handle duplicates correctly.
 	// For each sorted winner, pick the first not-yet-used pair whose winner
 	// matches.
@@ -281,7 +265,6 @@ void PmergeMe::ford_johnson(std::list<int> &arr) {
 		pending.push_back(straggler);
 
 	// 5. Jacobsthal-ordered insertion
-	// FIX: removed dead `block_size` variable
 	size_t inserted        = 0;
 	size_t total_to_insert = pending.size();
 	int    j_idx           = 3;
@@ -309,9 +292,6 @@ void PmergeMe::ford_johnson(std::list<int> &arr) {
 	arr = main_chain;
 }
 
-// ---------------------------------------------------------------------------
-// Public sort() entry point
-// ---------------------------------------------------------------------------
 void PmergeMe::sort(void) {
 	struct timeval start, end;
 	long seconds, microseconds, total;
@@ -352,9 +332,6 @@ void PmergeMe::sort(void) {
 	          << " elements with std::list  : " << total << " us" << std::endl;
 }
 
-// ---------------------------------------------------------------------------
-// Utility: split a string on whitespace
-// ---------------------------------------------------------------------------
 std::list<std::string> PmergeMe::split(const std::string &input) {
 	std::list<std::string> result;
 	std::string token;
@@ -375,12 +352,6 @@ std::list<std::string> PmergeMe::split(const std::string &input) {
 	}
 	return result;
 }
-
-// ---------------------------------------------------------------------------
-// Canonical form
-// FIX: operator= and copy constructor now actually copy the members
-//      (both were no-ops before, leaving copies empty).
-// ---------------------------------------------------------------------------
 PmergeMe &PmergeMe::operator=(const PmergeMe &other) {
 	if (this != &other) {
 		this->list  = other.list;

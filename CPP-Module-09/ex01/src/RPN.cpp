@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RPN.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/11 15:00:20 by codespace         #+#    #+#             */
-/*   Updated: 2025/12/12 10:42:59 by codespace        ###   ########.fr       */
+/*   Created: 2026/05/04 13:19:02 by marcsilv          #+#    #+#             */
+/*   Updated: 2026/05/04 13:22:36 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void RPN::calculate(void) {
 		std::cerr << "Error" << std::endl;
 		return ;
 	}
-	for (short i = 0; i < static_cast<short>(this->_expr.length()); i++) {
+	short len = static_cast<short>(this->_expr.length());
+	for (short i = 0; i < len; i++) {
 		if (std::isspace(this->_expr[i]))
 			i++;
 		if ((this->_expr[i] >= '0') && (this->_expr[i] <= '9')) {

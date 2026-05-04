@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
+#    By: marcsilv <marcsilv@42.student.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/05/08 12:51:48 by marcsilv          #+#    #+#              #
-#    Updated: 2025/12/15 15:12:58 by marcsilv         ###   ########.fr        #
+#    Created: 2026/05/04 13:20:02 by marcsilv          #+#    #+#              #
+#    Updated: 2026/05/04 13:20:03 by marcsilv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
