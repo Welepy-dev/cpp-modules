@@ -48,7 +48,7 @@ class BitcoinExchange {
 		void						check_and_assign_files(const char *csv, const char *txt);
 		std::vector<std::string>	split(const std::string& s, const std::string& delimiter);
 		std::map<time_t, double>	append_to_dict(const std::string &line, const std::string &delimiter);
-		bool						get_csv_pair(const std::string &line, std::pair<time_t, double> *pair);
+		bool						get_csv_pair(const std::string &line, std::pair<time_t, double> &pair);
 };
 
 #endif
