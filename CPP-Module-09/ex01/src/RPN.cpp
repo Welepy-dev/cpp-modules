@@ -18,9 +18,9 @@ RPN::RPN(const char *expr) {
 }
 
 RPN &RPN::operator=(const RPN &other) {
-	this._expr = other._expr;
-	this._stack = other._stack;
-	this._result = other._result;	
+	this->_expr = other._expr;
+	this->_stack = other._stack;
+	this->_result = other._result;	
 	return (*this);
 }
 
